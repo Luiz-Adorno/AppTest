@@ -1,0 +1,145 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="20dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="105dp"
+            android:layout_height="105dp"
+            android:id="@+id/ic_profile"
+            android:layout_marginTop="30dp"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="1dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_name"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mudar foto de perfil"
+            android:id="@+id/changeProfilePhoto"
+            android:layout_below="@id/ic_profile"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/link_blue"
+            android:textSize="16sp"
+            />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/changeProfilePhoto"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/top_white_grey_border"
+            android:id="@+id/relLayout1">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_name"
+                android:layout_centerVertical="true" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/username"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="40dp"
+                android:background="@null"
+                android:inputType="textNoSuggestions"
+                android:hint="Nome completo"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/relLayout1"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/top_white_grey_border"
+            android:id="@+id/relLayout2">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_phone"
+                android:layout_centerVertical="true" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/telefone"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="40dp"
+                android:background="@null"
+                android:inputType="textNoSuggestions"
+                android:hint="Telefone"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/relLayout2"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/top_white_grey_border"
+            android:id="@+id/relLayout3">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_email"
+                android:layout_centerVertical="true" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/email"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="40dp"
+                android:background="@null"
+                android:inputType="textNoSuggestions"
+                android:hint="E-mail"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/relLayout3"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/top_white_grey_border"
+            android:id="@+id/relLayout4">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_location"
+                android:layout_centerVertical="true" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/local"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="40dp"
+                android:background="@null"
+                android:inputType="textNoSuggestions"
+                android:hint="Localização"/>
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
+</ScrollView>
+</merge>

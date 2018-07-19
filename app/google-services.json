@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "565416108871",
+    "firebase_url": "https://miips-3cdbd.firebaseio.com",
+    "project_id": "miips-3cdbd",
+    "storage_bucket": "miips-3cdbd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565416108871:android:e9a77d0eb190ebbd",
+        "android_client_info": {
+          "package_name": "miips.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "565416108871-dhng6rg4g37d9j8mbovedshtou17k4q2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "miips.com",
+            "certificate_hash": "3213a71ab4fdf546eac0a2db3d436d425cb28853"
+          }
+        },
+        {
+          "client_id": "565416108871-jd8ausvj9fpd7lupg1at8hddbljirmn9.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "565416108871-jd8ausvj9fpd7lupg1at8hddbljirmn9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvozCdOnzbnwSygvBsbyRdRJELZsdJIj4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "565416108871-jd8ausvj9fpd7lupg1at8hddbljirmn9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/boogaloo</item>
+        <item>@font/fredoka_one</item>
+        <item>@font/iceberg</item>
+        <item>@font/magra</item>
+        <item>@font/piedra</item>
+        <item>@font/sigmar_one</item>
+        <item>@font/suez_one</item>
+    </array>
+</resources>

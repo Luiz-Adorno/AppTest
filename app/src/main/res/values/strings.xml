@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Miips</string>
+    <string name="name_user">Name User</string>
+    <string name="city_user">São Paulo - SP</string>
+    <string name="edit_profile">Editar perfil</string>
+    <string name="sign_out">Sair</string>
+    <string name="password">Senha</string>
+    <string name="link_registrar">Não tem uma conta? Regristre-se</string>
+    
+    <string name="dbname_user_account_settings">user_account_settings</string>
+</resources>
