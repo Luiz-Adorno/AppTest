@@ -1,0 +1,196 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/layout_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/top_white_grey_border"
+                android:id="@+id/relLayout6">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_location_city"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/city_image"/>
+
+                <TextView
+                    android:layout_marginStart="5dp"
+                    android:textSize="18sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/city"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:textColor="@color/black"
+                    android:layout_toEndOf="@id/city_image"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/relLayout6"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/top_white_grey_border"
+                android:id="@+id/relLayout7">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_location_state"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/state_image"/>
+
+                <TextView
+                    android:layout_marginStart="5dp"
+                    android:textSize="18sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/state"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:textColor="@color/black"
+                    android:layout_toEndOf="@id/state_image"/>
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/button_location"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/relLayout7"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/white_border_for_location_button"
+                android:drawableStart="@drawable/ic_location_blue"
+                android:text="@string/location"
+                android:textColor="@color/colormylocation" />
+
+            <TextView
+                android:id="@+id/goto_cep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="@string/goto_zip"
+                android:layout_below="@id/button_location"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/link_blue"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/layout_cep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_location">
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="@string/get_cep"
+                android:textColor="@color/bg_forgot_password"
+                android:textSize="20sp" />
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/inputCep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text2">
+
+                <com.vicmikhailau.maskededittext.MaskedEditText
+                    android:id="@+id/cep"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:hint="@string/cep"
+                    android:inputType="number"
+                    app:mask="#####-###" />
+            </android.support.design.widget.TextInputLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/inputCep"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/top_white_grey_border"
+                android:id="@+id/relLayout6p">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_location_city"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/city_imagep"/>
+
+                <TextView
+                    android:layout_marginStart="5dp"
+                    android:textSize="18sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cityp"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:textColor="@color/black"
+                    android:layout_toEndOf="@id/city_imagep"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/relLayout6p"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/top_white_grey_border"
+                android:id="@+id/relLayout7p">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_location_state"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/state_imagep"/>
+
+                <TextView
+                    android:layout_marginStart="5dp"
+                    android:textSize="18sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/statep"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:textColor="@color/black"
+                    android:layout_toEndOf="@id/state_imagep"/>
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_cep"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/relLayout7p"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/white_border_for_location_button"
+                android:drawableStart="@drawable/ic_location_blue"
+                android:text="@string/localizar_pelo_cep"
+                android:textColor="@color/colormylocation" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</merge>

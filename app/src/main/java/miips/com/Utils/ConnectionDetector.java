@@ -21,7 +21,7 @@ public class ConnectionDetector {
         if(connectivityManager != null){
             NetworkInfo info = connectivityManager.getActiveNetworkInfo();
             if(info != null){
-                if(info.getState() == NetworkInfo.State.CONNECTED){
+                if(info.isConnected()){
                     return true;
                 }
             }

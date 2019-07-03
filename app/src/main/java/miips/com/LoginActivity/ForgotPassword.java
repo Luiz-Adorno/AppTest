@@ -3,6 +3,7 @@ package miips.com.LoginActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -58,24 +59,24 @@ public class ForgotPassword extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String emailAddress = getEmail.getText().toString();
-                    if (isStringNull(emailAddress)) {
-                        getEmail.setError("Digite seu email");
-                    } else {
-                        mProgressBar.setVisibility(View.VISIBLE);
-                        auth.sendPasswordResetEmail(emailAddress)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            buildDialog(mContext).show();
-                                            mProgressBar.setVisibility(View.GONE);
-                                        } else {
-                                            mProgressBar.setVisibility(View.GONE);
-                                            getEmail.setError("Email inválido");
-                                        }
+                if (isStringNull(emailAddress)) {
+                    getEmail.setError("Digite seu email");
+                } else {
+                    mProgressBar.setVisibility(View.VISIBLE);
+                    auth.sendPasswordResetEmail(emailAddress)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        buildDialog(mContext).show();
+                                        mProgressBar.setVisibility(View.GONE);
+                                    } else {
+                                        mProgressBar.setVisibility(View.GONE);
+                                        getEmail.setError("Email inválido");
                                     }
-                                });
-                    }
+                                }
+                            });
+                }
             }
         });
 
@@ -99,6 +100,16 @@ public class ForgotPassword extends AppCompatActivity {
         });
 
         return builder;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("lastActivity", getClass().getName());
+        editor.apply();
     }
 
     private boolean isStringNull(String string) {

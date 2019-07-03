@@ -2,12 +2,17 @@
 <resources>
     <color name="colorPrimary">#eeeeee</color>
     <color name="colorPrimaryDark">#e0e0e0</color>
-    <color name="colorAccent">#FF5252</color>
+    <color name="colorAccent">#000</color>
     <color name="grey">#bfbfbf</color>
     <color name="white">#fff</color>
     <color name="black">#000</color>
     <color name="bluewhite">#b2ebf2</color>
     <color name="link_blue">#005ce6</color>
-    <color name="colorProgressBar">#009688</color>
+    <color name="colormylocation">#2196F3</color>
     <color name="red">#ff00</color>
+    <color name="bg_forgot_password">#0288D1</color>
+    <color name="indigo">#3F51B5</color>
+    <color name="colorAccent22">#FF5252</color>
+    <color name="Transparent">#00000000</color>
+    <color name="green">#00FF7F</color>
 </resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="relLayout3profile" type="id" />
+    <item name="relLayout4profile" type="id" />
+    <item name="phone_image" type="id" />
+</resources>

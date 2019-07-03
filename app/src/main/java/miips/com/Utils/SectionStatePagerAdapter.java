@@ -12,7 +12,7 @@ public class SectionStatePagerAdapter extends FragmentStatePagerAdapter {
 
     private final List<Fragment> mfragmentList = new ArrayList<>();
     private final HashMap<Fragment, Integer> mFragments = new HashMap<>();
-    private final HashMap<String, Integer> mFragmentsNumer = new HashMap<>();
+    private final HashMap<String, Integer> mFragmentsNumber = new HashMap<>();
     private final HashMap<Integer, String> mFragmentsNames = new HashMap<>();
 
     public SectionStatePagerAdapter(FragmentManager fm) {
@@ -32,7 +32,7 @@ public class SectionStatePagerAdapter extends FragmentStatePagerAdapter {
     public void addFragment(Fragment fragment, String fragmentName) {
         mfragmentList.add(fragment);
         mFragments.put(fragment, mfragmentList.size() - 1);
-        mFragmentsNumer.put(fragmentName, mfragmentList.size() - 1);
+        mFragmentsNumber.put(fragmentName, mfragmentList.size() - 1);
         mFragmentsNames.put(mfragmentList.size() - 1, fragmentName);
     }
 
@@ -43,8 +43,8 @@ public class SectionStatePagerAdapter extends FragmentStatePagerAdapter {
      * @return
      */
     public Integer getFragmentNumber(String fragmentName) {
-        if (mFragmentsNumer.containsKey(fragmentName)) {
-            return mFragmentsNumer.get(fragmentName);
+        if (mFragmentsNumber.containsKey(fragmentName)) {
+            return mFragmentsNumber.get(fragmentName);
         }else{
             return null;
         }
@@ -57,8 +57,8 @@ public class SectionStatePagerAdapter extends FragmentStatePagerAdapter {
      * @return
      */
     public Integer getFragmentNumber(Fragment fragment) {
-        if (mFragmentsNumer.containsKey(fragment)) {
-            return mFragmentsNumer.get(fragment);
+        if (mFragmentsNumber.containsKey(fragment)) {
+            return mFragmentsNumber.get(fragment);
         }else{
             return null;
         }

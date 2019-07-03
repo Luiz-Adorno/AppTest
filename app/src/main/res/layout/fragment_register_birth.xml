@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/register4">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/card1"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/edit_text_box_corner"
+        android:padding="7dp"
+        android:text="@string/birth_register"
+        android:textColor="@color/white"
+        android:alpha="0.7"
+        android:textSize="20sp"/>
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card1"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:alpha="0.2"
+        app:cardBackgroundColor="@color/grey"
+        app:cardCornerRadius="20dp">
+
+
+    </android.support.v7.widget.CardView>
+
+
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/birth"
+            android:clickable="true"
+            android:focusable="true">
+
+
+            <TextView
+                android:id="@+id/born"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="5dp"
+                android:paddingStart="10dp"
+                android:textColor="@color/white"
+                android:text="@string/born"
+                android:textSize="20sp"
+                android:layout_centerVertical="true"/>
+
+
+            <com.vicmikhailau.maskededittext.MaskedEditText
+                android:id="@+id/date"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/born"
+                android:text=""
+                android:hint="   /  /   "
+                android:textColorHint="@color/white"
+                app:mask="##/##/####"
+                android:textColor="@color/white"
+                android:inputType="date"
+                android:layout_centerVertical="true"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/relLayout2"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/a1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="12dp"
+                android:text="@string/gender"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+
+            <RadioGroup
+                android:layout_toEndOf="@id/a1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/gender_group"
+                android:orientation="horizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true">
+
+                <RadioButton
+                    android:buttonTint="@color/white"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/female"
+                    android:text="@string/female"/>
+
+                <RadioButton
+                    android:buttonTint="@color/white"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/male"
+                    android:text="@string/male"/>
+
+            </RadioGroup>
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/button_register"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/card1"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/white_rounded_button"
+        android:backgroundTint="@color/green"
+        android:text="@string/next"
+        android:textColor="@color/white"
+        android:alpha="0.8"/>
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@id/button_register"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:textSize="12sp"
+        android:background="@drawable/edit_text_box_corner"
+        android:padding="5dp"
+        android:text="@string/cancel"
+        android:textColor="@color/white"
+        android:alpha="0.7"/>
+
+</RelativeLayout>

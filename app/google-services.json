@@ -23,8 +23,12 @@
           }
         },
         {
-          "client_id": "565416108871-jd8ausvj9fpd7lupg1at8hddbljirmn9.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "565416108871-u9ftu00evf7hgceh64oi5c6me9jf5nft.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "miips.com",
+            "certificate_hash": "3118b1f9342d7f7ce673fe9c7ec3c82ea3c70f76"
+          }
         },
         {
           "client_id": "565416108871-jd8ausvj9fpd7lupg1at8hddbljirmn9.apps.googleusercontent.com",
@@ -37,20 +41,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "565416108871-jd8ausvj9fpd7lupg1at8hddbljirmn9.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }

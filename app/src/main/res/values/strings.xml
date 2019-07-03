@@ -2,10 +2,88 @@
     <string name="app_name">Miips</string>
     <string name="name_user">Name User</string>
     <string name="city_user">São Paulo - SP</string>
-    <string name="edit_profile">Editar perfil</string>
+    <string name="profile">Perfil</string>
     <string name="sign_out">Sair</string>
-    <string name="password">Senha</string>
+    <string name="center_helper">Central de Ajuda</string>
+    <string name="feedback">Relatar um problema</string>
+    <string name="about">Sobre</string>
+    <string name="politic">Política de Privacidade</string>
+    <string name="terms">Termos de Uso</string>
     <string name="link_registrar">Não tem uma conta? Regristre-se</string>
-    
-    <string name="dbname_user_account_settings">user_account_settings</string>
+    <string name="esqueceusenha">Esqueceu a senha?</string>
+    <string name="terms_condicion">Ao cadastrar você concorda com os</string>
+    <string name="terms_cliclk">Termos de uso e Politica de privacidade</string>
+    <string name="dialog_select_photo">SelectPhoto</string>
+
+
+    <!-- FirebaseDatabse fields -->
+    <string name="dbname_user">users</string>
+    <string name="field_username">username</string>
+    <string name="field_url_profile">profile_url</string>
+    <string name="field_email">email</string>
+    <string name="field_phone_number">phone</string>
+    <string name="field_city">city</string>
+    <string name="field_state">state</string>
+    <string name="field_birth">birth</string>
+    <string name="field_gender">gender</string>
+    <string name="field_miips_id">miips_id</string>
+    <string name="google_maps_API_key">AIzaSyDvozCdOnzbnwSygvBsbyRdRJELZsdJIj4</string>
+
+
+    <string name="add_location">Adcionar localização</string>
+    <string name="almost">Quase lá!!!</string>
+    <string name="almost_append">Falta pouco para terminar seu cadastro</string>
+    <string name="Bday">Data de Nascimento</string>
+    <string name="Register">Registrar</string>
+    <string name="phone">Telefone (Opcional)</string>
+    <string name="edit_profile">Editar Perfil</string>
+    <string name="change_photo">Alterar foto</string>
+    <string name="exit_gmail">Sair da sua conta Gmail?</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="location">Adcionar localização pelo GPS</string>
+    <string name="refresh_location">Atualizar minha localização</string>
+    <string name="city">Cidade:</string>
+    <string name="state">Estado:</string>
+    <string name="create_new_account">Crie uma nova conta</string>
+    <string name="username">Nome completo</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Senha</string>
+    <string name="register">Registrar</string>
+    <string name="log_in">Entrar</string>
+    <string name="alert_message_gps">Essa aplicação necessita da sua localização, por favor ative seu gps</string>
+    <string name="add_city_state">Adcione sua cidade/estado</string>
+    <string name="logout">Sair</string>
+    <string name="refresh_confirm">Localização atualizado com sucesso</string>
+    <string name="error_location">Não foi possível pegar sua localização, verifique sua conexão de internet</string>
+    <string name="born">Nascimento:</string>
+    <string name="date">ex: 25/11/1996</string>
+    <string name="female">Feminino</string>
+    <string name="male">Masculino</string>
+    <string name="gende_select">Por favor, selecione seu gênero</string>
+    <string name="choose_gender">Escolha seu gênero</string>
+    <string name="miipsname">\Miips ID:</string>
+    <string name="miips_id">O MiipsID é o seu apelido único e especial, é a forma que outras pessoas te encontrarão.</string>
+    <string name="goto_zip">Adcionar localização pelo CEP</string>
+    <string name="get_cep">Busque pelo seu CEP</string>
+    <string name="cep">CEP</string>
+    <string name="localizar_pelo_cep">Localizar pelo CEP</string>
+    <string name="cep_error">CEP inválido</string>
+    <string name="ex_miips_id">ex: nome_sobrenome</string>
+    <string name="gender">Gênero:</string>
+    <string name="update_location">Atualizar minha localização</string>
+    <string name="update_cep">Atualizar pelo CEP</string>
+    <string name="update_zip_txt">Atualizar localização pelo CEP</string>
+    <string name="choose_photo">Escolher uma imagem da galeria</string>
+    <string name="take_photo">Tirar foto</string>
+    <string name="next">Próximo</string>
+    <string name="cancel">Cancelar</string>
+    <string name="creat_new_account">Precisamos do seu nome e apelido</string>
+    <string name="confirm_pass">Confirmar senha</string>
+    <string name="register_email_pass">Use seu email e crie uma senha</string>
+    <string name="user_city">Fala pra nós a sua cidade</string>
+    <string name="birth_register">Seu aniversário e gênero!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

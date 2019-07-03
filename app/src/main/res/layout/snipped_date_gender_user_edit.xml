@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/birth"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/top_white_grey_border">
+
+
+        <ImageView
+            android:id="@+id/born"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:paddingEnd="5dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_cake"/>
+
+
+        <com.vicmikhailau.maskededittext.MaskedEditText
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/born"
+            android:text=""
+            app:mask="##/##/####"
+            android:textColor="@color/black"
+            android:inputType="date"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@color/Transparent"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relLayout2"
+        android:layout_below="@+id/birth"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/top_white_grey_border">
+
+        <ImageView
+            android:id="@+id/gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="5dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_profile"/>
+
+        <TextView
+            android:id="@+id/genderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/gender"
+            android:text=""
+            android:textColor="@color/black"
+            android:layout_centerVertical="true"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/edit_gender"
+            android:layout_width="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/genderText"
+            android:src="@drawable/ic_change"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

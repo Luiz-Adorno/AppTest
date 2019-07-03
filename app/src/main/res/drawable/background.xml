@@ -3,7 +3,8 @@
     android:pivotX="50%" android:pivotY="50%" android:fromDegrees="0"
     android:toDegrees="360">
     <shape android:shape="ring" android:innerRadiusRatio="3"
-        android:thicknessRatio="10" android:useLevel="false">
+        android:thicknessRatio="10" android:useLevel="false"
+        android:thickness="6dp">
 
         <size android:width="76dip" android:height="76dip" />
         <gradient android:type="sweep" android:useLevel="false"

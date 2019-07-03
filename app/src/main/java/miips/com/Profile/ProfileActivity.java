@@ -2,139 +2,183 @@ package miips.com.Profile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 import miips.com.LoginActivity.LoginActivity;
+import miips.com.Models.User;
 import miips.com.R;
-import miips.com.Utils.BottomNavigationViewHelper;
-import miips.com.Utils.SectionStatePagerAdapter;
-import miips.com.Utils.UniversalImageLoader;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private static final int ACTIVITY_NUMBER = 3;
-    private Context mContext;
-    private SectionStatePagerAdapter pagerAdapter;
-    private ViewPager viewPager;
-    private RelativeLayout relativeLayout;
-    private ImageView profilePhoto;
-
-    public static boolean activeP = false;
-
-
+    private static final String TAG = ProfileActivity.class.getName();
+    private ImageView mProfilePhoto, back;
+    private Context context;
+    private FirebaseFirestore db;
     private FirebaseAuth mAuth;
-    GoogleSignInClient mGoogleSignInClient;
+    private TextView username, phone, email, editProfile, dateBirth, gender, miipsID;
+    private ProgressBar mProgressBar;
+    private TextView cityWidgets, stateWidgets;
+    private static User settings;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        mContext = ProfileActivity.this;
-
-        //FIREBASE GOOGLE GETUSER
+        context = ProfileActivity.this;
         mAuth = FirebaseAuth.getInstance();
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        viewPager = findViewById(R.id.containerViewPager);
-        relativeLayout = findViewById(R.id.profileLay1);
-        profilePhoto = findViewById(R.id.ic_profile);
-
-        setupBottomNavigationViewEx();
-
-        CircleImageView circleImageView = findViewById(R.id.ic_profile);
-
-        setupSettingsList();
-
-        setupFragments();
-        //setProfileImage();
+        setupFirebaseAuth();
+        initWidgets();
+        btnBack();
     }
 
-//    private void setProfileImage(){
-//        String imgURL ="";
-//        UniversalImageLoader.setImage(imgURL, profilePhoto, null,  "https://");
-//    }
 
-    private void setupFragments(){
-        pagerAdapter = new SectionStatePagerAdapter(getSupportFragmentManager());
-        pagerAdapter.addFragment(new EditProfileFragment(), getString(R.string.edit_profile)); //fragment=0
-        pagerAdapter.addFragment(new PasswordFragment(), getString(R.string.password)); //fragment=1
+    private void initWidgets() {
+        miipsID = findViewById(R.id.miips_id);
+        mProfilePhoto = findViewById(R.id.ic_profile);
+        back = findViewById(R.id.backArrowRegister);
+        username = findViewById(R.id.username);
+        phone = findViewById(R.id.telefone);
+        email = findViewById(R.id.email);
+        mProgressBar = findViewById(R.id.loadingLoginProgressBar);
+        editProfile = findViewById(R.id.edit_profile);
+        cityWidgets = findViewById(R.id.city);
+        stateWidgets = findViewById(R.id.state);
+        dateBirth = findViewById(R.id.dateBirth);
+        gender = findViewById(R.id.gender);
+
     }
 
-    private void setViewPager(int fragmentNumber){
-        relativeLayout.setVisibility(View.GONE);
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.setCurrentItem(fragmentNumber);
-    }
-
-    // Bottom Navigation view setup
-    private void setupBottomNavigationViewEx() {
-        BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(ProfileActivity.this, bottomNavigationViewEx);
-        Menu menu = bottomNavigationViewEx.getMenu();
-        MenuItem menuItem = menu.getItem(ACTIVITY_NUMBER);
-        menuItem.setChecked(true);
-    }
-
-    private void setupSettingsList(){
-        ListView listViewSettings = findViewById(R.id.AccountSettings);
-
-        ArrayList<String> options = new ArrayList<>();
-        options.add(getString(R.string.edit_profile)); //fragment=0
-        options.add(getString(R.string.password)); //fragment=1
-        options.add(getString(R.string.sign_out)); //fragment=2
-
-        ArrayAdapter adapter = new ArrayAdapter(mContext, android.R.layout.simple_list_item_1, options);
-        listViewSettings.setAdapter(adapter);
-
-        listViewSettings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    private void btnEditProfile(){
+        editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                setViewPager(position);
-                if(position == 2){
-                    mAuth.signOut();
-                    mGoogleSignInClient.signOut();
+            public void onClick(View v) {
+                Intent intent = new Intent(context, EditProfileActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+            }
+        });
+    }
 
-                    Intent intentSingOut = new Intent(mContext, LoginActivity.class);
+    private void setProfileWidgets(User user){
+
+        if(username.equals("")){
+            mProgressBar.setVisibility(View.VISIBLE);
+        }else {
+            //granted the connection
+            btnEditProfile();
+            Picasso.get().load(user.getprofile_url()).placeholder(R.drawable.progress_animation).error(R.drawable.user_profile).into(mProfilePhoto);
+            miipsID.setText(user.getmiips_id());
+            username.setText(user.getUsername());
+            phone.setText(user.getPhone());
+            email.setText(user.getEmail());
+            cityWidgets.setText(user.getCity());
+            stateWidgets.setText(user.getState());
+            dateBirth.setText(user.getBirth());
+            gender.setText(user.getGender());
+            mProgressBar.setVisibility(View.GONE);
+
+        }
+    }
+
+    private void btnBack() {
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, AccountActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
+                finish();
+            }
+        });
+
+    }
+
+    private void setupFirebaseAuth() {
+        FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                if (user != null) {
+                    //User is signed in
+
+                } else {
+                    //User is signed out
+                    Intent intentSingOut = new Intent(context, LoginActivity.class);
                     startActivity(intentSingOut);
+                    intentSingOut.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    finish();
+                }
+            }
+        };
+    }
+
+    private void getUserData(){
+        //retrieve user information from database Firestore
+        db = FirebaseFirestore.getInstance();
+        String userID = mAuth.getCurrentUser().getUid();
+        settings = new User();
+
+        Log.d(TAG, "onDataChange: user id ta assim: " + userID);
+        DocumentReference docRef = db.collection(context.getString(R.string.dbname_user)).document(userID);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        settings = document.toObject(User.class);
+                        setProfileWidgets(settings);
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
                 }
             }
         });
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        activeP = true;
+    protected void onResume() {
+        super.onResume();
+        getUserData();
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        activeP = false;
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("lastActivity", getClass().getName());
+        editor.apply();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(context, AccountActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.enter, R.anim.exit);
+        finish();
     }
 }
