@@ -265,7 +265,11 @@ public class AccountActivity extends AppCompatActivity {
             mProgressBar.setVisibility(View.VISIBLE);
         }else {
             Log.d(TAG, "setProfileWidgets: username ta assim:"+ user.getUsername());
-            Picasso.get().load(user.getprofile_url()).placeholder(R.drawable.progress_animation).error(R.drawable.user_profile).into(profilePhoto);
+            if(user.getprofile_url() == null) {
+                Picasso.get().load(R.drawable.user_profile).error(R.drawable.user_profile).into(profilePhoto);
+            }else{
+                Picasso.get().load(user.getprofile_url()).error(R.drawable.user_profile).into(profilePhoto);
+            }
             cityWidgets.setText(user.getCity());
             miipsID.setText(user.getmiips_id());
             mProgressBar.setVisibility(View.GONE);

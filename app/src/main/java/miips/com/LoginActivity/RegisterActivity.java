@@ -582,8 +582,8 @@ public class RegisterActivity extends AppCompatActivity {
                     String userID = user.getUid();
                     Log.d(TAG, "onDataChange: user id ta assim: " + userID);
                     //add new user to the firestore
-                    firebaseMethods.addNewUserFirestore(userID, email, username, phone, cityString, stateString,
-                            selectedRadioButton.getText().toString(), dateBirth, miipsName);
+//                    firebaseMethods.addNewUserFirestore(userID, email, username, phone, cityString, stateString,
+//                            selectedRadioButton.getText().toString(), dateBirth, miipsName);
 
                 }
 

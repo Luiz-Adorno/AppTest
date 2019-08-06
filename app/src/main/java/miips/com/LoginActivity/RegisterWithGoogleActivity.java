@@ -440,8 +440,8 @@ public class RegisterWithGoogleActivity extends AppCompatActivity {
                                     //Identify internet connection
                                     if (cd.isConnected()) {
                                         //add new user to the firestore
-                                        firebaseMethods.addNewUserFirestore(userID, email, username, phone, cityString, stateString,
-                                                selectedRadioButton.getText().toString(), dateBirth, miipsName);
+//                                        firebaseMethods.addNewUserFirestore(userID, email, username, phone, cityString, stateString,
+//                                                selectedRadioButton.getText().toString(), dateBirth, miipsName);
                                         Intent intent = new Intent(mContext, HomeActivity.class);
                                         startActivity(intent);
                                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

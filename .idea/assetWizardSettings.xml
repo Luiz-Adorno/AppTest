@@ -69,9 +69,9 @@
                                   <option name="values">
                                     <map>
                                       <entry key="imageAsset" value="C:\Users\Luiz\Documents\register1.png" />
-                                      <entry key="outputName" value="ic_location_state" />
+                                      <entry key="outputName" value="ic_location_state_gray" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="f4f6ff" />
+                                      <entry key="themeColor" value="808080" />
                                     </map>
                                   </option>
                                 </PersistentState>

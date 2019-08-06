@@ -1,11 +1,14 @@
 package miips.com.Register;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +19,9 @@ import android.widget.Toast;
 
 import com.vicmikhailau.maskededittext.MaskedEditText;
 
+import miips.com.LoginActivity.LoginActivity;
 import miips.com.R;
+import miips.com.Utils.ConnectionDetector;
 
 public class BirthFragment extends Fragment {
     private MaskedEditText dateEditText;
@@ -25,6 +30,7 @@ public class BirthFragment extends Fragment {
     private Context mContext;
     Button next, cancel;
     String dateBirth, gender;
+    ConnectionDetector cd;
 
     @Nullable
     @Override
@@ -35,6 +41,7 @@ public class BirthFragment extends Fragment {
         next = view.findViewById(R.id.button_register);
         cancel = view.findViewById(R.id.cancel);
         mContext = getActivity();
+        cd = new ConnectionDetector(getActivity());
 
         //get gender selected
         radioGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -54,7 +61,7 @@ public class BirthFragment extends Fragment {
         });
 
         init();
-
+        initCancel();
         return view;
     }
 
@@ -67,21 +74,56 @@ public class BirthFragment extends Fragment {
                     Toast.makeText(mContext, R.string.gende_select, Toast.LENGTH_SHORT).show();
 
                 } else {
-                    if(checkInputs(dateBirth)){
-                        RegisterActivity reg = (RegisterActivity) getActivity();
-                        reg.getFromBirth(dateBirth, gender);
+                    if (checkInputs(dateBirth)) {
+
+                        if (cd.isConnected()) {
+                            RegisterActivity reg = (RegisterActivity) getActivity();
+                            reg.getFromBirth(dateBirth, gender);
 
 
-                        // Begin the transaction
-                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-                        // Replace the contents of the container with the new fragment
-                        ft.replace(R.id.frame_layout, new LocationFragment());
-                        ft.commit();
+                            // Begin the transaction
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            // Replace the contents of the container with the new fragment
+                            ft.replace(R.id.frame_layout, new LocationCepFragment());
+                            ft.commit();
+                        } else {
+                            buildDialog(getActivity()).show();
+                        }
+
                     }
                 }
             }
         });
 
+    }
+
+    public AlertDialog.Builder buildDialog(Context c) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+        builder.setTitle("Sem conexão com internet");
+        builder.setMessage("É necessária uma conexão de internet para prosseguir!");
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        return builder;
+    }
+
+    private void initCancel() {
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                getActivity().onBackPressed();
+                getActivity().finish();
+            }
+        });
     }
 
     private boolean checkInputs(String dateBirth) {

@@ -38,12 +38,12 @@ public class FirebaseMethods {
     }
 
 
-    public void addNewUserFirestore(String userID, String email, String username, String phone,
+    public void addNewUserFirestore(String userID, String email, String username,
                                     String city, String state, String gender, String dateBirth,
                                     String miips_id) {
 
         CollectionReference dbUsers = db.collection(mContext.getString(R.string.dbname_user));
-        User userFirestore = new User(email, phone, username, city, state, gender, dateBirth, miips_id, null);
+        User userFirestore = new User(email, username, city, state, gender, dateBirth, miips_id, null);
 
         dbUsers.document(userID).set(userFirestore).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -66,7 +66,7 @@ public class FirebaseMethods {
      *                 mBirth
      *                 mGender
      */
-    public void updateUserSettings(String username, String phoneNumber, String city,
+    public void updateUserSettings(String username, String city,
                                    String state, String mBirth, String mGender, String miipsID) {
         String userID = mAuth.getCurrentUser().getUid();
 
@@ -83,23 +83,6 @@ public class FirebaseMethods {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "onComplete: username successfully updated");
-                    } else {
-                        Log.d(TAG, "onComplete: update failed");
-                    }
-                }
-            });
-        }
-
-        if (phoneNumber != null) {
-            Map<String, Object> updatePhone = new HashMap<>();
-            updatePhone.put(mContext.getString(R.string.field_phone_number), phoneNumber);
-            db.collection(mContext.getString(R.string.dbname_user)).document(userID).update(
-                    updatePhone
-            ).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        Log.d(TAG, "onComplete: phone successfully updated");
                     } else {
                         Log.d(TAG, "onComplete: update failed");
                     }

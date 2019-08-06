@@ -29,6 +29,7 @@ import java.util.List;
 import miips.com.LoginActivity.LoginActivity;
 import miips.com.Models.EditFiler;
 import miips.com.R;
+import miips.com.Utils.ConnectionDetector;
 
 public class NameFragment extends Fragment {
     EditText mName, miipsId;
@@ -36,6 +37,7 @@ public class NameFragment extends Fragment {
     Button next, cancel;
     private Context mContext;
     private ImageView infoMiips;
+    ConnectionDetector cd;
     EditFiler filter;
 
     @Nullable
@@ -51,11 +53,31 @@ public class NameFragment extends Fragment {
         infoMiips = view.findViewById(R.id.info_miipsname);
         filter = new EditFiler(mContext);
         filter.setFilter(miipsId, mName);
+        cd = new ConnectionDetector(getActivity());
+
 
         initInfoDialog();
         initCancel();
         init();
+
         return view;
+    }
+
+    public AlertDialog.Builder buildDialog(Context c) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+        builder.setTitle("Sem conexão com internet");
+        builder.setMessage("É necessária uma conexão de internet para prosseguir!");
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        return builder;
     }
 
     private void init() {
@@ -73,14 +95,19 @@ public class NameFragment extends Fragment {
                             //miipsName is valid
                             miipsId.onEditorAction(EditorInfo.IME_ACTION_DONE);
                             if (checkInputs(username, miipsName)) {
-                                //Send the name and miipsName to activity
-                                reg.getFromName(username, miipsName);
 
-                                // Begin the transaction
-                                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                // Replace the contents of the container with the new fragment
-                                ft.replace(R.id.frame_layout, new BirthFragment());
-                                ft.commit();
+                                if (cd.isConnected()) {
+                                    //Send the name and miipsName to activity
+                                    reg.getFromName(username, miipsName);
+
+                                    // Begin the transaction
+                                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                    // Replace the contents of the container with the new fragment
+                                    ft.replace(R.id.frame_layout, new BirthFragment());
+                                    ft.commit();
+                                } else {
+                                    buildDialog(getActivity()).show();
+                                }
                             }
                         } else {
                             //miipsName exists, try another

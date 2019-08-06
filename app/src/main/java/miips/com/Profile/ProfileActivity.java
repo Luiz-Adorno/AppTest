@@ -33,7 +33,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Context context;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
-    private TextView username, phone, email, editProfile, dateBirth, gender, miipsID;
+    private TextView username, email, editProfile, dateBirth, gender, miipsID;
     private ProgressBar mProgressBar;
     private TextView cityWidgets, stateWidgets;
     private static User settings;
@@ -55,7 +55,6 @@ public class ProfileActivity extends AppCompatActivity {
         mProfilePhoto = findViewById(R.id.ic_profile);
         back = findViewById(R.id.backArrowRegister);
         username = findViewById(R.id.username);
-        phone = findViewById(R.id.telefone);
         email = findViewById(R.id.email);
         mProgressBar = findViewById(R.id.loadingLoginProgressBar);
         editProfile = findViewById(R.id.edit_profile);
@@ -84,10 +83,13 @@ public class ProfileActivity extends AppCompatActivity {
         }else {
             //granted the connection
             btnEditProfile();
-            Picasso.get().load(user.getprofile_url()).placeholder(R.drawable.progress_animation).error(R.drawable.user_profile).into(mProfilePhoto);
+            if(user.getprofile_url() == null) {
+                Picasso.get().load(R.drawable.user_profile).error(R.drawable.user_profile).into(mProfilePhoto);
+            }else{
+                Picasso.get().load(user.getprofile_url()).error(R.drawable.user_profile).into(mProfilePhoto);
+            }
             miipsID.setText(user.getmiips_id());
             username.setText(user.getUsername());
-            phone.setText(user.getPhone());
             email.setText(user.getEmail());
             cityWidgets.setText(user.getCity());
             stateWidgets.setText(user.getState());

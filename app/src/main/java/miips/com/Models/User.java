@@ -2,7 +2,6 @@ package miips.com.Models;
 public class User {
 
     private String email;
-    private String phone;
     private String username;
     private String city;
     private String state;
@@ -12,9 +11,8 @@ public class User {
     private String profile_url;
 
 
-    public User(String email, String phone, String username, String city, String state, String gender, String birth, String miips_id, String profileUrl) {
+    public User(String email, String username, String city, String state, String gender, String birth, String miips_id, String profileUrl) {
         this.email = email;
-        this.phone = phone;
         this.username = username;
         this.city = city;
         this.state = state;
@@ -34,14 +32,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getUsername() {
@@ -104,7 +94,6 @@ public class User {
     public String toString() {
         return "User{" +
                 "email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
                 ", username='" + username + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +

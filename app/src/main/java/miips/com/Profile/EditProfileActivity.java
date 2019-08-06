@@ -63,7 +63,6 @@ import miips.com.Models.EditFiler;
 import miips.com.Models.User;
 import miips.com.R;
 import miips.com.Utils.FirebaseMethods;
-import miips.com.Utils.PhoneEditText;
 import miips.com.Utils.StatesManipulation;
 import miips.com.Utils.StringManipulation;
 import miips.com.Utils.ZipCode.APIRetrofitService;
@@ -105,7 +104,6 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
     private Context context;
     private EditText username;
     private MaskedEditText dateEditText;
-    private PhoneEditText phone;
     private FirebaseMethods firebaseMethods;
     private ProgressBar mProgressBar;
     private User mUserSettings;
@@ -375,7 +373,7 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
                     mProgressBar.setVisibility(View.GONE);
                 }
 
-            } else {
+            }  else {
                 Log.d(TAG, "onComplete: aqui o currentLocation ta null");
                 Toast.makeText(context, R.string.error_location, Toast.LENGTH_SHORT).show();
                 mProgressBar.setVisibility(View.GONE);
@@ -478,7 +476,6 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
         //imm for hide the keyboard
         final InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         final String mUsername = username.getText().toString();
-        final String mPhone = phone.getText().toString();
         final String mCity = cityWidgets.getText().toString();
         final String mState = stateWidgets.getText().toString();
         final String mBirth = dateEditText.getText().toString();
@@ -486,7 +483,6 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
         final String mMiipsId = miipsID.getText().toString();
 
         Log.d(TAG, "saveProfileSettings: mUsername ta assim: " + mUsername);
-        Log.d(TAG, "saveProfileSettings: mPhone ta assim: " + mPhone);
 
         //save new profile photo from gallery
         if (mSelectUri != null) {
@@ -534,10 +530,10 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
                     }
                 });
 
-            }else{
+            } else {
                 mProgressBar.setVisibility(View.GONE);
             }
-        }else{
+        } else {
             mProgressBar.setVisibility(View.GONE);
         }
 
@@ -545,30 +541,24 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
         //case 1: the user did not change their username
         if (checkName(mUsername) && checkInputs(mCity, mBirth, mMiipsId)) {
             if (!mUserSettings.getUsername().equals(mUsername)) {
-                firebaseMethods.updateUserSettings(mUsername, null, null, null, null, null, null);
+                firebaseMethods.updateUserSettings(mUsername, null, null, null, null, null);
                 Toast.makeText(context, "Nome alterado com sucesso", Toast.LENGTH_SHORT).show();
                 mProgressBar.setVisibility(View.GONE);
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
             }
-            if (!mUserSettings.getPhone().equals(mPhone)) {
-                firebaseMethods.updateUserSettings(null, mPhone, null, null, null, null, null);
-                Toast.makeText(context, "Telefone alterado com sucesso", Toast.LENGTH_SHORT).show();
-                mProgressBar.setVisibility(View.GONE);
-                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-            }
             if (!mUserSettings.getCity().equals(mCity) || !mUserSettings.getState().equals(mState)) {
-                firebaseMethods.updateUserSettings(null, null, mCity, mState, null, null, null);
+                firebaseMethods.updateUserSettings(null, mCity, mState, null, null, null);
                 Toast.makeText(context, "Localização alterado com sucesso", Toast.LENGTH_SHORT).show();
                 mProgressBar.setVisibility(View.GONE);
             }
             if (!mUserSettings.getBirth().equals(mBirth)) {
-                firebaseMethods.updateUserSettings(null, null, null, null, mBirth, null, null);
+                firebaseMethods.updateUserSettings(null, null, null, mBirth, null, null);
                 Toast.makeText(context, "Nascimento alterado com sucesso", Toast.LENGTH_SHORT).show();
                 mProgressBar.setVisibility(View.GONE);
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
             }
             if (!mUserSettings.getGender().equals(mGender)) {
-                firebaseMethods.updateUserSettings(null, null, null, null, null, mGender, null);
+                firebaseMethods.updateUserSettings(null, null, null, null, mGender, null);
                 Toast.makeText(context, "Gênero alterado com sucesso", Toast.LENGTH_SHORT).show();
                 mProgressBar.setVisibility(View.GONE);
             }
@@ -579,7 +569,7 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
                     public void onSuccess(Boolean aBoolean) {
                         if (aBoolean) {
                             //miipsName valid
-                            firebaseMethods.updateUserSettings(null, null, null, null, null, null, mMiipsId);
+                            firebaseMethods.updateUserSettings(null, null, null, null, null, mMiipsId);
                             Toast.makeText(context, "MiipsID alterado com sucesso", Toast.LENGTH_SHORT).show();
                             mProgressBar.setVisibility(View.GONE);
                             miipsID.onEditorAction(EditorInfo.IME_ACTION_DONE);
@@ -668,7 +658,6 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
     private void initWidgets() {
         mProfilePhoto = findViewById(R.id.ic_profile);
         username = findViewById(R.id.username);
-        phone = findViewById(R.id.phone_number);
         mProgressBar = findViewById(R.id.loadingLoginProgressBar);
         backArrow = findViewById(R.id.back_arrow);
         cityWidgets = findViewById(R.id.city);
@@ -716,13 +705,20 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
         if (username.equals("")) {
             mProgressBar.setVisibility(View.VISIBLE);
         } else {
-            if(uriString == null){
-                Picasso.get().load(user.getprofile_url()).placeholder(R.drawable.progress_animation).error(R.drawable.user_profile).into(mProfilePhoto);
-            }else {
-                Picasso.get().load(mSelectUri).placeholder(R.drawable.progress_animation).error(R.drawable.user_profile).into(mProfilePhoto);
+            if (uriString == null) {
+                if(user.getprofile_url() == null) {
+                    Picasso.get().load(R.drawable.user_profile).error(R.drawable.user_profile).into(mProfilePhoto);
+                }else{
+                    Picasso.get().load(user.getprofile_url()).error(R.drawable.user_profile).into(mProfilePhoto);
+                }
+            } else {
+                if(user.getprofile_url() == null) {
+                    Picasso.get().load(R.drawable.user_profile).error(R.drawable.user_profile).into(mProfilePhoto);
+                }else{
+                    Picasso.get().load(user.getprofile_url()).error(R.drawable.user_profile).into(mProfilePhoto);
+                }
             }
             username.setText(user.getUsername());
-            phone.setText(user.getPhone());
             mProgressBar.setVisibility(View.GONE);
             cityWidgets.setText(user.getCity());
             stateWidgets.setText(user.getState());

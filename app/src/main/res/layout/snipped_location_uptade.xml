@@ -20,7 +20,7 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/ic_location_city"
+                    android:src="@drawable/ic_location_city_gray"
                     android:layout_centerVertical="true"
                     android:id="@+id/city_image"/>
 
@@ -47,7 +47,7 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/ic_location_state"
+                    android:src="@drawable/ic_location_state_gray"
                     android:layout_centerVertical="true"
                     android:id="@+id/state_image"/>
 
@@ -134,7 +134,7 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/ic_location_city"
+                    android:src="@drawable/ic_location_city_gray"
                     android:layout_centerVertical="true"
                     android:id="@+id/city_imagep"/>
 
@@ -161,7 +161,7 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/ic_location_state"
+                    android:src="@drawable/ic_location_state_gray"
                     android:layout_centerVertical="true"
                     android:id="@+id/state_imagep"/>
 

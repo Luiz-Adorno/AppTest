@@ -74,7 +74,7 @@
                     android:layout_height="17dp"
                     android:layout_marginStart="5dp"
                     android:contentDescription="@string/miipsname"
-                    android:src="@drawable/ic_info"
+                    android:src="@drawable/ic_info_gray"
                     app:layout_constraintBottom_toTopOf="@+id/miips_id"
                     app:layout_constraintStart_toEndOf="@+id/textView2" />
 
@@ -121,39 +121,12 @@
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/relLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@id/relLayout1"
-                android:layout_marginTop="5dp"
-
-                android:background="@drawable/top_white_grey_border">
-
-                <ImageView
-                    android:id="@id/phone_image"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_phone" />
-
-                <miips.com.Utils.PhoneEditText
-                    android:id="@+id/phone_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_toEndOf="@id/phone_image"
-                    android:backgroundTint="@color/Transparent"
-                    android:inputType="phone"
-                    android:textSize="18sp" />
-
-            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/birth"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@id/relLayout2"
+                android:layout_below="@id/relLayout1"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/top_white_grey_border"
                 android:clickable="true"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/register2">
@@ -119,7 +120,7 @@
         android:layout_marginTop="50dp"
         android:background="@drawable/white_rounded_button"
         android:backgroundTint="@color/green"
-        android:text="@string/Register"
+        android:text="@string/register"
         android:textColor="@color/white"
         android:alpha="0.8"
         />
@@ -137,5 +138,14 @@
         android:text="@string/cancel"
         android:textColor="@color/white"
         android:alpha="0.7"/>
+
+    <ProgressBar
+        android:id="@+id/registerProgressBar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@id/cep"
+        android:layout_centerInParent="true"
+        android:indeterminateDrawable="@drawable/background"
+        tools:ignore="NotSibling" />
 
 </RelativeLayout>
