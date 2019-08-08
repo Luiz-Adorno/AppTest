@@ -41,6 +41,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import miips.com.Home.HomeActivity;
 import miips.com.R;
+import miips.com.Register.google.RegisterActivityGoogle;
 import miips.com.Register.normal.RegisterActivity;
 import miips.com.Utils.ConnectionDetector;
 
@@ -161,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
                                             } else {
                                                 Log.d(TAG, "No such document");
                                                 mProgressBar.setVisibility(View.GONE);
-                                                Intent intent1 = new Intent(mContext, RegisterWithGoogleActivity.class);
+                                                Intent intent1 = new Intent(mContext, RegisterActivityGoogle.class);
                                                 startActivity(intent1);
                                                 Log.d(TAG, "onDataChange: flag 2");
                                                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

@@ -506,7 +506,6 @@ public class RegisterWithGoogleActivity extends AppCompatActivity {
         cityWidgets = findViewById(R.id.city);
         mUsername = findViewById(R.id.name_register);
         mPhone = findViewById(R.id.phone_number);
-        mProgessBar = findViewById(R.id.RegisterProgressBarGoogle);
         mProgessBar.setVisibility(View.GONE);
         btnRegister = findViewById(R.id.button_register);
         btnLocation = findViewById(R.id.button_location);
