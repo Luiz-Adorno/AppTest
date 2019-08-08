@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Register.RegisterActivity"
+        <activity android:name=".Register.normal.RegisterActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"

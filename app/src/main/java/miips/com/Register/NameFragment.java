@@ -29,6 +29,7 @@ import java.util.List;
 import miips.com.LoginActivity.LoginActivity;
 import miips.com.Models.EditFiler;
 import miips.com.R;
+import miips.com.Register.normal.RegisterActivity;
 import miips.com.Utils.ConnectionDetector;
 
 public class NameFragment extends Fragment {

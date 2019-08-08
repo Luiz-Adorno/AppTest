@@ -34,6 +34,7 @@ import java.util.Locale;
 
 import miips.com.LoginActivity.LoginActivity;
 import miips.com.R;
+import miips.com.Register.normal.RegisterActivity;
 import miips.com.Utils.ConnectionDetector;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;

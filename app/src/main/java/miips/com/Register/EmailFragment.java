@@ -38,6 +38,7 @@ import java.util.List;
 import miips.com.Home.HomeActivity;
 import miips.com.LoginActivity.LoginActivity;
 import miips.com.R;
+import miips.com.Register.normal.RegisterActivity;
 import miips.com.Utils.ConnectionDetector;
 import miips.com.Utils.FirebaseMethods;
 

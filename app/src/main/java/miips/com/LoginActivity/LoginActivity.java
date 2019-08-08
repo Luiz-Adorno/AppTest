@@ -41,7 +41,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import miips.com.Home.HomeActivity;
 import miips.com.R;
-import miips.com.Register.RegisterActivity;
+import miips.com.Register.normal.RegisterActivity;
 import miips.com.Utils.ConnectionDetector;
 
 import static miips.com.Home.HomeActivity.activeH;

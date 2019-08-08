@@ -24,6 +24,7 @@ import com.vicmikhailau.maskededittext.MaskedEditText;
 
 import miips.com.LoginActivity.LoginActivity;
 import miips.com.R;
+import miips.com.Register.normal.RegisterActivity;
 import miips.com.Utils.ConnectionDetector;
 import miips.com.Utils.ZipCode.APIRetrofitService;
 import miips.com.Utils.ZipCode.CEP;
