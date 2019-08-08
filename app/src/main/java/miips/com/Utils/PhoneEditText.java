@@ -6,9 +6,8 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.NumberKeyListener;
 import android.util.AttributeSet;
-import android.widget.EditText;
 
-public class PhoneEditText extends android.support.v7.widget.AppCompatEditText {
+public class PhoneEditText extends androidx.appcompat.widget.AppCompatEditText {
     private boolean isUpdating;
 
     /*

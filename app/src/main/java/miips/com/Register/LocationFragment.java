@@ -11,13 +11,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +18,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,8 +35,7 @@ import miips.com.LoginActivity.LoginActivity;
 import miips.com.R;
 import miips.com.Utils.ConnectionDetector;
 
-import static android.support.constraint.Constraints.TAG;
-import static android.support.v4.content.ContextCompat.getSystemService;
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class LocationFragment extends Fragment {
     private TextView gotoCep;

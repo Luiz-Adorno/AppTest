@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/logoTopLogin">
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/inputemail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -48,9 +48,9 @@
                     android:hint="@string/e_mail"
                     android:inputType="textEmailAddress" />
 
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/inputpassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,11 +67,11 @@
                     android:hint="@string/password"
                     android:inputType="textPassword" />
 
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
         </RelativeLayout>
 
-        <android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
