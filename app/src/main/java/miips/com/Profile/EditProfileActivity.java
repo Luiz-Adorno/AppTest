@@ -14,12 +14,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -31,6 +25,13 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -340,6 +341,19 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
         }
     }
 
+    private void alertDialogZip() {
+        AlertDialog.Builder alertDialogP = new AlertDialog.Builder(context);
+        alertDialogP.setMessage("Não foi possivel pegar sua localização, que tal tentar pelo seu CEP?");
+        alertDialogP.setCancelable(true);
+        alertDialogP.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                cepShow();
+            }
+        });
+        alertDialogP.create().show();
+    }
+
     public void getCurrentLocation() {
         Log.d(TAG, "getDeviceLocation: getting the device current location ");
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -348,7 +362,20 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
             criteria = new Criteria();
             bestProvider = String.valueOf(locationManager.getBestProvider(criteria, true));
 
-            Location location = locationManager.getLastKnownLocation(bestProvider);
+            List<String> providers = locationManager.getProviders(true);
+            Location location = null;
+            for (String provider : providers) {
+                Location l = locationManager.getLastKnownLocation(provider);
+                if (l == null) {
+                    continue;
+                }
+                if (location == null || l.getAccuracy() < location.getAccuracy()) {
+                    // Found best last known location: %s", l);
+                    location = l;
+                }
+            }
+
+            Log.d(TAG, "getCurrentLocation: location is: "+ location);
 
             if (location != null) {
                 Log.d(TAG, "onComplete: found location");
@@ -376,6 +403,7 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
             }  else {
                 Log.d(TAG, "onComplete: aqui o currentLocation ta null");
                 Toast.makeText(context, R.string.error_location, Toast.LENGTH_SHORT).show();
+                alertDialogZip();
                 mProgressBar.setVisibility(View.GONE);
             }
         } catch (SecurityException e) {

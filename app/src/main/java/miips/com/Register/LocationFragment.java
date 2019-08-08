@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -72,6 +73,7 @@ public class LocationFragment extends Fragment {
         cityWidgets = view.findViewById(R.id.city);
         stateWidgets = view.findViewById(R.id.state);
         cd = new ConnectionDetector(getActivity());
+        getPermissions();
 
 //        if(cd.isConnected()){
 //
@@ -82,7 +84,40 @@ public class LocationFragment extends Fragment {
         initGps();
         initCancel();
         setGotoCep();
+        init();
         return view;
+    }
+
+    private void init() {
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkInputs(cityString)) {
+
+                    if (cd.isConnected()) {
+                        RegisterActivity reg = (RegisterActivity) getActivity();
+                        reg.getFromLocation(cityString, stateString);
+
+                        // Begin the transaction
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        // Replace the contents of the container with the new fragment
+                        ft.replace(R.id.frame_layout, new EmailFragment());
+                        ft.commit();
+                    } else {
+                        buildDialog(getActivity()).show();
+                    }
+
+                }
+            }
+        });
+    }
+
+    private boolean checkInputs(String cityAux) {
+        if (cityAux == null || cityAux.equals("")) {
+            Toast.makeText(getActivity(), R.string.add_city_state, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     private void setGotoCep() {
@@ -160,6 +195,10 @@ public class LocationFragment extends Fragment {
         alertDialogP.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                // Replace the contents of the container with the new fragment
+                ft.replace(R.id.frame_layout, new LocationCepFragment());
+                ft.commit();
             }
         });
         alertDialogP.create().show();
@@ -173,8 +212,18 @@ public class LocationFragment extends Fragment {
             criteria = new Criteria();
             bestProvider = String.valueOf(locationManager.getBestProvider(criteria, true));
 
-            Location location = locationManager.getLastKnownLocation(bestProvider);
-            Log.d(TAG, "getCurrentLocation: location ta assim: " + location);
+            List<String> providers = locationManager.getProviders(true);
+            Location location = null;
+            for (String provider : providers) {
+                Location l = locationManager.getLastKnownLocation(provider);
+                if (l == null) {
+                    continue;
+                }
+                if (location == null || l.getAccuracy() < location.getAccuracy()) {
+                    // Found best last known location: %s", l);
+                    location = l;
+                }
+            }
 
             if (location != null) {
                 Log.d(TAG, "onComplete: found location");
