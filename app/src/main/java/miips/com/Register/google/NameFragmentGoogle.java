@@ -79,7 +79,7 @@ public class NameFragmentGoogle extends Fragment {
         firebaseMethods = new FirebaseMethods(getActivity());
 
         //get the vars in the activity container from the others fragments
-        RegisterActivity reg = (RegisterActivity) getActivity();
+        RegisterActivityGoogle reg = (RegisterActivityGoogle) getActivity();
         Birth = reg.Birth;
         Gender = reg.Gender;
         City = reg.City;

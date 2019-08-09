@@ -24,6 +24,8 @@ import com.vicmikhailau.maskededittext.MaskedEditText;
 
 import miips.com.LoginActivity.LoginActivity;
 import miips.com.R;
+import miips.com.Register.google.NameFragmentGoogle;
+import miips.com.Register.google.RegisterActivityGoogle;
 import miips.com.Utils.ConnectionDetector;
 import miips.com.Utils.ZipCode.APIRetrofitService;
 import miips.com.Utils.ZipCode.CEP;
@@ -98,13 +100,13 @@ public class LocationCepFragment extends Fragment {
                 if (checkInputs(cityString)) {
 
                     if (cd.isConnected()) {
-                        RegisterActivity reg = (RegisterActivity) getActivity();
+                        RegisterActivityGoogle reg = (RegisterActivityGoogle) getActivity();
                         reg.getFromLocation(cityString, stateString);
 
                         // Begin the transaction
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                         // Replace the contents of the container with the new fragment
-                        ft.replace(R.id.frame_layout, new EmailFragment());
+                        ft.replace(R.id.frame_layout, new NameFragmentGoogle());
                         ft.commit();
                     } else {
                         buildDialog(getActivity()).show();

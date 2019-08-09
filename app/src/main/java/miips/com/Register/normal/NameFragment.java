@@ -16,6 +16,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -40,6 +41,7 @@ public class NameFragment extends Fragment {
     private ImageView infoMiips;
     ConnectionDetector cd;
     EditFiler filter;
+    private ProgressBar mProgessBar;
 
     @Nullable
     @Override
@@ -51,6 +53,8 @@ public class NameFragment extends Fragment {
         next = view.findViewById(R.id.button_register);
         cancel = view.findViewById(R.id.cancel);
         mContext = getActivity();
+        mProgessBar = view.findViewById(R.id.registerProgressBar);
+        mProgessBar.setVisibility(View.GONE);
         infoMiips = view.findViewById(R.id.info_miipsname);
         filter = new EditFiler(mContext);
         filter.setFilter(miipsId, mName);
@@ -87,6 +91,7 @@ public class NameFragment extends Fragment {
             public void onClick(View v) {
                 miipsName = miipsId.getText().toString();
                 username = mName.getText().toString();
+                mProgessBar.setVisibility(View.VISIBLE);
                 final RegisterActivity reg = (RegisterActivity) getActivity();
 
                 checkFieldIsExist("miips_id", miipsName, new OnSuccessListener<Boolean>() {
@@ -98,6 +103,7 @@ public class NameFragment extends Fragment {
                             if (checkInputs(username, miipsName)) {
 
                                 if (cd.isConnected()) {
+
                                     //Send the name and miipsName to activity
                                     reg.getFromName(username, miipsName);
 
@@ -106,11 +112,14 @@ public class NameFragment extends Fragment {
                                     // Replace the contents of the container with the new fragment
                                     ft.replace(R.id.frame_layout, new BirthFragment());
                                     ft.commit();
+                                    mProgessBar.setVisibility(View.GONE);
                                 } else {
                                     buildDialog(getActivity()).show();
+                                    mProgessBar.setVisibility(View.GONE);
                                 }
                             }
                         } else {
+                            mProgessBar.setVisibility(View.GONE);
                             //miipsName exists, try another
                             miipsId.setError("Apelido existente, tente outro");
                         }
@@ -157,9 +166,11 @@ public class NameFragment extends Fragment {
     private boolean checkInputs(String name, String miips) {
         if (name.length() < 3 || name.equals("")) {
             mName.setError("Nome inválido");
+            mProgessBar.setVisibility(View.GONE);
             return false;
         } else if (miips.equals("") || miips.length() < 2) {
             miipsId.setError("Apelido inválido!");
+            mProgessBar.setVisibility(View.GONE);
             return false;
         }
         return true;
