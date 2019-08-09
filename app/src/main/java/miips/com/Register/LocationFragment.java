@@ -76,12 +76,6 @@ public class LocationFragment extends Fragment {
         cd = new ConnectionDetector(getActivity());
         getPermissions();
 
-//        if(cd.isConnected()){
-//
-//        }else{
-//            buildDialog(getActivity()).show();
-//        }
-
         initGps();
         initCancel();
         setGotoCep();
@@ -196,6 +190,7 @@ public class LocationFragment extends Fragment {
         alertDialogP.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                mProgessBar.setVisibility(View.GONE);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 // Replace the contents of the container with the new fragment
                 ft.replace(R.id.frame_layout, new LocationCepFragment());
@@ -222,7 +217,7 @@ public class LocationFragment extends Fragment {
                 }
                 if (location == null || l.getAccuracy() < location.getAccuracy()) {
                     // Found best last known location: %s", l);
-                    location = l;
+                    mProgessBar.setVisibility(View.GONE);
                 }
             }
 
@@ -319,7 +314,6 @@ public class LocationFragment extends Fragment {
                 mProgessBar.setVisibility(View.VISIBLE);
                 if (isGpsEnable()) {
                     if (mPermissionsGranted) {
-                        mProgessBar.setVisibility(View.GONE);
                         Log.d(TAG, "onClick: pegou os nomes no 1 click");
                         getCurrentLocation();
                         cityWidgets.setText(cityString);

@@ -55,6 +55,13 @@
             tools:ignore="InnerclassSeparator">
         </activity>
 
+        <activity android:name=".Register.google.RegisterActivityGoogle"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:launchMode="singleInstance"
+            tools:ignore="InnerclassSeparator">
+        </activity>
+
         <activity android:name=".Search.SearchActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"

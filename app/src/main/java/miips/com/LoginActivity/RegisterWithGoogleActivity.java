@@ -125,7 +125,7 @@ public class RegisterWithGoogleActivity extends AppCompatActivity {
         getPermissions();
 
         //call methods
-        initWidgets();
+//        initWidgets();
         TestFilter filter = new TestFilter(mContext);
         filter.setFilter(namiips, mUsername);
         arrowReturn();

@@ -29,6 +29,7 @@ import java.util.List;
 import miips.com.LoginActivity.LoginActivity;
 import miips.com.Models.EditFiler;
 import miips.com.R;
+import miips.com.Register.google.RegisterActivityGoogle;
 import miips.com.Register.normal.RegisterActivity;
 import miips.com.Utils.ConnectionDetector;
 
@@ -87,7 +88,7 @@ public class NameFragment extends Fragment {
             public void onClick(View v) {
                 miipsName = miipsId.getText().toString();
                 username = mName.getText().toString();
-                final RegisterActivity reg = (RegisterActivity) getActivity();
+                final RegisterActivityGoogle reg = (RegisterActivityGoogle) getActivity();
 
                 checkFieldIsExist("miips_id", miipsName, new OnSuccessListener<Boolean>() {
                     @Override
