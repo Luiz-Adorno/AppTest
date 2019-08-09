@@ -9,7 +9,6 @@ import android.view.WindowManager;
 
 
 import miips.com.R;
-import miips.com.Register.NameFragment;
 
 public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = "RegisterActivity";

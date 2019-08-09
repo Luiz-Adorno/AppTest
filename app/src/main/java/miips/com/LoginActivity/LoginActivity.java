@@ -122,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 mProgressBar.setVisibility(View.GONE);
+                Toast.makeText(this, "Não foi possivel logar com a google", Toast.LENGTH_SHORT).show();
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Erro ao tentar entrar com Google", e);
                 // ...

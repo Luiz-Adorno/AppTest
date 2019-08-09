@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import miips.com.R;
-import miips.com.Register.NameFragment;
 
 public class RegisterActivityGoogle extends AppCompatActivity {
     private static final String TAG = "RegisterActivity";
@@ -24,15 +23,9 @@ public class RegisterActivityGoogle extends AppCompatActivity {
         // Begin the transaction
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         // Replace the contents of the container with the new fragment
-        ft.replace(R.id.frame_layout, new NameFragment());
+        ft.replace(R.id.frame_layout, new BirthFragmentGoogle());
         ft.commit();
 
-    }
-
-    public void getFromName(String name, String miipsID){
-        Log.d(TAG, "getCurrentLocation: name ta assim: " + name);
-        Name = name;
-        MiipsID = miipsID;
     }
 
     public void getFromBirth(String birth, String gender){
