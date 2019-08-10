@@ -210,11 +210,11 @@ public class LocationFragment extends Fragment {
             List<String> providers = locationManager.getProviders(true);
             Location location = null;
             for (String provider : providers) {
-                Location l = locationManager.getLastKnownLocation(provider);
-                if (l == null) {
+                location = locationManager.getLastKnownLocation(provider);
+                if (location == null) {
                     continue;
                 }
-                if (location == null || l.getAccuracy() < location.getAccuracy()) {
+                if (location == null || location.getAccuracy() < location.getAccuracy()) {
                     // Found best last known location: %s", l);
                     mProgessBar.setVisibility(View.GONE);
                 }
@@ -234,21 +234,26 @@ public class LocationFragment extends Fragment {
                     addresses = geocoder.getFromLocation(latitude, longitude, 1);
                     cityString = addresses.get(0).getLocality();
                     stateString = addresses.get(0).getAdminArea();
+                    mProgessBar.setVisibility(View.GONE);
                     Log.d(TAG, "onComplete: city and state ta assim: " + cityString + stateString);
                     if (cityString.equals("") || stateString.equals("")) {
                         alertDialogZip();
+                        mProgessBar.setVisibility(View.GONE);
                     }
 
                 } catch (IOException e) {
                     e.printStackTrace();
+                    mProgessBar.setVisibility(View.GONE);
                 }
 
             } else {
                 Log.d(TAG, "onComplete: aqui o currentLocation ta null");
                 alertDialogZip();
+                mProgessBar.setVisibility(View.GONE);
             }
         } catch (SecurityException e) {
             Log.d(TAG, "getDeviceLocation: SecurityException : " + e.getMessage());
+            mProgessBar.setVisibility(View.GONE);
         }
     }
 
