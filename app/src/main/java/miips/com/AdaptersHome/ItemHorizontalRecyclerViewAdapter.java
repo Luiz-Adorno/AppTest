@@ -3,6 +3,9 @@ package miips.com.AdaptersHome;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +13,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
-import miips.com.Models.HorizontalModel;
+import miips.com.Models.RecyclerViewModels.HorizontalModel;
 import miips.com.R;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class ItemHorizontalRecyclerViewAdapter extends RecyclerView.Adapter<ItemHorizontalRecyclerViewAdapter.HorizontalRVViewHolder> {
     Context context;
@@ -55,7 +62,12 @@ public class ItemHorizontalRecyclerViewAdapter extends RecyclerView.Adapter<Item
         public HorizontalRVViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.txtTitleHorizontal);
-            imageViewThumb = itemView.findViewById(R.id.ivThumb);
+            imageViewThumb = itemView.findViewById(R.id.ad_thumb);
+            //set image from firebase db
+            HorizontalModel hm = new HorizontalModel();
+            int image = hm.getImage();
+            Log.d(TAG, "HorizontalRVViewHolder: image ta assim: "+image);
+            Picasso.get().load(image).error(R.drawable.ad).into(imageViewThumb);
         }
     }
 }

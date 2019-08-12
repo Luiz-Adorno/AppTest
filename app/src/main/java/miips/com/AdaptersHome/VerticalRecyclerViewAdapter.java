@@ -4,6 +4,8 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +13,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import miips.com.Models.HorizontalModel;
-import miips.com.Models.VerticalModel;
+import miips.com.Models.RecyclerViewModels.HorizontalModel;
+import miips.com.Models.RecyclerViewModels.VerticalModel;
 import miips.com.R;
 
 public class VerticalRecyclerViewAdapter extends RecyclerView.Adapter<VerticalRecyclerViewAdapter.VerticalRVViewHolder> {
