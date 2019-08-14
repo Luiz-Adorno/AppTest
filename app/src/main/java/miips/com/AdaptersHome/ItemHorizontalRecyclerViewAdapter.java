@@ -55,6 +55,7 @@ public class ItemHorizontalRecyclerViewAdapter extends RecyclerView.Adapter<Item
         return arrayList.size();
     }
 
+    //layout reference
     public class HorizontalRVViewHolder extends RecyclerView.ViewHolder{
         TextView textViewTitle;
         ImageView imageViewThumb;
@@ -67,7 +68,7 @@ public class ItemHorizontalRecyclerViewAdapter extends RecyclerView.Adapter<Item
             HorizontalModel hm = new HorizontalModel();
             int image = hm.getImage();
             Log.d(TAG, "HorizontalRVViewHolder: image ta assim: "+image);
-            Picasso.get().load(image).error(R.drawable.ad).into(imageViewThumb);
+//            Picasso.get().load(image).error(R.drawable.ad).into(imageViewThumb);
         }
     }
 }
