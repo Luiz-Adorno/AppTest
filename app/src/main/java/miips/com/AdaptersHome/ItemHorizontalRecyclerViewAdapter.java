@@ -38,9 +38,16 @@ public class ItemHorizontalRecyclerViewAdapter extends RecyclerView.Adapter<Item
         return new HorizontalRVViewHolder(view);
     }
 
+    //associa cada campo e atribui valor
     @Override
     public void onBindViewHolder(@NonNull HorizontalRVViewHolder horizontalRVViewHolder, int i) {
         final HorizontalModel horizontalModel = arrayList.get(i);
+
+        //set image from firebase db
+        int image = horizontalModel.getImage();
+        Log.d(TAG, "HorizontalRVViewHolder: image ta assim: "+image);
+            Picasso.get().load(image).error(R.drawable.ad).into(horizontalRVViewHolder.imageViewThumb);
+
         horizontalRVViewHolder.textViewTitle.setText(horizontalModel.getName());
         horizontalRVViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +55,8 @@ public class ItemHorizontalRecyclerViewAdapter extends RecyclerView.Adapter<Item
                 Toast.makeText(context, horizontalModel.getName(), Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
     @Override
@@ -64,11 +73,6 @@ public class ItemHorizontalRecyclerViewAdapter extends RecyclerView.Adapter<Item
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.txtTitleHorizontal);
             imageViewThumb = itemView.findViewById(R.id.ad_thumb);
-            //set image from firebase db
-            HorizontalModel hm = new HorizontalModel();
-            int image = hm.getImage();
-            Log.d(TAG, "HorizontalRVViewHolder: image ta assim: "+image);
-//            Picasso.get().load(image).error(R.drawable.ad).into(imageViewThumb);
         }
     }
 }
