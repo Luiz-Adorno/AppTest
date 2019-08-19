@@ -55,21 +55,23 @@ public class ProductFragment extends Fragment {
     }
 
     private void setData() {
-        VerticalModel verticalModel = new VerticalModel();
-        verticalModel.setTitle("Title ");
-        ArrayList<HorizontalModel> arrayListHorizontal = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            VerticalModel verticalModel = new VerticalModel();
+            verticalModel.setTitle("Title ");
+            ArrayList<HorizontalModel> arrayListHorizontal = new ArrayList<>();
 
-        for (int j = 0; j <= 5; j++) {
-            HorizontalModel horizontalModel = new HorizontalModel();
-            horizontalModel.setName("Equivalente");
-            horizontalModel.setImage(R.drawable.ad);
-            arrayListHorizontal.add(horizontalModel);
+            for (int j = 0; j <= 5; j++) {
+                HorizontalModel horizontalModel = new HorizontalModel();
+                //set each product from db
+                horizontalModel.setName("Equivalente: "+ j);
+                horizontalModel.setImage(R.drawable.ad);
+                arrayListHorizontal.add(horizontalModel);
+            }
+
+            verticalModel.setArrayList(arrayListHorizontal);
+            arrayListVertical.add(verticalModel);
+
         }
-
-        verticalModel.setArrayList(arrayListHorizontal);
-        arrayListVertical.add(verticalModel);
-
-
         adapter.notifyDataSetChanged();
     }
 

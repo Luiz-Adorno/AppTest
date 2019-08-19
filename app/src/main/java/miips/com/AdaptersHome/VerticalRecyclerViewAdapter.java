@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +40,7 @@ public class VerticalRecyclerViewAdapter extends RecyclerView.Adapter<VerticalRe
 
         verticalRVViewHolder.textViewTitle.setText(title);
 
-        ItemHorizontalRecyclerViewAdapter horizontalRecyclerViewAdapter = new ItemHorizontalRecyclerViewAdapter(context, singleItem);
+        ProductHorizontalRecyclerViewAdapter horizontalRecyclerViewAdapter = new ProductHorizontalRecyclerViewAdapter(context, singleItem);
 
         verticalRVViewHolder.recyclerView.setHasFixedSize(true);
         verticalRVViewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
