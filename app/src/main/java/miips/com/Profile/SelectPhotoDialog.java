@@ -17,7 +17,6 @@ public class SelectPhotoDialog extends DialogFragment {
 
     private static final String TAG = "SelectPhotoDialog";
     private static final int PICKFILE_REQUEST_CODE = 12;
-    private static final int CAMERA_REQUEST_CODE = 21;
 
     public interface OnPhotoSelectedListener{
         void getImagePath(Uri imagePah);
