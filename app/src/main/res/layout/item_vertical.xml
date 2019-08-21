@@ -19,7 +19,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity = "center_vertical"
             android:text="Title"
-            android:textColor="@color/black"
+            android:textColor="@color/grey"
             android:textSize="18sp"/>
 
     </RelativeLayout>

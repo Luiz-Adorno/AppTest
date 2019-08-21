@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,11 +43,11 @@ public class VerticalRecyclerViewAdapter extends RecyclerView.Adapter<VerticalRe
     public void onBindViewHolder(@NonNull VerticalRVViewHolder verticalRVViewHolder, int i) {
         VerticalModel verticalModel = arrayList.get(i);
         String title = verticalModel.getTitle();
-        int color = verticalModel.getColorTitle();
+        Drawable color = verticalModel.getColorTitle();
         ArrayList<HorizontalModel> singleItem = verticalModel.getArrayList();
 
         verticalRVViewHolder.textViewTitle.setText(title);
-        verticalRVViewHolder.titleLayout.setBackgroundColor(color);
+        verticalRVViewHolder.titleLayout.setBackground(color);
 
         ProductHorizontalRecyclerViewAdapter horizontalRecyclerViewAdapter = new ProductHorizontalRecyclerViewAdapter(context, singleItem);
 
