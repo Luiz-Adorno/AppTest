@@ -16,5 +16,7 @@
     <color name="Transparent">#00000000</color>
     <color name="green">#00FF7F</color>
     <color name="orange">#ffa500</color>
+    <color name="red_fly">#ff7b7b</color>
+
 
 </resources>

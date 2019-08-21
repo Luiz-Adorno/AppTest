@@ -1,11 +1,13 @@
 package miips.com.Home;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
@@ -22,7 +25,6 @@ import miips.com.R;
 import miips.com.AdaptersHome.VerticalRecyclerViewAdapter;
 
 public class ProductFragment extends Fragment {
-
 
     RecyclerView verticalRecyclerView;
     VerticalRecyclerViewAdapter adapter;
@@ -56,14 +58,20 @@ public class ProductFragment extends Fragment {
 
     private void setData() {
         for (int i = 1; i <= 5; i++) {
+
             VerticalModel verticalModel = new VerticalModel();
             verticalModel.setTitle("Title ");
+            if (i == 1) {
+                verticalModel.setColorTitle(ContextCompat.getColor(getContext(), R.color.red_fly));
+            } else if (i == 2) {
+                verticalModel.setColorTitle(ContextCompat.getColor(getContext(), R.color.green));
+            }
             ArrayList<HorizontalModel> arrayListHorizontal = new ArrayList<>();
 
             for (int j = 0; j <= 5; j++) {
                 HorizontalModel horizontalModel = new HorizontalModel();
                 //set each product from db
-                horizontalModel.setName("Equivalente: "+ j);
+                horizontalModel.setName("Equivalente: " + j);
                 horizontalModel.setImage(R.drawable.ad);
                 arrayListHorizontal.add(horizontalModel);
             }

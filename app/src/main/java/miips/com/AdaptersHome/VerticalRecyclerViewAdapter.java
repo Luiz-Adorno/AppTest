@@ -1,13 +1,17 @@
 package miips.com.AdaptersHome;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,6 +21,7 @@ import miips.com.Models.RecyclerViewModels.VerticalModel;
 import miips.com.R;
 
 public class VerticalRecyclerViewAdapter extends RecyclerView.Adapter<VerticalRecyclerViewAdapter.VerticalRVViewHolder> {
+    private static final String TAG = "Vertical";
     Context context;
     ArrayList<VerticalModel> arrayList;
 
@@ -25,6 +30,7 @@ public class VerticalRecyclerViewAdapter extends RecyclerView.Adapter<VerticalRe
         this.context = context;
     }
 
+    @SuppressLint("LongLogTag")
     @NonNull
     @Override
     public VerticalRVViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -36,9 +42,11 @@ public class VerticalRecyclerViewAdapter extends RecyclerView.Adapter<VerticalRe
     public void onBindViewHolder(@NonNull VerticalRVViewHolder verticalRVViewHolder, int i) {
         VerticalModel verticalModel = arrayList.get(i);
         String title = verticalModel.getTitle();
+        int color = verticalModel.getColorTitle();
         ArrayList<HorizontalModel> singleItem = verticalModel.getArrayList();
 
         verticalRVViewHolder.textViewTitle.setText(title);
+        verticalRVViewHolder.titleLayout.setBackgroundColor(color);
 
         ProductHorizontalRecyclerViewAdapter horizontalRecyclerViewAdapter = new ProductHorizontalRecyclerViewAdapter(context, singleItem);
 
@@ -57,9 +65,11 @@ public class VerticalRecyclerViewAdapter extends RecyclerView.Adapter<VerticalRe
 
     public class VerticalRVViewHolder extends RecyclerView.ViewHolder {
         RecyclerView recyclerView;
+        RelativeLayout titleLayout;
         TextView textViewTitle;
         public VerticalRVViewHolder(@NonNull View itemView) {
             super(itemView);
+             titleLayout = itemView.findViewById(R.id.title_template);
             recyclerView = itemView.findViewById(R.id.recycler_view1);
             textViewTitle = itemView.findViewById(R.id.textTitle1);
         }
