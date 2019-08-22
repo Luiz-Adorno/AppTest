@@ -58,11 +58,9 @@ public class ProductFragment extends Fragment {
 
             VerticalModel verticalModel = new VerticalModel();
             verticalModel.setTitle("Title ");
-            if (i == 1) {
-                verticalModel.setColorTitle(getContext().getResources().getDrawable( R.drawable.title_color_red));
-            } else if (i == 2) {
-                verticalModel.setColorTitle(getContext().getResources().getDrawable( R.drawable.title_color_orange));
-            }
+
+            verticalModel.setColorTitle(getContext().getResources().getDrawable(R.drawable.title_color));
+
             ArrayList<HorizontalModel> arrayListHorizontal = new ArrayList<>();
 
             for (int j = 0; j <= 5; j++) {
