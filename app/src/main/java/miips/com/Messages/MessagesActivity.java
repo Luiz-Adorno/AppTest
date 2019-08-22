@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,8 +18,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
+import java.util.ArrayList;
+
+import miips.com.Adapters.RecyclerViewMessagesAdapter;
 import miips.com.Home.HomeActivity;
 import miips.com.LoginActivity.LoginActivity;
+import miips.com.Models.MessagesModels.MessageModel;
 import miips.com.Profile.AccountActivity;
 import miips.com.R;
 import miips.com.Search.SearchActivity;
@@ -25,6 +31,9 @@ import miips.com.Utils.BottomNavigationViewHelper;
 
 public class MessagesActivity extends AppCompatActivity {
     private static final String TAG = MessagesActivity.class.getName();
+
+    private ArrayList<MessageModel> list = new ArrayList<>();
+    private RecyclerView recyclerView;
 
     private static final int ACTIVITY_NUMBER = 2;
     private Context context = MessagesActivity.this;
@@ -36,9 +45,34 @@ public class MessagesActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
+        recyclerView = findViewById(R.id.recycler_messages);
+
+        setData();
+        setupRecycler();
 
         setupBottomNavigationViewEx();
     }
+
+    private void setupRecycler() {
+
+        recyclerView.setHasFixedSize(true);
+        RecyclerViewMessagesAdapter adapter = new RecyclerViewMessagesAdapter(context, list);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+    }
+
+    private void setData() {
+        for (int i = 1; i <= 7; i++) {
+            MessageModel message = new MessageModel();
+            message.setDate("25/01/2019");
+            message.setTitle("Hellow mundus");
+            message.setSubtitle("\"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae");
+
+            list.add(message);
+        }
+    }
+
 
     // Bottom Navigation view setup
     private void setupBottomNavigationViewEx() {

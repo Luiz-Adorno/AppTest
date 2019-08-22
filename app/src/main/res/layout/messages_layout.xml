@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:id="@+id/next_rel"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingHorizontal="10dp"
+    android:background="@drawable/itens_box">
+
+    <RelativeLayout
+            android:id="@+id/top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ic_profile"
+            android:layout_width="60dp"
+            android:background="@drawable/user_profile"
+            android:layout_height="60dp"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="1dp"/>
+
+        <TextView
+            android:layout_toEndOf="@id/ic_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/title"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginStart="10dp"
+            android:text="@string/message_title"/>
+
+        <TextView
+            android:layout_below="@+id/title"
+            android:layout_toEndOf="@id/ic_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sub_title"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:maxLength="80"
+            android:layout_marginStart="10dp"
+            android:text="O subititulo da mensagem que ser exposto aqui Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed d"/>
+
+    </RelativeLayout>
+
+
+    <TextView
+            android:id="@+id/dose"
+            android:layout_toStartOf="@id/date_number"
+            android:layout_below="@id/top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="Data:"
+            android:textColor="@color/black"/>
+
+    <TextView
+            android:layout_alignParentEnd="true"
+            android:id="@+id/date_number"
+            android:layout_marginStart="5dp"
+            android:layout_below="@id/top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="25/11/1996"
+            android:textColor="@color/black"/>
+
+</RelativeLayout>

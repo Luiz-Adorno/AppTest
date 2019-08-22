@@ -9,14 +9,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import miips.com.AdaptersHome.VerticalRecyclerViewAdapter;
+import miips.com.Adapters.VerticalRecyclerViewAdapter;
 import miips.com.Models.RecyclerViewModels.HorizontalModel;
 import miips.com.Models.RecyclerViewModels.VerticalModel;
 import miips.com.R;
@@ -59,6 +58,7 @@ public class ProductFragment extends Fragment {
             VerticalModel verticalModel = new VerticalModel();
             verticalModel.setTitle("Title ");
 
+            //set title color
             verticalModel.setColorTitle(getContext().getResources().getDrawable(R.drawable.title_color));
 
             ArrayList<HorizontalModel> arrayListHorizontal = new ArrayList<>();

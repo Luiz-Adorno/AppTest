@@ -1,4 +1,4 @@
-package miips.com.AdaptersHome;
+package miips.com.Adapters;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -21,11 +21,11 @@ import miips.com.R;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class ProductHorizontalRecyclerViewAdapter extends RecyclerView.Adapter<ProductHorizontalRecyclerViewAdapter.HorizontalRVViewHolder> {
+public class HorizontalProductRecyclerViewAdapter extends RecyclerView.Adapter<HorizontalProductRecyclerViewAdapter.HorizontalRVViewHolder> {
     Context context;
     ArrayList<HorizontalModel> arrayList;
 
-    public ProductHorizontalRecyclerViewAdapter(Context context, ArrayList<HorizontalModel> arrayList) {
+    public HorizontalProductRecyclerViewAdapter(Context context, ArrayList<HorizontalModel> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
