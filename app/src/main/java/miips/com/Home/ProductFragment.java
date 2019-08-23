@@ -1,7 +1,5 @@
 package miips.com.Home;
 
-import android.annotation.SuppressLint;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +49,6 @@ public class ProductFragment extends Fragment {
     }
 
 
-    @SuppressLint("WrongConstant")
     private void setupRecyclerVertical() {
         arrayListVertical = new ArrayList<>();
 

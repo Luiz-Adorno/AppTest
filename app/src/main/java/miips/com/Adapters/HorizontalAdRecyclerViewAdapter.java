@@ -45,7 +45,7 @@ public class HorizontalAdRecyclerViewAdapter extends RecyclerView.Adapter<Horizo
 
         //set image from firebase db
         int image_one = adModel.getAd_one();
-        int image_two = adModel.getAd_one();
+        int image_two = adModel.getAd_two();
         Log.d(TAG, "HorizontalRVViewHolder: image ta assim: " + image_one);
 
         Picasso.get().load(image_one).error(R.drawable.ad_one).into(horizontalRVViewHolder.ad_one);
