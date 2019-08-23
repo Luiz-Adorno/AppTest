@@ -47,13 +47,13 @@ public class HorizontalProductRecyclerViewAdapter extends RecyclerView.Adapter<H
         Log.d(TAG, "HorizontalRVViewHolder: image ta assim: "+image);
             Picasso.get().load(image).error(R.drawable.ad).into(horizontalRVViewHolder.imageViewThumb);
 
-        horizontalRVViewHolder.textViewTitle.setText(horizontalModel.getName());
+
 
         //Set the action in each product clicked
         horizontalRVViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, horizontalModel.getName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -72,7 +72,6 @@ public class HorizontalProductRecyclerViewAdapter extends RecyclerView.Adapter<H
 
         public HorizontalRVViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewTitle = itemView.findViewById(R.id.txtTitleHorizontal);
             imageViewThumb = itemView.findViewById(R.id.ad_thumb);
         }
     }

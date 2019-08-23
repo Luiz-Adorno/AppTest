@@ -66,7 +66,6 @@ public class ProductFragment extends Fragment {
             for (int j = 0; j <= 5; j++) {
                 HorizontalModel horizontalModel = new HorizontalModel();
                 //set each product from db
-                horizontalModel.setName("Equivalente: " + j);
                 horizontalModel.setImage(R.drawable.ad);
                 arrayListHorizontal.add(horizontalModel);
             }

@@ -8,11 +8,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,6 +37,8 @@ public class MessagesActivity extends AppCompatActivity {
     private ArrayList<MessageModel> list = new ArrayList<>();
     private RecyclerView recyclerView;
 
+    private Toolbar toolbar;
+
     private static final int ACTIVITY_NUMBER = 2;
     private Context context = MessagesActivity.this;
 
@@ -47,10 +51,33 @@ public class MessagesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_messages);
         recyclerView = findViewById(R.id.recycler_messages);
 
+        //setup toolbar
+        toolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Mensagens");
+
+
         setData();
         setupRecycler();
 
         setupBottomNavigationViewEx();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.messages_toolbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    //set action to delete selected items
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.delete:
+                Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupRecycler() {

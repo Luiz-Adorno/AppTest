@@ -14,20 +14,10 @@
 
         <ImageView
             android:id="@+id/ad_thumb"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_gravity="center_vertical"
             android:scaleType="fitXY"/>
-
-        <TextView
-            android:id="@+id/txtTitleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Sampe Text"
-            android:textColor="@color/black"
-            android:textSize="18sp"/>
-
 
     </LinearLayout>
 
