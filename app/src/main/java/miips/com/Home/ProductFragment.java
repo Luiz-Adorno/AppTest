@@ -36,6 +36,9 @@ public class ProductFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_produtcs, container, false);
         verticalRecyclerView = view.findViewById(R.id.vertical_recycler_view);
         adRecyclerView = view.findViewById(R.id.ad_rc);
+        //make scrollview continue scroll like recyclerview
+        adRecyclerView.setNestedScrollingEnabled(false);
+        verticalRecyclerView.setNestedScrollingEnabled(false);
 
         setupRecyclerVertical();
         setupRecyclerViewAd();
@@ -55,6 +58,7 @@ public class ProductFragment extends Fragment {
         verticalRecyclerView.setHasFixedSize(true);
         verticalRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         adapter = new VerticalRecyclerViewAdapter(getActivity(), arrayListVertical);
+        adapter.setHasStableIds(true);
         //make vertical adapter for recyclerview
         verticalRecyclerView.setAdapter(adapter);
 
@@ -85,7 +89,7 @@ public class ProductFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-    private void setupRecyclerViewAd(){
+    private void setupRecyclerViewAd() {
         listAd = new ArrayList<>();
 
         adRecyclerView.setHasFixedSize(true);
