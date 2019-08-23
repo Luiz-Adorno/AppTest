@@ -15,8 +15,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import miips.com.Models.RecyclerViewModels.HorizontalModel;
-import miips.com.Models.RecyclerViewModels.VerticalModel;
+import miips.com.Models.HomeModels.HorizontalModel;
+import miips.com.Models.HomeModels.VerticalModel;
 import miips.com.R;
 
 public class VerticalRecyclerViewAdapter extends RecyclerView.Adapter<VerticalRecyclerViewAdapter.VerticalRVViewHolder> {

@@ -1,4 +1,4 @@
-package miips.com.Models.RecyclerViewModels;
+package miips.com.Models.HomeModels;
 
 import android.graphics.drawable.Drawable;
 

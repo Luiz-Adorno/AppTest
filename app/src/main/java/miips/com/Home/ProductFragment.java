@@ -15,25 +15,33 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import miips.com.Adapters.HorizontalAdRecyclerViewAdapter;
 import miips.com.Adapters.VerticalRecyclerViewAdapter;
-import miips.com.Models.RecyclerViewModels.HorizontalModel;
-import miips.com.Models.RecyclerViewModels.VerticalModel;
+import miips.com.Models.HomeModels.AdModel;
+import miips.com.Models.HomeModels.HorizontalModel;
+import miips.com.Models.HomeModels.VerticalModel;
 import miips.com.R;
 
 public class ProductFragment extends Fragment {
 
-    RecyclerView verticalRecyclerView;
-    VerticalRecyclerViewAdapter adapter;
-    ArrayList<VerticalModel> arrayListVertical;
-    Image im;
+    private RecyclerView verticalRecyclerView, adRecyclerView;
+    private VerticalRecyclerViewAdapter adapter;
+    private HorizontalAdRecyclerViewAdapter adAdapter;
+    private ArrayList<VerticalModel> arrayListVertical;
+    private ArrayList<AdModel> listAd = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_produtcs, container, false);
         verticalRecyclerView = view.findViewById(R.id.vertical_recycler_view);
-        setupRecycler();
-        setData();
+        adRecyclerView = view.findViewById(R.id.ad_rc);
+
+        setupRecyclerVertical();
+        setupRecyclerViewAd();
+
+        setDataVertical();
+        setDataAd();
 
 
         return view;
@@ -41,7 +49,7 @@ public class ProductFragment extends Fragment {
 
 
     @SuppressLint("WrongConstant")
-    private void setupRecycler() {
+    private void setupRecyclerVertical() {
         arrayListVertical = new ArrayList<>();
 
         verticalRecyclerView.setHasFixedSize(true);
@@ -52,7 +60,7 @@ public class ProductFragment extends Fragment {
 
     }
 
-    private void setData() {
+    private void setDataVertical() {
         for (int i = 1; i <= 5; i++) {
 
             VerticalModel verticalModel = new VerticalModel();
@@ -77,4 +85,25 @@ public class ProductFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
+    private void setupRecyclerViewAd(){
+        listAd = new ArrayList<>();
+
+        adRecyclerView.setHasFixedSize(true);
+        adRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        adAdapter = new HorizontalAdRecyclerViewAdapter(getActivity(), listAd);
+        //make vertical adapter for recyclerview
+        adRecyclerView.setAdapter(adAdapter);
+    }
+
+    private void setDataAd() {
+        AdModel adModel = new AdModel();
+
+        for (int i = 0; i <= 5; i++) {
+            adModel.setAd_one(R.drawable.ad_one);
+            adModel.setAd_two(R.drawable.ad_two);
+
+            listAd.add(adModel);
+        }
+        adAdapter.notifyDataSetChanged();
+    }
 }
