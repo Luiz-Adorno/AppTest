@@ -1,4 +1,4 @@
-package miips.com.Adapters;
+package miips.com.Adapters.HomeAdapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -47,7 +47,7 @@ public class VerticalRecyclerViewAdapter extends RecyclerView.Adapter<VerticalRe
         verticalRVViewHolder.textViewTitle.setText(title);
         verticalRVViewHolder.titleLayout.setBackground(color);
 
-        HorizontalProductRecyclerViewAdapter horizontalRecyclerViewAdapter = new HorizontalProductRecyclerViewAdapter(context, singleItem);
+        HorizontalHomeRecyclerViewAdapter horizontalRecyclerViewAdapter = new HorizontalHomeRecyclerViewAdapter(context, singleItem);
 
         verticalRVViewHolder.recyclerView.setHasFixedSize(true);
         verticalRVViewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));

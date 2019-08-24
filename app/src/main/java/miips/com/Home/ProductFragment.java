@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import miips.com.Adapters.HorizontalAdRecyclerViewAdapter;
-import miips.com.Adapters.VerticalRecyclerViewAdapter;
+import miips.com.Adapters.HomeAdapters.VerticalRecyclerViewAdapter;
 import miips.com.Models.HomeModels.AdModel;
 import miips.com.Models.HomeModels.HorizontalModel;
 import miips.com.Models.HomeModels.VerticalModel;

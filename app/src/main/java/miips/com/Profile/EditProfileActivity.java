@@ -383,6 +383,7 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
 
+                Log.d(TAG, "location ta: "+ location.toString());
                 Geocoder geocoder;
                 List<Address> addresses;
                 geocoder = new Geocoder(context, Locale.getDefault());
@@ -392,8 +393,17 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
                     cityString = addresses.get(0).getLocality();
                     stateString = addresses.get(0).getAdminArea();
                     Log.d(TAG, "onComplete: city and state ta assim: " + cityString + stateString);
-                    Toast.makeText(this, R.string.refresh_confirm, Toast.LENGTH_SHORT).show();
+
                     mProgressBar.setVisibility(View.GONE);
+
+                    if (cityString == null || stateString == null) {
+                        Toast.makeText(
+                                getApplicationContext(),
+                                "Error ao tentar pegar pelo GPS, por favor tente pelo CEP",
+                                Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(this, R.string.refresh_confirm, Toast.LENGTH_SHORT).show();
+                    }
 
                 } catch (IOException e) {
                     e.printStackTrace();

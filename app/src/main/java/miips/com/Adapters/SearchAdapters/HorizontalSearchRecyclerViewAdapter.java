@@ -1,31 +1,30 @@
-package miips.com.Adapters;
+package miips.com.Adapters.SearchAdapters;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import miips.com.Models.HomeModels.HorizontalModel;
+import miips.com.Models.SearchModels.HorizontalSearchModel;
 import miips.com.R;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class HorizontalProductRecyclerViewAdapter extends RecyclerView.Adapter<HorizontalProductRecyclerViewAdapter.HorizontalRVViewHolder> {
+public class HorizontalSearchRecyclerViewAdapter extends RecyclerView.Adapter<HorizontalSearchRecyclerViewAdapter.HorizontalRVViewHolder> {
     Context context;
-    ArrayList<HorizontalModel> arrayList;
+    ArrayList<HorizontalSearchModel> arrayList;
 
-    public HorizontalProductRecyclerViewAdapter(Context context, ArrayList<HorizontalModel> arrayList) {
+    public HorizontalSearchRecyclerViewAdapter(Context context, ArrayList<HorizontalSearchModel> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -39,8 +38,8 @@ public class HorizontalProductRecyclerViewAdapter extends RecyclerView.Adapter<H
 
     //associa cada campo e atribui valor
     @Override
-    public void onBindViewHolder(@NonNull HorizontalRVViewHolder horizontalRVViewHolder, int i) {
-        final HorizontalModel horizontalModel = arrayList.get(i);
+    public void onBindViewHolder(@NonNull final HorizontalRVViewHolder horizontalRVViewHolder, int i) {
+        final HorizontalSearchModel horizontalModel = arrayList.get(i);
 
         //set image from firebase db
         int image = horizontalModel.getImage();
@@ -53,7 +52,7 @@ public class HorizontalProductRecyclerViewAdapter extends RecyclerView.Adapter<H
         horizontalRVViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "clicked: "+ horizontalRVViewHolder.itemView, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -67,7 +66,6 @@ public class HorizontalProductRecyclerViewAdapter extends RecyclerView.Adapter<H
 
     //layout reference
     public class HorizontalRVViewHolder extends RecyclerView.ViewHolder{
-        TextView textViewTitle;
         ImageView imageViewThumb;
 
         public HorizontalRVViewHolder(@NonNull View itemView) {

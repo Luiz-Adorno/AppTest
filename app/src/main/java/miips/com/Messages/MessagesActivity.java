@@ -22,7 +22,7 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
 
-import miips.com.Adapters.RecyclerViewMessagesAdapter;
+import miips.com.Adapters.MessagesAdapters.RecyclerViewMessagesAdapter;
 import miips.com.Home.HomeActivity;
 import miips.com.LoginActivity.LoginActivity;
 import miips.com.Models.MessagesModels.MessageModel;
@@ -55,7 +55,6 @@ public class MessagesActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Mensagens");
-
 
         setData();
         setupRecycler();

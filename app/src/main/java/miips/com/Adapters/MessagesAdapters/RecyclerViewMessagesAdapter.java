@@ -1,4 +1,4 @@
-package miips.com.Adapters;
+package miips.com.Adapters.MessagesAdapters;
 
 import android.content.Context;
 import android.util.Log;
