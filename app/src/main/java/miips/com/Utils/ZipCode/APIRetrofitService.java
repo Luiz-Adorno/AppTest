@@ -6,10 +6,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-/**
- * Created by thiagocury on 21/11/17.
- */
-
 public interface APIRetrofitService {
 
     String BASE_URL = "https://viacep.com.br/ws/";
