@@ -231,8 +231,10 @@ public class LocationFragment extends Fragment {
                 geocoder = new Geocoder(getActivity(), Locale.getDefault());
 
                 try {
+                    Log.d(TAG, "getCurrentLocation: latitude e long: "+ latitude + longitude);
                     addresses = geocoder.getFromLocation(latitude, longitude, 1);
-                    cityString = addresses.get(0).getLocality();
+                    Log.d(TAG, "getCurrentLocation: adresses ="+ addresses);
+                    cityString = addresses.get(0).getSubAdminArea();
                     stateString = addresses.get(0).getAdminArea();
                     mProgessBar.setVisibility(View.GONE);
                     Log.d(TAG, "onComplete: city and state ta assim: " + cityString + stateString);

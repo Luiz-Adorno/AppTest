@@ -127,7 +127,7 @@ public class BirthFragment extends Fragment {
     }
 
     private boolean checkInputs(String dateBirth) {
-        if (dateBirth.length() < 9) {
+        if (dateBirth.length() < 10) {
             dateEditText.setError("Data inválida");
             return false;
         }

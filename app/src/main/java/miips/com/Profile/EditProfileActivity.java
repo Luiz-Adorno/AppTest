@@ -75,6 +75,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
 public class EditProfileActivity extends AppCompatActivity implements SelectPhotoDialog.OnPhotoSelectedListener {
 
     @Override
@@ -389,8 +391,10 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
                 geocoder = new Geocoder(context, Locale.getDefault());
 
                 try {
+                    Log.d(TAG, "getCurrentLocation: latitude e long: "+ latitude + longitude);
                     addresses = geocoder.getFromLocation(latitude, longitude, 1);
-                    cityString = addresses.get(0).getLocality();
+                    Log.d(TAG, "getCurrentLocation: adresses ="+ addresses);
+                    cityString = addresses.get(0).getSubAdminArea();
                     stateString = addresses.get(0).getAdminArea();
                     Log.d(TAG, "onComplete: city and state ta assim: " + cityString + stateString);
 
