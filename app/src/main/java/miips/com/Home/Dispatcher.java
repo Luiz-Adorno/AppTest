@@ -17,8 +17,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import miips.com.LoginActivity.LoginActivity;
-import miips.com.LoginActivity.RegisterWithGoogleActivity;
 import miips.com.R;
+import miips.com.Register.google.RegisterActivityGoogle;
 
 // store the last visible activity in SharedPreferences and have a Dispatcher activity
 // that starts the last activity according to the preferences.
@@ -77,7 +77,7 @@ public class Dispatcher extends Activity {
               finish();
             } else {
               Log.d(TAG, "checkCurrentUser: user is null");
-              Intent intent = new Intent(context, RegisterWithGoogleActivity.class);
+              Intent intent = new Intent(context, RegisterActivityGoogle.class);
               startActivity(intent);
               overridePendingTransition(0, 0);
               finish();

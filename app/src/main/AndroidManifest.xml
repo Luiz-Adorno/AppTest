@@ -91,14 +91,6 @@
             tools:ignore="InnerclassSeparator">
         </activity>
 
-        <activity android:name=".LoginActivity.RegisterActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:launchMode="singleInstance"
-            android:windowSoftInputMode="stateHidden"
-            tools:ignore="InnerclassSeparator">
-        </activity>
-
         <activity android:name=".LoginActivity.ForgotPassword"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
@@ -145,14 +137,6 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
-            tools:ignore="InnerclassSeparator">
-        </activity>
-
-        <activity android:name=".LoginActivity.RegisterWithGoogleActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:launchMode="singleInstance"
-            android:windowSoftInputMode="stateHidden"
             tools:ignore="InnerclassSeparator">
         </activity>
 
