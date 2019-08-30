@@ -82,19 +82,15 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
     @Override
     public void getImagePath(Uri imagePah) {
         //assign to global variable
-        mSelectBitmap = null;
         mSelectUri = imagePah;
         Log.d(TAG, "getImagePath: URI = " + mSelectUri);
         uriString = imagePah.toString();
         Log.d(TAG, "getImagePath: URIS = " + uriString);
         uriFinal = StringManipulation.condenseUri(uriString);
 
-        pushImageFirebaseStorage();
-
     }
 
 
-    private Bitmap mSelectBitmap = null;
     private Uri mSelectUri = null;
     private String uriString = null;
     private String uriFinal;
@@ -549,6 +545,7 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
+                                    pushImageFirebaseStorage();
                                     Log.d(TAG, "onComplete: url photo successfully updated");
                                     Toast.makeText(context, "Foto alterado com sucesso", Toast.LENGTH_SHORT).show();
                                     mProgressBar.setVisibility(View.GONE);
@@ -748,11 +745,7 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
                     Picasso.get().load(user.getprofile_url()).error(R.drawable.user_profile).into(mProfilePhoto);
                 }
             } else {
-                if(user.getprofile_url() == null) {
-                    Picasso.get().load(R.drawable.user_profile).error(R.drawable.user_profile).into(mProfilePhoto);
-                }else{
-                    Picasso.get().load(user.getprofile_url()).error(R.drawable.user_profile).into(mProfilePhoto);
-                }
+                Picasso.get().load(uriString).error(R.drawable.user_profile).into(mProfilePhoto);
             }
             username.setText(user.getUsername());
             mProgressBar.setVisibility(View.GONE);

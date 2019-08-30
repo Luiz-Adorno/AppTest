@@ -26,6 +26,7 @@ import com.vicmikhailau.maskededittext.MaskedEditText;
 import miips.com.LoginActivity.LoginActivity;
 import miips.com.R;
 import miips.com.Utils.ConnectionDetector;
+import miips.com.Utils.StatesManipulation;
 import miips.com.Utils.ZipCode.APIRetrofitService;
 import miips.com.Utils.ZipCode.CEP;
 import miips.com.Utils.ZipCode.CEPDeserializer;
@@ -170,10 +171,10 @@ public class LocationCepFragmentGoogle extends Fragment {
                                 CEP cep = response.body();
 
                                 cityString = cep.getLocalidade();
-                                stateString = cep.getUf();
+                                stateString =  StatesManipulation.stManipulation(cep.getUf());
 
-                                cityCep.setText(cep.getLocalidade());
-                                stateCep.setText(cep.getUf());
+                                cityCep.setText(cityString);
+                                stateCep.setText(stateString);
 
                                 if (cityString == null || stateString == null) {
                                     Toast.makeText(
