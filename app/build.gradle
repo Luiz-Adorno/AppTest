@@ -31,18 +31,16 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'androidx.cardview:cardview:1.0.0'
     //noinspection GradleCompatible
-    androidTestImplementation 'androidx.test:runner:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     //noinspection GradleCompatible
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
     // CircleImageView
@@ -50,12 +48,12 @@ dependencies {
     //BottomNavigationView
     implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.2'
     //Firebase
-    implementation 'com.google.firebase:firebase-database:17.0.0'
-    implementation 'com.google.firebase:firebase-core:16.0.9'
+    implementation 'com.google.firebase:firebase-database:19.0.0'
+    implementation 'com.google.firebase:firebase-core:17.2.0'
     //Firebase auth
-    implementation 'com.google.firebase:firebase-auth:17.0.0'
-    implementation 'com.google.android.gms:play-services-auth:16.0.1'
-    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.firebase:firebase-auth:19.0.0'
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
     //Universal Image Loader
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     //MaskEditText
@@ -63,10 +61,12 @@ dependencies {
     //DialogSelect for gender
     implementation 'com.github.abumoallim:Android-Multi-Select-Dialog:v1.9'
     //firestore
-    implementation 'com.google.firebase:firebase-firestore:19.0.0'
+    implementation 'com.google.firebase:firebase-firestore:21.0.0'
     //prefix for namiips
     implementation 'com.github.bachors:Android-Prefix-Input:1.1'
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    implementation "androidx.versionedparcelable:versionedparcelable:1.1.0"
 }
 apply plugin: 'com.google.gms.google-services'

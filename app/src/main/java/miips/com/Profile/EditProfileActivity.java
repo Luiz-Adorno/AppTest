@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
@@ -75,8 +74,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
-
 public class EditProfileActivity extends AppCompatActivity implements SelectPhotoDialog.OnPhotoSelectedListener {
 
     @Override
@@ -87,6 +84,8 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
         uriString = imagePah.toString();
         Log.d(TAG, "getImagePath: URIS = " + uriString);
         uriFinal = StringManipulation.condenseUri(uriString);
+
+        pushImageFirebaseStorage();
 
     }
 
@@ -99,6 +98,7 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
     private static final int PERMISSION_REQUEST = 123;
 
     private boolean flagForPhoto = false; //if flag == true the profile photo already changed
+    private boolean flagForStorage = false;//if flag == true the image has been upload to firebase storage successful
     private ImageView mProfilePhoto, backArrow, editGender, saveEdit;
     private Context context;
     private EditText username;
@@ -373,7 +373,7 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
                 }
             }
 
-            Log.d(TAG, "getCurrentLocation: location is: "+ location);
+            Log.d(TAG, "getCurrentLocation: location is: " + location);
 
             if (location != null) {
                 Log.d(TAG, "onComplete: found location");
@@ -381,15 +381,15 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
 
-                Log.d(TAG, "location ta: "+ location.toString());
+                Log.d(TAG, "location ta: " + location.toString());
                 Geocoder geocoder;
                 List<Address> addresses;
                 geocoder = new Geocoder(context, Locale.getDefault());
 
                 try {
-                    Log.d(TAG, "getCurrentLocation: latitude e long: "+ latitude + longitude);
+                    Log.d(TAG, "getCurrentLocation: latitude e long: " + latitude + longitude);
                     addresses = geocoder.getFromLocation(latitude, longitude, 1);
-                    Log.d(TAG, "getCurrentLocation: adresses ="+ addresses);
+                    Log.d(TAG, "getCurrentLocation: adresses =" + addresses);
                     cityString = addresses.get(0).getSubAdminArea();
                     stateString = addresses.get(0).getAdminArea();
                     Log.d(TAG, "onComplete: city and state ta assim: " + cityString + stateString);
@@ -401,7 +401,7 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
                                 getApplicationContext(),
                                 "Error ao tentar pegar pelo GPS, por favor tente pelo CEP",
                                 Toast.LENGTH_LONG).show();
-                    }else{
+                    } else {
                         Toast.makeText(this, R.string.refresh_confirm, Toast.LENGTH_SHORT).show();
                     }
 
@@ -410,7 +410,7 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
                     mProgressBar.setVisibility(View.GONE);
                 }
 
-            }  else {
+            } else {
                 Log.d(TAG, "onComplete: aqui o currentLocation ta null");
                 Toast.makeText(context, R.string.error_location, Toast.LENGTH_SHORT).show();
                 alertDialogZip();
@@ -524,7 +524,7 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
 
         //save new profile photo from gallery
         if (mSelectUri != null) {
-            if (!flagForPhoto) {
+            if (!flagForPhoto && flagForStorage) {
                 final FirebaseFirestore db = FirebaseFirestore.getInstance();
                 final String userID = mAuth.getCurrentUser().getUid();
                 //get the URL image
@@ -545,7 +545,6 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    pushImageFirebaseStorage();
                                     Log.d(TAG, "onComplete: url photo successfully updated");
                                     Toast.makeText(context, "Foto alterado com sucesso", Toast.LENGTH_SHORT).show();
                                     mProgressBar.setVisibility(View.GONE);
@@ -565,12 +564,13 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
                         // Handle any errors
                         Log.d(TAG, "onFailure: URL deu error, uriPhoto: " + urlPhoto);
                         Log.d(TAG, "onFailure: kk userID ta: " + userID + " e uriFinal: " + uriFinal);
+                        Toast.makeText(context, "Erro ao tentar mudar foto de perfil", Toast.LENGTH_SHORT).show();
                         mProgressBar.setVisibility(View.GONE);
                     }
                 });
 
             } else {
-                mProgressBar.setVisibility(View.GONE);
+                Toast.makeText(context, "Aguarde um instante", Toast.LENGTH_SHORT).show();
             }
         } else {
             mProgressBar.setVisibility(View.GONE);
@@ -739,9 +739,9 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
             mProgressBar.setVisibility(View.VISIBLE);
         } else {
             if (uriString == null) {
-                if(user.getprofile_url() == null) {
+                if (user.getprofile_url() == null) {
                     Picasso.get().load(R.drawable.user_profile).error(R.drawable.user_profile).into(mProfilePhoto);
-                }else{
+                } else {
                     Picasso.get().load(user.getprofile_url()).error(R.drawable.user_profile).into(mProfilePhoto);
                 }
             } else {
@@ -807,13 +807,15 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 mProgressBar.setVisibility(View.GONE);
-
+                flagForStorage = true;
+                saveProfileSettings();
                 Log.d(TAG, "onSuccess: mSelectUri ok");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 mProgressBar.setVisibility(View.GONE);
+                flagForStorage = false;
                 Log.d(TAG, "onFailure: mSelectUri");
                 Toast.makeText(context, "Error ao tentar atualizar foto de perfil", Toast.LENGTH_SHORT).show();
             }
