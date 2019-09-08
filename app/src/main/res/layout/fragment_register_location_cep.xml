@@ -59,10 +59,9 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="5dp"
                 android:layout_toEndOf="@id/city_image"
-                android:background="@drawable/edit_text_box_corner"
+                android:background="@drawable/bottom_white_grey_border"
                 android:gravity="center"
                 android:padding="5dp"
-                android:textColorHint="@color/white"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
         </RelativeLayout>
@@ -89,10 +88,9 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="5dp"
                 android:layout_toEndOf="@id/state_image"
-                android:background="@drawable/edit_text_box_corner"
+                android:background="@drawable/bottom_white_grey_border"
                 android:gravity="center"
                 android:padding="5dp"
-                android:textColorHint="@color/white"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
         </RelativeLayout>

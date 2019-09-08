@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +57,7 @@ public class LocationFragment extends Fragment {
     private String cityString, stateString;
     public String bestProvider;
     public Criteria criteria;
+    private RelativeLayout lay1, lay2;
 
 
     public static final int PERMISSIONS_REQUEST_ENABLE_GPS = 9003;
@@ -74,6 +76,10 @@ public class LocationFragment extends Fragment {
         stateWidgets = view.findViewById(R.id.state);
         cd = new ConnectionDetector(getActivity());
         getPermissions();
+        lay1 = view.findViewById(R.id.layout1);
+        lay2 = view.findViewById(R.id.layout2);
+        lay1.setVisibility(View.GONE);
+        lay2.setVisibility(View.GONE);
 
         initGps();
         initCancel();
@@ -322,6 +328,10 @@ public class LocationFragment extends Fragment {
                     if (mPermissionsGranted) {
                         Log.d(TAG, "onClick: pegou os nomes no 1 click");
                         getCurrentLocation();
+
+                        lay1.setVisibility(View.VISIBLE);
+                        lay2.setVisibility(View.VISIBLE);
+
                         cityWidgets.setText(cityString);
                         stateWidgets.setText(stateString);
                         Log.d(TAG, "onClick: o mPermission ta true aqui");

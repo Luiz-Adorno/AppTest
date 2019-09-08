@@ -84,7 +84,7 @@ public class BirthFragment extends Fragment {
                             // Begin the transaction
                             FragmentTransaction ft = getFragmentManager().beginTransaction();
                             // Replace the contents of the container with the new fragment
-                            ft.replace(R.id.frame_layout, new LocationCepFragment());
+                            ft.replace(R.id.frame_layout, new LocationFragment());
                             ft.commit();
                         } else {
                             buildDialog(getActivity()).show();

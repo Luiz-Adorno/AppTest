@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ public class LocationCepFragmentGoogle extends Fragment {
     private String cityString, stateString;
     private Button next, cancel;
     ConnectionDetector cd;
+    private RelativeLayout lay1, lay2;
 
     @Nullable
     @Override
@@ -61,6 +63,10 @@ public class LocationCepFragmentGoogle extends Fragment {
         cancel = view.findViewById(R.id.cancel);
         gotoCep = view.findViewById(R.id.goto_cep);
         cd = new ConnectionDetector(getActivity());
+        lay1 = view.findViewById(R.id.layout1);
+        lay2 = view.findViewById(R.id.layout2);
+        lay1.setVisibility(View.GONE);
+        lay2.setVisibility(View.GONE);
 
         cepInit();
         init();
@@ -172,6 +178,9 @@ public class LocationCepFragmentGoogle extends Fragment {
 
                                 cityString = cep.getLocalidade();
                                 stateString =  StatesManipulation.stManipulation(cep.getUf());
+
+                                lay1.setVisibility(View.VISIBLE);
+                                lay2.setVisibility(View.VISIBLE);
 
                                 cityCep.setText(cityString);
                                 stateCep.setText(stateString);

@@ -191,7 +191,9 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
         final MaskedEditText cep = findViewById(R.id.cep);
         Button btnCep = findViewById(R.id.btn_cep);
         cityCep = findViewById(R.id.cityp);
+        cityCep.setText(mUserSettings.getCity());
         stateCep = findViewById(R.id.statep);
+        stateCep.setText(mUserSettings.getState());
         layoutLocation.setVisibility(View.GONE);
         cepLayout.setVisibility(View.VISIBLE);
 
@@ -625,6 +627,33 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
         }
     }
 
+    private boolean settingsChanged() {
+
+        final String mUsername = username.getText().toString();
+        final String mCity = cityWidgets.getText().toString();
+        final String mState = stateWidgets.getText().toString();
+        final String mBirth = dateEditText.getText().toString();
+        final String mGender = gender.getText().toString();
+        final String mMiipsId = miipsID.getText().toString();
+
+        if (!mUserSettings.getUsername().equals(mUsername)) {
+            return true;
+        }
+        if (!mUserSettings.getCity().equals(mCity) || !mUserSettings.getState().equals(mState)) {
+            return true;
+        }
+        if (!mUserSettings.getBirth().equals(mBirth)) {
+            return true;
+        }
+        if (!mUserSettings.getGender().equals(mGender)) {
+            return true;
+        }
+        if (!mUserSettings.getmiips_id().equals(mMiipsId)) {
+            return true;
+        }
+        return false;
+    }
+
     private void editProfilePhoto() {
         changeProfilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -762,11 +791,15 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mProgressBar.setVisibility(View.VISIBLE);
-                Intent intent = new Intent(context, ProfileActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-                finish();
+                if (settingsChanged()) {
+                    alertConfirmBack();
+                } else {
+                    mProgressBar.setVisibility(View.VISIBLE);
+                    Intent intent = new Intent(context, ProfileActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+                    finish();
+                }
             }
         });
 
@@ -777,6 +810,37 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
             }
         });
 
+    }
+
+    private void alertConfirmBack() {
+        AlertDialog.Builder alertDialogP = new AlertDialog.Builder(context);
+        alertDialogP.setMessage("Não foi salvo as alterações feitas, deseja salvar?");
+        alertDialogP.setCancelable(true);
+
+        alertDialogP.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                saveProfileSettings();
+                mProgressBar.setVisibility(View.VISIBLE);
+                Intent intent = new Intent(context, ProfileActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+                finish();
+            }
+        });
+
+        alertDialogP.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mProgressBar.setVisibility(View.VISIBLE);
+                Intent intent = new Intent(context, ProfileActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+                finish();
+            }
+        });
+
+        alertDialogP.create().show();
     }
 
     private void setupFirebaseAuth() {
