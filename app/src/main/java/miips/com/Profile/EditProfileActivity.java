@@ -13,6 +13,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -661,6 +662,19 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
                 flagForPhoto = false;
                 if (!onlyVerifyPermission()) {
                     alertEditPhoto();
+                    mProgressBar.setVisibility(View.VISIBLE);
+                    //wait fot 7s
+                    new Handler().postDelayed(new Runnable() {
+                        public void run() {
+                            mProgressBar.setVisibility(View.GONE);
+                            // yourMethod();
+                            if(onlyVerifyPermission()){
+                                Log.d(TAG, "onClick: Opening  dialog to choose new photo");
+                                SelectPhotoDialog dialog = new SelectPhotoDialog();
+                                dialog.show(getSupportFragmentManager(), getString(R.string.dialog_select_photo));
+                            }
+                        }
+                    }, 7000);   //7 seconds
                 } else {
                     Log.d(TAG, "onClick: Opening  dialog to choose new photo");
                     SelectPhotoDialog dialog = new SelectPhotoDialog();
@@ -911,6 +925,19 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (settingsChanged()) {
+            alertConfirmBack();
+        } else {
+            mProgressBar.setVisibility(View.VISIBLE);
+            Intent intent = new Intent(context, ProfileActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+            finish();
+        }
     }
 
     @Override
