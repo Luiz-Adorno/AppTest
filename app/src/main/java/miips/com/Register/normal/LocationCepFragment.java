@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AlertDialog;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -170,31 +172,40 @@ public class LocationCepFragment extends Fragment {
                     callCEPByCEP.enqueue(new Callback<CEP>() {
                         @Override
                         public void onResponse(Call<CEP> call, Response<CEP> response) {
+                            Log.d(TAG, "onResponse: response ta:" + response);
                             if (!response.isSuccessful()) {
                                 Toast.makeText(
                                         getActivity(), R.string.cep_error,
                                         Toast.LENGTH_LONG).show();
                             } else {
                                 CEP cep = response.body();
+                                Log.d(TAG, "onResponse: cep taa" + cep);
+                                if (cep.getCep()!= null) {
 
-                                cityString = cep.getLocalidade();
-                                stateString =  StatesManipulation.stManipulation(cep.getUf());
+                                    cityString = cep.getLocalidade();
+                                    stateString = StatesManipulation.stManipulation(cep.getUf());
 
-                                lay1.setVisibility(View.VISIBLE);
-                                lay2.setVisibility(View.VISIBLE);
+                                    lay1.setVisibility(View.VISIBLE);
+                                    lay2.setVisibility(View.VISIBLE);
 
-                                cityCep.setText(cityString);
-                                stateCep.setText(stateString);
+                                    cityCep.setText(cityString);
+                                    stateCep.setText(stateString);
 
-                                if (cityString == null || stateString == null) {
+                                    if (cityString == null || stateString == null) {
+                                        Toast.makeText(
+                                                getActivity(),
+                                                "CEP inválido",
+                                                Toast.LENGTH_LONG).show();
+                                    }
+
+                                    //Retorno no Log
+                                    Log.d(TAG, cep.toString());
+                                } else {
                                     Toast.makeText(
-                                            getActivity(),
-                                            "CEP inválido",
+                                            getActivity(), R.string.cep_error,
                                             Toast.LENGTH_LONG).show();
                                 }
 
-                                //Retorno no Log
-                                Log.d(TAG, cep.toString());
                             }
                             mProgessBar.setVisibility(View.INVISIBLE);
                         }
