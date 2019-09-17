@@ -179,7 +179,7 @@ public class LocationCepFragment extends Fragment {
                                         Toast.LENGTH_LONG).show();
                             } else {
                                 CEP cep = response.body();
-                                Log.d(TAG, "onResponse: cep taa" + cep);
+                                Log.d(TAG, "onResponse: cep taa:" + cep);
                                 if (cep.getCep()!= null) {
 
                                     cityString = cep.getLocalidade();
