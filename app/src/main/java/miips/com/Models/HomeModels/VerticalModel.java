@@ -6,8 +6,17 @@ import java.util.ArrayList;
 
 public class VerticalModel {
     Drawable colorTitle;
+    int colorString;
     String title;
     ArrayList<HorizontalModel> arrayList;
+
+    public int getColorString() {
+        return colorString;
+    }
+
+    public void setColorString(int colorString) {
+        this.colorString = colorString;
+    }
 
     public String getTitle() {
         return title;

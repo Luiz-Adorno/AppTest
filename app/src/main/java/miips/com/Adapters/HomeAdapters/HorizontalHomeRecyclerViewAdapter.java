@@ -42,7 +42,7 @@ public class HorizontalHomeRecyclerViewAdapter extends RecyclerView.Adapter<Hori
         final HorizontalModel horizontalModel = arrayList.get(i);
 
         //set image from firebase db
-        int image = horizontalModel.getImage();
+        String image = horizontalModel.getImage();
         Log.d(TAG, "HorizontalRVViewHolder: image ta assim: "+image);
             Picasso.get().load(image).error(R.drawable.ad).into(horizontalRVViewHolder.imageViewThumb);
 
@@ -52,7 +52,7 @@ public class HorizontalHomeRecyclerViewAdapter extends RecyclerView.Adapter<Hori
         horizontalRVViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "clicked: "+ horizontalRVViewHolder.itemView, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "clicked: "+ horizontalModel.getProductId(), Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -39,11 +39,11 @@ public class ServiceFragment extends Fragment {
         adRecyclerView.setNestedScrollingEnabled(false);
         verticalRecyclerView.setNestedScrollingEnabled(false);
 
-        setupRecyclerVertical();
-        setupRecyclerViewAd();
+       // setupRecyclerVertical();
+       // setupRecyclerViewAd();
 
-        setDataVertical();
-        setDataAd();
+        //setDataVertical();
+      //  setDataAd();
 
         return view;
     }
@@ -75,9 +75,9 @@ public class ServiceFragment extends Fragment {
                 HorizontalModel horizontalModel = new HorizontalModel();
                 //set each product from db
                 if(i%2==0) {
-                    horizontalModel.setImage(R.drawable.ad_search_one);
+                 //   horizontalModel.setImage(R.drawable.ad_search_one);
                 }else{
-                    horizontalModel.setImage(R.drawable.ad_search_two);
+                //    horizontalModel.setImage(R.drawable.ad_search_two);
                 }
                 arrayListHorizontal.add(horizontalModel);
             }

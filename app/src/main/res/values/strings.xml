@@ -91,4 +91,5 @@
     <string name="add_gps">Adcionar localização pelo GPS</string>
     <string name="message_title">Titulo da mensagem</string>
     <string name="search_hint">Procurar produtos, marcas, promoções...</string>
+    <string name="cp">commercialPlaces</string>
 </resources>

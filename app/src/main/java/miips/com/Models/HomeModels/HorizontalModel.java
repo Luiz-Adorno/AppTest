@@ -1,13 +1,23 @@
 package miips.com.Models.HomeModels;
 
 public class HorizontalModel {
-    int image;
+    String productId;
 
-    public int getImage() {
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    String image;
+
+    public String getImage() {
         return image;
     }
-    public void setImage(int image) {
+
+    public void setImage(String image) {
         this.image = image;
     }
-
 }

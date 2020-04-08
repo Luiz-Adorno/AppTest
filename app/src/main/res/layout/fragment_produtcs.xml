@@ -21,7 +21,55 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_below="@id/ad_rc"
-                android:id="@+id/vertical_recycler_view"
+                android:id="@+id/vertical_recycler_view1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ad_rc2"
+                android:layout_below="@id/vertical_recycler_view1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_below="@id/ad_rc2"
+                android:id="@+id/vertical_recycler_view2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ad_rc3"
+                android:layout_below="@id/vertical_recycler_view2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_below="@id/ad_rc3"
+                android:id="@+id/vertical_recycler_view3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ad_rc4"
+                android:layout_below="@id/vertical_recycler_view3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_below="@id/ad_rc4"
+                android:id="@+id/vertical_recycler_view4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">

@@ -228,7 +228,7 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
                                 cityString = cep.getLocalidade();
 
                                 if (cep.getUf() != null) {
-                                    stateString = StatesManipulation.stManipulation(cep.getUf());
+                                    stateString = cep.getUf();
                                 }
 
                                 Log.d(TAG, "onResponse: st1 é: " + stateString);
@@ -394,7 +394,7 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
                     addresses = geocoder.getFromLocation(latitude, longitude, 1);
                     Log.d(TAG, "getCurrentLocation: adresses =" + addresses);
                     cityString = addresses.get(0).getSubAdminArea();
-                    stateString = addresses.get(0).getAdminArea();
+                    stateString = StatesManipulation.stManipulation(addresses.get(0).getAdminArea());
                     Log.d(TAG, "onComplete: city and state ta assim: " + cityString + stateString);
 
                     mProgressBar.setVisibility(View.GONE);

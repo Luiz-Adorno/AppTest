@@ -195,7 +195,7 @@ public class NameFragment extends Fragment {
                     }
 
                     if (snapshotList.size() > 0) {
-                        //Field is Exist
+                        //Field exist
                         onSuccessListener.onSuccess(false);
                     } else {
                         onSuccessListener.onSuccess(true);

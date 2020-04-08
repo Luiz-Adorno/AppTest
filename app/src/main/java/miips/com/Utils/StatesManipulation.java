@@ -5,86 +5,87 @@ public class StatesManipulation {
     public static String stManipulation(String st){
 
         switch (st){
-            case "AC":
-                return "Acre";
+            case "Acre":
+                return "AC";
 
-            case "AL":
-                return "Alagoas";
+            case "Alagoas":
+                return "AL";
 
-            case "AP":
-                return "Amapá";
+            case "Amapá":
+                return "AP";
 
-            case "AM":
-                return "Amazonas";
+            case "Amazonas":
+                return "AM";
 
-            case "BA":
-                return "Bahia";
+            case "Bahia":
+                return "BA";
 
-            case "CE":
-                return "Ceará";
+            case "Ceará":
+                return "CE";
 
-            case "DF":
-                return "Distrito Federal";
+            case "Distrito Federal":
+                return "DF";
 
-            case "ES":
-                return "Espírito Santo";
+            case "Espírito Santo":
+                return "ES";
 
-            case "GO":
-                return "Goiás";
+            case "Goiás":
+                return "GO";
 
-            case "MA":
-                return "Maranhão";
+            case "Maranhão":
+                return "MA";
 
-            case "MT":
-                return "Mato Grosso";
+            case "Mato Grosso":
+                return "MT";
 
-            case "MS":
-                return "Mato Grosso do Sul";
+            case "Mato Grosso do Sul":
+                return "MS";
 
-            case "MG":
-                return "Minas Gerais";
+            case "Minas Gerais":
+                return "MG";
 
-            case "PA":
-                return "Pará";
+            case "Pará":
+                return "PA";
 
-            case "PB":
-                return "Paraíba";
+            case "Paraíba":
+                return "PB";
 
-            case "PR":
-                return "Paraná";
+            case "Paraná":
+                return "PR";
 
-            case "PE":
-                return "Pernambuco";
+            case "Pernambuco":
+                return "PE";
 
-            case "PI":
-                return "Piauí";
+            case "Piauí":
+                return "PI";
 
-            case "RR":
-                return "Roraima";
+            case "Roraima":
+                return "RR";
 
-            case "PO":
-                return "Rondônia";
+            case "Rondônia":
+                return "RO";
 
-            case "RJ":
-                return "Rio de Janeiro";
+            case "Rio de Janeiro":
+                return "RJ";
 
-            case "RN":
-                return "Rio Grande do Norte";
+            case "Rio Grande do Norte":
+                return "RN";
 
-            case "RS":
-                return "Rio Grande do Sul";
+            case "Rio Grande do Sul":
+                return "RS";
 
-            case "SC":
-                return "Santa Catarina";
+            case "Santa Catarina":
+                return "SC";
 
-            case "SP":
-                return "São Paulo";
+            case "São Paulo":
+                return "SP";
 
-            case "SE":
-                return "Sergipe";
+            case "Sergipe":
+                return "SE";
 
-            case "TO":
-                return "Tocantins";
+            case "Tocantins":
+                return "TO";
+
         }
 
         return null;
