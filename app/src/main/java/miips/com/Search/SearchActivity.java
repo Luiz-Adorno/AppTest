@@ -3,6 +3,7 @@ package miips.com.Search;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -29,6 +30,9 @@ import miips.com.Adapters.SearchAdapters.VerticalRecyclerViewSearchAdapter;
 import miips.com.Home.HomeActivity;
 import miips.com.LoginActivity.LoginActivity;
 import miips.com.Messages.MessagesActivity;
+import miips.com.Models.HomeModels.HorizontalModel;
+import miips.com.Models.HomeModels.VerticalModel;
+import miips.com.Models.Products.Products;
 import miips.com.Models.SearchModels.HorizontalSearchModel;
 import miips.com.Models.SearchModels.VerticalSearchModel;
 import miips.com.Profile.AccountActivity;
@@ -114,6 +118,29 @@ public class SearchActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+//    private void setSectionOne(String section, Drawable colorBlack, int colorString) {
+//        VerticalModel verticalModel = new VerticalModel();
+//        verticalModel.setTitle(section);
+//
+//        //set title color
+//        verticalModel.setColorTitle(colorBlack);
+//        verticalModel.setColorString(colorString);
+//
+//        ArrayList<HorizontalModel> arrayListHorizontal = new ArrayList<>();
+//
+//        for (Products model : listOne) {
+//
+//            HorizontalModel horizontalModel = new HorizontalModel();
+//            //set each product from db
+//            horizontalModel.setProductId(model.getDocId());
+//            horizontalModel.setImage(model.getUrl_product());
+//            //them add
+//            arrayListHorizontal.add(horizontalModel);
+//        }
+//
+//        verticalModel.setArrayList(arrayListHorizontal);
+//        arrayListVertical.add(verticalModel);
+//    }
 
 
     // Bottom Navigation view setup

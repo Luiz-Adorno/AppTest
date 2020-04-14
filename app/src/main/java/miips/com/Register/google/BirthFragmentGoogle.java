@@ -45,6 +45,8 @@ public class BirthFragmentGoogle extends Fragment {
         mContext = getActivity();
         cd = new ConnectionDetector(getActivity());
 
+        dialogInfoMiips();
+
         //get gender selected
         radioGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -66,6 +68,20 @@ public class BirthFragmentGoogle extends Fragment {
         initCancel();
         return view;
     }
+
+    private void dialogInfoMiips() {
+        AlertDialog.Builder alertDialogP = new AlertDialog.Builder(mContext);
+        alertDialogP.setMessage("Por favor complete os próximos passos para finalizar o cadastro com sua conta google.");
+        alertDialogP.setCancelable(true);
+        alertDialogP.setPositiveButton("Entendi", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alertDialogP.create().show();
+    }
+
 
     private void init() {
         next.setOnClickListener(new View.OnClickListener() {

@@ -37,6 +37,7 @@ import miips.com.LoginActivity.LoginActivity;
 import miips.com.R;
 import miips.com.Register.normal.LocationCepFragment;
 import miips.com.Utils.ConnectionDetector;
+import miips.com.Utils.StatesManipulation;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -243,7 +244,7 @@ public class LocationFragmentGoogle extends Fragment {
                     addresses = geocoder.getFromLocation(latitude, longitude, 1);
                     Log.d(TAG, "getCurrentLocation: adresses ="+ addresses);
                     cityString = addresses.get(0).getSubAdminArea();
-                    stateString = addresses.get(0).getAdminArea();
+                    stateString = StatesManipulation.stManipulation(addresses.get(0).getAdminArea());
                     mProgessBar.setVisibility(View.GONE);
                     Log.d(TAG, "onComplete: city and state ta assim: " + cityString + stateString);
                     if (cityString.equals("") || stateString.equals("")) {

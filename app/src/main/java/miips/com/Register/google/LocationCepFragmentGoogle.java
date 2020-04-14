@@ -177,7 +177,7 @@ public class LocationCepFragmentGoogle extends Fragment {
                                 CEP cep = response.body();
 
                                 cityString = cep.getLocalidade();
-                                stateString =  StatesManipulation.stManipulation(cep.getUf());
+                                stateString =  cep.getUf();
 
                                 lay1.setVisibility(View.VISIBLE);
                                 lay2.setVisibility(View.VISIBLE);

@@ -33,7 +33,7 @@ public class VerticalRecyclerViewSearchAdapter extends RecyclerView.Adapter<Vert
     @NonNull
     @Override
     public VerticalRVViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_vertical, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_vertical, viewGroup, false);
         return new VerticalRVViewHolder(view);
     }
 
