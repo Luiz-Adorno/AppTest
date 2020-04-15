@@ -59,7 +59,7 @@ public class ProductFragment extends Fragment {
     private RecyclerView adRecyclerView, adRecyclerView2, adRecyclerView3, adRecyclerView4, adRecyclerView5;
     private VerticalRecyclerViewAdapter adapter, adapter2, adapter3, adapter4;
     private HorizontalAdRecyclerViewAdapter adAdapter, adAdapter2, adAdapter3, adAdapter4, adAdapter5;
-    private ArrayList<VerticalModel> arrayListVertical = new ArrayList<>(), arrayListVertical2 = new ArrayList<>(), arrayListVertical3 = new ArrayList<>(), arrayListVertical4;
+    private ArrayList<VerticalModel> arrayListVertical = new ArrayList<>(), arrayListVertical2 = new ArrayList<>(), arrayListVertical3 = new ArrayList<>(), arrayListVertical4 = new ArrayList<>();
 
     private ArrayList<AdModel> listAd = new ArrayList<>();
     private ArrayList<AdModel> listAd2 = new ArrayList<>();
@@ -106,6 +106,8 @@ public class ProductFragment extends Fragment {
         setupRecyclerViewAd();
         setupRecyclerViewAd2();
         setupRecyclerViewAd3();
+        setupRecyclerViewAd4();
+        setupRecyclerViewAd5();
 
         getUserData();
 
@@ -241,6 +243,171 @@ public class ProductFragment extends Fragment {
                 if (!list.isEmpty()) {
                     setDataAd3();
                     setSectionThree(list, "Acessórios", getContext().getResources().getDrawable(R.drawable.white_draw), Color.BLACK);
+                }else{
+                    Log.d(TAG, "onCallback: acess vazio male");
+                }
+
+            }
+        }, docID);
+
+        getSunglassUni(new FirestoreCallback() {
+            @Override
+            public void onCallback(ArrayList<Products> list) {
+                if (!list.isEmpty()) {
+                    setDataAd3();
+                    setSectionThree(list, "Acessórios", getContext().getResources().getDrawable(R.drawable.white_draw), Color.BLACK);
+                }else{
+                    Log.d(TAG, "onCallback: acess vazio male");
+                }
+
+            }
+        }, docID);
+
+        getSunglassfemale(new FirestoreCallback() {
+            @Override
+            public void onCallback(ArrayList<Products> list) {
+                if (!list.isEmpty()) {
+                    setDataAd3();
+                    setSectionThree(list, "Acessórios", getContext().getResources().getDrawable(R.drawable.white_draw), Color.BLACK);
+                }else{
+                    Log.d(TAG, "onCallback: acess vazio male");
+                }
+
+            }
+        }, docID);
+
+        getSunglassMale(new FirestoreCallback() {
+            @Override
+            public void onCallback(ArrayList<Products> list) {
+                if (!list.isEmpty()) {
+                    setDataAd3();
+                    setSectionThree(list, "Acessórios", getContext().getResources().getDrawable(R.drawable.white_draw), Color.BLACK);
+                }else{
+                    Log.d(TAG, "onCallback: acess vazio male");
+                }
+
+            }
+        }, docID);
+
+        getJewelryU(new FirestoreCallback() {
+            @Override
+            public void onCallback(ArrayList<Products> list) {
+                if (!list.isEmpty()) {
+                    setDataAd4();
+                    setDataAd5();
+                    setSectionFour(list, "Acessórios", getContext().getResources().getDrawable(R.drawable.white_draw), Color.BLACK);
+                }else{
+                    Log.d(TAG, "onCallback: acess vazio male");
+                }
+
+            }
+        }, docID);
+
+        getJewelryF(new FirestoreCallback() {
+            @Override
+            public void onCallback(ArrayList<Products> list) {
+                if (!list.isEmpty()) {
+                    setDataAd4();
+                    setDataAd5();
+                    setSectionFour(list, "Acessórios", getContext().getResources().getDrawable(R.drawable.white_draw), Color.BLACK);
+                }else{
+                    Log.d(TAG, "onCallback: acess vazio male");
+                }
+
+            }
+        }, docID);
+
+        getJewelryM(new FirestoreCallback() {
+            @Override
+            public void onCallback(ArrayList<Products> list) {
+                if (!list.isEmpty()) {
+                    setDataAd4();
+                    setDataAd5();
+                    setSectionFour(list, "Acessórios", getContext().getResources().getDrawable(R.drawable.white_draw), Color.BLACK);
+                }else{
+                    Log.d(TAG, "onCallback: acess vazio male");
+                }
+
+            }
+        }, docID);
+
+        getSemiJewelryU(new FirestoreCallback() {
+            @Override
+            public void onCallback(ArrayList<Products> list) {
+                if (!list.isEmpty()) {
+                    setDataAd4();
+                    setDataAd5();
+                    setSectionFour(list, "Acessórios", getContext().getResources().getDrawable(R.drawable.white_draw), Color.BLACK);
+                }else{
+                    Log.d(TAG, "onCallback: acess vazio male");
+                }
+
+            }
+        }, docID);
+
+        getSemiJewelryF(new FirestoreCallback() {
+            @Override
+            public void onCallback(ArrayList<Products> list) {
+                if (!list.isEmpty()) {
+                    setDataAd4();
+                    setDataAd5();
+                    setSectionFour(list, "Acessórios", getContext().getResources().getDrawable(R.drawable.white_draw), Color.BLACK);
+                }else{
+                    Log.d(TAG, "onCallback: acess vazio male");
+                }
+
+            }
+        }, docID);
+
+        getSemiJewelryM(new FirestoreCallback() {
+            @Override
+            public void onCallback(ArrayList<Products> list) {
+                if (!list.isEmpty()) {
+                    setDataAd4();
+                    setDataAd5();
+                    setSectionFour(list, "Acessórios", getContext().getResources().getDrawable(R.drawable.white_draw), Color.BLACK);
+                }else{
+                    Log.d(TAG, "onCallback: acess vazio male");
+                }
+
+            }
+        }, docID);
+
+        getBijouU(new FirestoreCallback() {
+            @Override
+            public void onCallback(ArrayList<Products> list) {
+                if (!list.isEmpty()) {
+                    setDataAd4();
+                    setDataAd5();
+                    setSectionFour(list, "Acessórios", getContext().getResources().getDrawable(R.drawable.white_draw), Color.BLACK);
+                }else{
+                    Log.d(TAG, "onCallback: acess vazio male");
+                }
+
+            }
+        }, docID);
+
+        getBijouF(new FirestoreCallback() {
+            @Override
+            public void onCallback(ArrayList<Products> list) {
+                if (!list.isEmpty()) {
+                    setDataAd4();
+                    setDataAd5();
+                    setSectionFour(list, "Acessórios", getContext().getResources().getDrawable(R.drawable.white_draw), Color.BLACK);
+                }else{
+                    Log.d(TAG, "onCallback: acess vazio male");
+                }
+
+            }
+        }, docID);
+
+        getBijouM(new FirestoreCallback() {
+            @Override
+            public void onCallback(ArrayList<Products> list) {
+                if (!list.isEmpty()) {
+                    setDataAd4();
+                    setDataAd5();
+                    setSectionFour(list, "Acessórios", getContext().getResources().getDrawable(R.drawable.white_draw), Color.BLACK);
                 }else{
                     Log.d(TAG, "onCallback: acess vazio male");
                 }
@@ -510,11 +677,330 @@ public class ProductFragment extends Fragment {
                 });
     }
 
-    private void getSunglass(final FirestoreCallback firestoreCallback, String docId) {
+    private void getSunglassUni(final FirestoreCallback firestoreCallback, String docId) {
         products = new Products();
         CollectionReference productRef = db.collection(getString(R.string.cp)).document(docId).collection("Product");
 
-        productRef.whereEqualTo("gender", "Masculino").whereEqualTo("product_category", "Acessórios")
+        productRef.whereEqualTo("gender", "Unissex").whereEqualTo("product_category", "Óculos de sol")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<Products> listUniversal = new ArrayList<>();
+                            mProgressBar.setVisibility(View.GONE);
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + "ta => " + document.getData());
+                                products = document.toObject(Products.class);
+                                products.setDocId(document.getId());
+                                listUniversal.add(products);
+                            }
+                            firestoreCallback.onCallback(listUniversal);
+
+                        } else {
+                            Toast.makeText(getContext(), "Conexão fraca, tentar novamente mais tarde", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                });
+    }
+
+    private void getSunglassfemale(final FirestoreCallback firestoreCallback, String docId) {
+        products = new Products();
+        CollectionReference productRef = db.collection(getString(R.string.cp)).document(docId).collection("Product");
+
+        productRef.whereEqualTo("gender", "Feminino").whereEqualTo("product_category", "Óculos de sol")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<Products> listUniversal = new ArrayList<>();
+                            mProgressBar.setVisibility(View.GONE);
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + "ta => " + document.getData());
+                                products = document.toObject(Products.class);
+                                products.setDocId(document.getId());
+                                listUniversal.add(products);
+                            }
+                            firestoreCallback.onCallback(listUniversal);
+
+                        } else {
+                            Toast.makeText(getContext(), "Conexão fraca, tentar novamente mais tarde", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                });
+    }
+
+    private void getSunglassMale(final FirestoreCallback firestoreCallback, String docId) {
+        products = new Products();
+        CollectionReference productRef = db.collection(getString(R.string.cp)).document(docId).collection("Product");
+
+        productRef.whereEqualTo("gender", "Masculino").whereEqualTo("product_category", "Óculos de sol")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<Products> listUniversal = new ArrayList<>();
+                            mProgressBar.setVisibility(View.GONE);
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + "ta => " + document.getData());
+                                products = document.toObject(Products.class);
+                                products.setDocId(document.getId());
+                                listUniversal.add(products);
+                            }
+                            firestoreCallback.onCallback(listUniversal);
+
+                        } else {
+                            Toast.makeText(getContext(), "Conexão fraca, tentar novamente mais tarde", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                });
+    }
+
+    private void getJewelryU(final FirestoreCallback firestoreCallback, String docId) {
+        products = new Products();
+        CollectionReference productRef = db.collection(getString(R.string.cp)).document(docId).collection("Product");
+
+        productRef.whereEqualTo("gender", "Unissex").whereEqualTo("product_category", "Joias")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<Products> listUniversal = new ArrayList<>();
+                            mProgressBar.setVisibility(View.GONE);
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + "ta => " + document.getData());
+                                products = document.toObject(Products.class);
+                                products.setDocId(document.getId());
+                                listUniversal.add(products);
+                            }
+                            firestoreCallback.onCallback(listUniversal);
+
+                        } else {
+                            Toast.makeText(getContext(), "Conexão fraca, tentar novamente mais tarde", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                });
+    }
+
+    private void getJewelryF(final FirestoreCallback firestoreCallback, String docId) {
+        products = new Products();
+        CollectionReference productRef = db.collection(getString(R.string.cp)).document(docId).collection("Product");
+
+        productRef.whereEqualTo("gender", "Feminino").whereEqualTo("product_category", "Joias")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<Products> listUniversal = new ArrayList<>();
+                            mProgressBar.setVisibility(View.GONE);
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + "ta => " + document.getData());
+                                products = document.toObject(Products.class);
+                                products.setDocId(document.getId());
+                                listUniversal.add(products);
+                            }
+                            firestoreCallback.onCallback(listUniversal);
+
+                        } else {
+                            Toast.makeText(getContext(), "Conexão fraca, tentar novamente mais tarde", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                });
+    }
+
+    private void getJewelryM(final FirestoreCallback firestoreCallback, String docId) {
+        products = new Products();
+        CollectionReference productRef = db.collection(getString(R.string.cp)).document(docId).collection("Product");
+
+        productRef.whereEqualTo("gender", "Masculino").whereEqualTo("product_category", "Joias")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<Products> listUniversal = new ArrayList<>();
+                            mProgressBar.setVisibility(View.GONE);
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + "ta => " + document.getData());
+                                products = document.toObject(Products.class);
+                                products.setDocId(document.getId());
+                                listUniversal.add(products);
+                            }
+                            firestoreCallback.onCallback(listUniversal);
+
+                        } else {
+                            Toast.makeText(getContext(), "Conexão fraca, tentar novamente mais tarde", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                });
+    }
+
+    private void getSemiJewelryU(final FirestoreCallback firestoreCallback, String docId) {
+        products = new Products();
+        CollectionReference productRef = db.collection(getString(R.string.cp)).document(docId).collection("Product");
+
+        productRef.whereEqualTo("gender", "Unissex").whereEqualTo("product_category", "Semijoia")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<Products> listUniversal = new ArrayList<>();
+                            mProgressBar.setVisibility(View.GONE);
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + "ta => " + document.getData());
+                                products = document.toObject(Products.class);
+                                products.setDocId(document.getId());
+                                listUniversal.add(products);
+                            }
+                            firestoreCallback.onCallback(listUniversal);
+
+                        } else {
+                            Toast.makeText(getContext(), "Conexão fraca, tentar novamente mais tarde", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                });
+    }
+
+    private void getSemiJewelryF(final FirestoreCallback firestoreCallback, String docId) {
+        products = new Products();
+        CollectionReference productRef = db.collection(getString(R.string.cp)).document(docId).collection("Product");
+
+        productRef.whereEqualTo("gender", "Feminino").whereEqualTo("product_category", "Semijoia")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<Products> listUniversal = new ArrayList<>();
+                            mProgressBar.setVisibility(View.GONE);
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + "ta => " + document.getData());
+                                products = document.toObject(Products.class);
+                                products.setDocId(document.getId());
+                                listUniversal.add(products);
+                            }
+                            firestoreCallback.onCallback(listUniversal);
+
+                        } else {
+                            Toast.makeText(getContext(), "Conexão fraca, tentar novamente mais tarde", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                });
+    }
+
+    private void getSemiJewelryM(final FirestoreCallback firestoreCallback, String docId) {
+        products = new Products();
+        CollectionReference productRef = db.collection(getString(R.string.cp)).document(docId).collection("Product");
+
+        productRef.whereEqualTo("gender", "Masculino").whereEqualTo("product_category", "Semijoia")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<Products> listUniversal = new ArrayList<>();
+                            mProgressBar.setVisibility(View.GONE);
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + "ta => " + document.getData());
+                                products = document.toObject(Products.class);
+                                products.setDocId(document.getId());
+                                listUniversal.add(products);
+                            }
+                            firestoreCallback.onCallback(listUniversal);
+
+                        } else {
+                            Toast.makeText(getContext(), "Conexão fraca, tentar novamente mais tarde", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                });
+    }
+
+    private void getBijouU(final FirestoreCallback firestoreCallback, String docId) {
+        products = new Products();
+        CollectionReference productRef = db.collection(getString(R.string.cp)).document(docId).collection("Product");
+
+        productRef.whereEqualTo("gender", "Unissex").whereEqualTo("product_category", "Bijuteria")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<Products> listUniversal = new ArrayList<>();
+                            mProgressBar.setVisibility(View.GONE);
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + "ta => " + document.getData());
+                                products = document.toObject(Products.class);
+                                products.setDocId(document.getId());
+                                listUniversal.add(products);
+                            }
+                            firestoreCallback.onCallback(listUniversal);
+
+                        } else {
+                            Toast.makeText(getContext(), "Conexão fraca, tentar novamente mais tarde", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                });
+    }
+
+    private void getBijouF(final FirestoreCallback firestoreCallback, String docId) {
+        products = new Products();
+        CollectionReference productRef = db.collection(getString(R.string.cp)).document(docId).collection("Product");
+
+        productRef.whereEqualTo("gender", "Feminino").whereEqualTo("product_category", "Bijuteria")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<Products> listUniversal = new ArrayList<>();
+                            mProgressBar.setVisibility(View.GONE);
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + "ta => " + document.getData());
+                                products = document.toObject(Products.class);
+                                products.setDocId(document.getId());
+                                listUniversal.add(products);
+                            }
+                            firestoreCallback.onCallback(listUniversal);
+
+                        } else {
+                            Toast.makeText(getContext(), "Conexão fraca, tentar novamente mais tarde", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                });
+    }
+
+    private void getBijouM(final FirestoreCallback firestoreCallback, String docId) {
+        products = new Products();
+        CollectionReference productRef = db.collection(getString(R.string.cp)).document(docId).collection("Product");
+
+        productRef.whereEqualTo("gender", "Masculino").whereEqualTo("product_category", "Bijuteria")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -709,6 +1195,7 @@ public class ProductFragment extends Fragment {
 
         verticalModel.setArrayList(arrayListHorizontal);
         arrayListVertical4.add(verticalModel);
+        setupRecyclerVertical4();
     }
 
     //////////////////////////////--SetupAd--\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
