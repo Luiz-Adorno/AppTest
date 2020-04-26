@@ -734,7 +734,7 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
     private void initWidgets() {
         mProfilePhoto = findViewById(R.id.ic_profile);
         username = findViewById(R.id.username);
-        mProgressBar = findViewById(R.id.loadingLoginProgressBar);
+        mProgressBar = findViewById(R.id.progressBar_cyclic);
         backArrow = findViewById(R.id.back_arrow);
         cityWidgets = findViewById(R.id.city);
         stateWidgets = findViewById(R.id.state);
@@ -949,10 +949,5 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
     @Override
     protected void onPause() {
         super.onPause();
-
-        SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("lastActivity", getClass().getName());
-        editor.apply();
     }
 }

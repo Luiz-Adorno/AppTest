@@ -69,7 +69,7 @@ public class NameFragmentGoogle extends Fragment {
         next = view.findViewById(R.id.button_register);
         cancel = view.findViewById(R.id.cancel);
         mContext = getActivity();
-        mProgessBar = view.findViewById(R.id.registerProgressBar);
+        mProgessBar = view.findViewById(R.id.progressBar_cyclic);
         mProgessBar.setVisibility(View.GONE);
         infoMiips = view.findViewById(R.id.info_miipsname);
         filter = new EditFiler(mContext);

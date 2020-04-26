@@ -70,7 +70,7 @@ public class LocationFragment extends Fragment {
         next = view.findViewById(R.id.button_register);
         cancel = view.findViewById(R.id.cancel);
         btnLocation = view.findViewById(R.id.button_location);
-        mProgessBar = view.findViewById(R.id.registerProgressBar);
+        mProgessBar = view.findViewById(R.id.progressBar_cyclic);
         mProgessBar.setVisibility(View.GONE);
         cityWidgets = view.findViewById(R.id.city);
         stateWidgets = view.findViewById(R.id.state);

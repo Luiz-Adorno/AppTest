@@ -209,10 +209,12 @@
         android:layout_alignParentBottom="true" />
 
     <ProgressBar
-        android:id="@+id/loadingProfileProgressBar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerInParent="true"
-        android:indeterminateDrawable="@drawable/background" />
+        android:id="@+id/progressBar_cyclic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        android:minWidth="50dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -66,7 +66,7 @@ public class EmailFragment extends Fragment {
         cancel = view.findViewById(R.id.cancel);
         next = view.findViewById(R.id.button_register);
         cd = new ConnectionDetector(getActivity());
-        mProgessBar = view.findViewById(R.id.registerProgressBar);
+        mProgessBar = view.findViewById(R.id.progressBar_cyclic);
         mProgessBar.setVisibility(View.GONE);
         mAuth = FirebaseAuth.getInstance();
         firebaseMethods = new FirebaseMethods(getActivity());

@@ -53,7 +53,7 @@ public class LocationCepFragmentGoogle extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register_location_cep, container, false);
-        mProgessBar = view.findViewById(R.id.registerProgressBar);
+        mProgessBar = view.findViewById(R.id.progressBar_cyclic);
         mProgessBar.setVisibility(View.GONE);
         cep = view.findViewById(R.id.cep);
         btnCep = view.findViewById(R.id.button_location);

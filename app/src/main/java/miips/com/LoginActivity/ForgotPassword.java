@@ -41,7 +41,7 @@ public class ForgotPassword extends AppCompatActivity {
         getEmail = findViewById(R.id.get_email);
         mContext = ForgotPassword.this;
         arrow = findViewById(R.id.backArrowForget);
-        mProgressBar = findViewById(R.id.ForgetProgressBar);
+        mProgressBar = findViewById(R.id.progressBar_cyclic);
 
         arrow.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -17,6 +17,8 @@
     <color name="green">#00FF7F</color>
     <color name="orange">#ffa500</color>
     <color name="red_fly">#ff7b7b</color>
+    <color name="blue_form">#364660</color>
+    <color name="blue_btn">#11b7cc</color>
 
 
 </resources>

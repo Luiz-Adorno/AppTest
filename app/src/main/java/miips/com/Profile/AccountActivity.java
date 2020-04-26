@@ -5,11 +5,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +21,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -41,13 +46,14 @@ import miips.com.R;
 import miips.com.Search.SearchActivity;
 import miips.com.Utils.BottomNavigationViewHelper;
 import miips.com.Utils.FirebaseMethods;
+import miips.com.Utils.MyPreference;
 
 public class AccountActivity extends AppCompatActivity {
 
     private static final int ACTIVITY_NUMBER = 3;
     private Context context;
     private ImageView profilePhoto;
-    private TextView editProfile,password,singOut, politics,terms,helpCenter,feedback, miipsID, cityWidgets;
+    private TextView editProfile, password, singOut, politics, terms, helpCenter, feedback, miipsID, cityWidgets;
     public static boolean activeP = false;
     private ProgressBar mProgressBar;
     private static User settings;
@@ -64,19 +70,22 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account);
         context = AccountActivity.this;
         mStorageRef = FirebaseStorage.getInstance().getReference();
+        initWidgets();
+        setupBottomNavigationViewEx();
 
         //FIREBASE GOOGLE GET USER
         mAuth = FirebaseAuth.getInstance();
-        FirebaseMethods firebaseMethods = new FirebaseMethods(context);
 
-        setupFirebaseAuth();
-        setupBottomNavigationViewEx();
-        initWidgets();
-        intent();
+        if (mAuth.getCurrentUser() != null) {
+            getUserData();
+            userIntent();
+        }else{
+            intentNoUser();
+        }
     }
 
     private void initWidgets() {
-        mProgressBar = findViewById(R.id.loadingProfileProgressBar);
+        mProgressBar = findViewById(R.id.progressBar_cyclic);
         profilePhoto = findViewById(R.id.ic_profile);
         miipsID = findViewById(R.id.miips_id);
         editProfile = findViewById(R.id.editProfile);
@@ -89,7 +98,69 @@ public class AccountActivity extends AppCompatActivity {
         cityWidgets = findViewById(R.id.city);
     }
 
-    private void intent() {
+    private void intentNoUser(){
+        mProgressBar.setVisibility(View.GONE);
+        Picasso.get().load(R.drawable.nouser).into(profilePhoto);
+        miipsID.setText("Fazer login ou registrar-se");
+        MyPreference myPreference = new MyPreference(context);
+        String doc_id = myPreference.getToken();
+        cityWidgets.setText(doc_id);
+
+        miipsID.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, LoginActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
+                finish();
+            }
+        });
+
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"Faça o login ou registre-se para realizar essa ação", Toast.LENGTH_SHORT).show();
+            }
+        });
+        password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"Faça o login ou registre-se para realizar essa ação", Toast.LENGTH_SHORT).show();
+            }
+        });
+        politics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"Faça o login ou registre-se para realizar essa ação", Toast.LENGTH_SHORT).show();
+            }
+        });
+        singOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"Faça o login ou registre-se para realizar essa ação", Toast.LENGTH_SHORT).show();
+            }
+        });
+        terms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"Faça o login ou registre-se para realizar essa ação", Toast.LENGTH_SHORT).show();
+            }
+        });
+        helpCenter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"Faça o login ou registre-se para realizar essa ação", Toast.LENGTH_SHORT).show();
+            }
+        });
+        feedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"Faça o login ou registre-se para realizar essa ação", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void userIntent() {
         //--------------------------------------     ---------------------------------------------//
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +215,6 @@ public class AccountActivity extends AppCompatActivity {
         });
 
 
-
         //--------------------------------------     ---------------------------------------------//
 
 
@@ -157,7 +227,6 @@ public class AccountActivity extends AppCompatActivity {
                 finish();
             }
         });
-
 
 
         //--------------------------------------     ---------------------------------------------//
@@ -173,7 +242,6 @@ public class AccountActivity extends AppCompatActivity {
         });
 
 
-
         //--------------------------------------     ---------------------------------------------//
 
         helpCenter.setOnClickListener(new View.OnClickListener() {
@@ -187,7 +255,6 @@ public class AccountActivity extends AppCompatActivity {
         });
 
 
-
         //--------------------------------------     ---------------------------------------------//
 
         feedback.setOnClickListener(new View.OnClickListener() {
@@ -199,7 +266,6 @@ public class AccountActivity extends AppCompatActivity {
                 finish();
             }
         });
-
 
 
         //--------------------------------------     ---------------------------------------------//
@@ -257,14 +323,14 @@ public class AccountActivity extends AppCompatActivity {
         menuItem.setChecked(true);
     }
 
-    private void setProfileWidgets(User user){
-        if(miipsID.equals("")){
+    private void setProfileWidgets(User user) {
+        if (miipsID.equals("")) {
             mProgressBar.setVisibility(View.VISIBLE);
-        }else {
-            Log.d(TAG, "setProfileWidgets: username ta assim:"+ user.getUsername());
-            if(user.getprofile_url() == null) {
+        } else {
+            Log.d(TAG, "setProfileWidgets: username ta assim:" + user.getUsername());
+            if (user.getprofile_url() == null) {
                 Picasso.get().load(R.drawable.user_profile).error(R.drawable.user_profile).into(profilePhoto);
-            }else{
+            } else {
                 Picasso.get().load(user.getprofile_url()).error(R.drawable.user_profile).into(profilePhoto);
             }
             cityWidgets.setText(user.getCity());
@@ -273,27 +339,8 @@ public class AccountActivity extends AppCompatActivity {
         }
     }
 
-    private void setupFirebaseAuth() {
-        FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                if (user != null) {
-                    //User is signed in
-
-                } else {
-                    //User is signed out
-                    Intent intentSingOut = new Intent(context, LoginActivity.class);
-                    startActivity(intentSingOut);
-                    intentSingOut.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    finish();
-                }
-            }
-        };
-    }
-
-    private void getUserData(){
+    private void getUserData() {
         //retrieve user information from database Firestore
         db = FirebaseFirestore.getInstance();
         String userID = mAuth.getCurrentUser().getUid();
@@ -322,24 +369,12 @@ public class AccountActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getUserData();
     }
-
-    private void checkCurrentUser(FirebaseUser user) {
-        if (user == null) {
-            Intent intent = new Intent(context, LoginActivity.class);
-            startActivity(intent);
-            finish();
-
-        }
-    }
-
 
     @Override
     protected void onStart() {
         super.onStart();
         activeP = true;
-        checkCurrentUser(mAuth.getCurrentUser());
     }
 
     @Override
@@ -351,16 +386,11 @@ public class AccountActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
-        SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("lastActivity", getClass().getName());
-        editor.apply();
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(0,0);
+        overridePendingTransition(0, 0);
     }
 }

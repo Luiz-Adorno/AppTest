@@ -72,7 +72,7 @@ public class LocationFragmentGoogle extends Fragment {
         next = view.findViewById(R.id.button_register);
         cancel = view.findViewById(R.id.cancel);
         btnLocation = view.findViewById(R.id.button_location);
-        mProgessBar = view.findViewById(R.id.registerProgressBar);
+        mProgessBar = view.findViewById(R.id.progressBar_cyclic);
         mProgessBar.setVisibility(View.GONE);
         cityWidgets = view.findViewById(R.id.city);
         stateWidgets = view.findViewById(R.id.state);
@@ -95,7 +95,7 @@ public class LocationFragmentGoogle extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkInputs(cityString)) {
+                if (checkInputs(cityString, stateString)) {
 
                     if (cd.isConnected()) {
                         RegisterActivityGoogle reg = (RegisterActivityGoogle) getActivity();
@@ -115,8 +115,11 @@ public class LocationFragmentGoogle extends Fragment {
         });
     }
 
-    private boolean checkInputs(String cityAux) {
+    private boolean checkInputs(String cityAux, String stateString) {
         if (cityAux == null || cityAux.equals("")) {
+            Toast.makeText(getActivity(), R.string.add_city_state, Toast.LENGTH_SHORT).show();
+            return false;
+        }else if (stateString == null || stateString.equals("")){
             Toast.makeText(getActivity(), R.string.add_city_state, Toast.LENGTH_SHORT).show();
             return false;
         }

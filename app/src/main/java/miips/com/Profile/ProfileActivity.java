@@ -58,7 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
         back = findViewById(R.id.backArrowRegister);
         username = findViewById(R.id.username);
         email = findViewById(R.id.email);
-        mProgressBar = findViewById(R.id.loadingLoginProgressBar);
+        mProgressBar = findViewById(R.id.progressBar_cyclic);
         editProfile = findViewById(R.id.edit_profile);
         cityWidgets = findViewById(R.id.city);
         stateWidgets = findViewById(R.id.state);
@@ -180,18 +180,9 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
-        SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("lastActivity", getClass().getName());
-        editor.apply();
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(context, AccountActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.enter, R.anim.exit);
-        finish();
     }
 }

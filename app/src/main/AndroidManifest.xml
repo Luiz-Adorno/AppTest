@@ -30,12 +30,11 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDvozCdOnzbnwSygvBsbyRdRJELZsdJIj4"/>
 
-
-        <activity android:name=".Home.Dispatcher"
+        <activity android:name=".Home.HomeActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
-            tools:ignore="InnerclassSeparator">
+            tools:ignore="InnerclassSeparator,LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,26 +42,20 @@
             </intent-filter>
         </activity>
 
+
         <activity android:name=".Register.normal.RegisterActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
             android:windowSoftInputMode="stateHidden"
-            tools:ignore="InnerclassSeparator">
-        </activity>
-
-        <activity android:name=".Home.HomeActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:launchMode="singleInstance"
-            tools:ignore="InnerclassSeparator">
+            tools:ignore="InnerclassSeparator,LockedOrientationActivity">
         </activity>
 
         <activity android:name=".Register.google.RegisterActivityGoogle"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
-            tools:ignore="InnerclassSeparator">
+            tools:ignore="InnerclassSeparator,LockedOrientationActivity">
         </activity>
 
         <activity android:name=".Search.SearchActivity"
@@ -70,21 +63,21 @@
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
             android:windowSoftInputMode="stateHidden"
-            tools:ignore="InnerclassSeparator">
+            tools:ignore="InnerclassSeparator,LockedOrientationActivity">
         </activity>
 
         <activity android:name=".Messages.MessagesActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
-            tools:ignore="InnerclassSeparator">
+            tools:ignore="InnerclassSeparator,LockedOrientationActivity">
         </activity>
 
         <activity android:name=".Profile.AccountActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
-            tools:ignore="InnerclassSeparator">
+            tools:ignore="InnerclassSeparator,LockedOrientationActivity">
         </activity>
 
         <activity android:name=".LoginActivity.LoginActivity"
@@ -92,56 +85,56 @@
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
             android:windowSoftInputMode="stateHidden"
-            tools:ignore="InnerclassSeparator">
+            tools:ignore="InnerclassSeparator,LockedOrientationActivity">
         </activity>
 
         <activity android:name=".LoginActivity.ForgotPassword"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
-            tools:ignore="InnerclassSeparator">
+            tools:ignore="InnerclassSeparator,LockedOrientationActivity">
         </activity>
 
         <activity android:name=".Profile.ProfileActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
-            tools:ignore="InnerclassSeparator">
+            tools:ignore="InnerclassSeparator,LockedOrientationActivity">
         </activity>
 
         <activity android:name=".Profile.PasswordActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
-            tools:ignore="InnerclassSeparator">
+            tools:ignore="InnerclassSeparator,LockedOrientationActivity">
         </activity>
 
         <activity android:name=".Profile.PoliticActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
-            tools:ignore="InnerclassSeparator">
+            tools:ignore="InnerclassSeparator,LockedOrientationActivity">
         </activity>
 
         <activity android:name=".Profile.TermsActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
-            tools:ignore="InnerclassSeparator">
+            tools:ignore="InnerclassSeparator,LockedOrientationActivity">
         </activity>
 
         <activity android:name=".Profile.HelpCenterActivty"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
-            tools:ignore="InnerclassSeparator">
+            tools:ignore="InnerclassSeparator,LockedOrientationActivity">
         </activity>
 
         <activity android:name=".Profile.FeedbackActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
-            tools:ignore="InnerclassSeparator">
+            tools:ignore="InnerclassSeparator,LockedOrientationActivity">
         </activity>
 
         <activity android:name=".Profile.EditProfileActivity"
@@ -149,7 +142,7 @@
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
             android:windowSoftInputMode="stateHidden"
-            tools:ignore="InnerclassSeparator">
+            tools:ignore="InnerclassSeparator,LockedOrientationActivity">
         </activity>
 
         <meta-data

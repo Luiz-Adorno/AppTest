@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mProgressBar = findViewById(R.id.loadingLoginProgressBar);
+        mProgressBar = findViewById(R.id.progressBar_cyclic);
         mEmail = findViewById(R.id.email_login);
         mPassword = findViewById(R.id.password_login);
         mContext = LoginActivity.this;
@@ -291,6 +291,16 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentSendPass = new Intent(mContext, ForgotPassword.class);
                 startActivity(intentSendPass);
+            }
+        });
+
+        TextView annonUser = findViewById(R.id.no_user);
+        annonUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, HomeActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
             }
         });
 
