@@ -106,7 +106,7 @@ public class LocationCepFragment extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkInputs(cityString)) {
+                if (checkInputs(cityString, stateString)) {
 
                     if (cd.isConnected()) {
                         RegisterActivity reg = (RegisterActivity) getActivity();
@@ -143,8 +143,11 @@ public class LocationCepFragment extends Fragment {
         return builder;
     }
 
-    private boolean checkInputs(String cityAux) {
+    private boolean checkInputs(String cityAux, String stateString) {
         if (cityAux == null || cityAux.equals("")) {
+            Toast.makeText(getActivity(), R.string.add_city_state, Toast.LENGTH_SHORT).show();
+            return false;
+        }else if (stateString == null || stateString.equals("")){
             Toast.makeText(getActivity(), R.string.add_city_state, Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -183,7 +186,7 @@ public class LocationCepFragment extends Fragment {
                                 if (cep.getCep()!= null) {
 
                                     cityString = cep.getLocalidade();
-                                    stateString = StatesManipulation.stManipulation(cep.getUf());
+                                    stateString = cep.getUf();
 
                                     lay1.setVisibility(View.VISIBLE);
                                     lay2.setVisibility(View.VISIBLE);

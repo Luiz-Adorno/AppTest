@@ -1,6 +1,14 @@
-package miips.com.Register.normal;
+package miips.com.Init;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,41 +20,37 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import miips.com.Home.HomeActivity;
 import miips.com.LoginActivity.LoginActivity;
 import miips.com.R;
+import miips.com.Register.normal.LocationCepFragment;
 import miips.com.Utils.ConnectionDetector;
+import miips.com.Utils.MyPreference;
 import miips.com.Utils.StatesManipulation;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class LocationFragment extends Fragment {
+public class LocationVisitorActivity extends AppCompatActivity {
+
     private TextView gotoCep;
     private Button next, cancel;
     private Button btnLocation;
     private ProgressBar mProgessBar;
     private TextView cityWidgets;
     private TextView stateWidgets;
+    private RelativeLayout lay1, lay2;
+    private Context context;
 
     ConnectionDetector cd;
 
@@ -58,54 +62,66 @@ public class LocationFragment extends Fragment {
     private String cityString, stateString;
     public String bestProvider;
     public Criteria criteria;
-    private RelativeLayout lay1, lay2;
 
 
     public static final int PERMISSIONS_REQUEST_ENABLE_GPS = 9003;
 
-    @Nullable
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_register_location, container, false);
-        gotoCep = view.findViewById(R.id.goto_cep);
-        next = view.findViewById(R.id.button_register);
-        cancel = view.findViewById(R.id.cancel);
-        btnLocation = view.findViewById(R.id.button_location);
-        mProgessBar = view.findViewById(R.id.progressBar_cyclic);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_visitor);
+        context = LocationVisitorActivity.this;
+        next = findViewById(R.id.button_register);
+        next.setVisibility(View.GONE);
+        cancel = findViewById(R.id.cancel);
+        btnLocation = findViewById(R.id.button_location);
+        mProgessBar = findViewById(R.id.progressBar_cyclic);
         mProgessBar.setVisibility(View.GONE);
-        cityWidgets = view.findViewById(R.id.city);
-        stateWidgets = view.findViewById(R.id.state);
-        cd = new ConnectionDetector(getActivity());
-        getPermissions();
-        lay1 = view.findViewById(R.id.layout1);
-        lay2 = view.findViewById(R.id.layout2);
+        cityWidgets = findViewById(R.id.city);
+        stateWidgets = findViewById(R.id.state);
+        cd = new ConnectionDetector(context);
+        lay1 = findViewById(R.id.layout1);
+        lay2 = findViewById(R.id.layout2);
         lay1.setVisibility(View.GONE);
         lay2.setVisibility(View.GONE);
-
-        initGps();
-        initCancel();
-        setGotoCep();
-        init();
-        return view;
+        MyPreference myPreference = new MyPreference(context);
+        String doc_id = myPreference.getToken();
+        if(doc_id.isEmpty()){
+            getPermissions();
+            initGps();
+            initCancel();
+            init();
+        }else {
+            Intent intent = new Intent(context, HomeActivity.class);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
+            finish();
+        }
     }
 
     private void init() {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mProgessBar.setVisibility(View.VISIBLE);
                 if (checkInputs(cityString, stateString)) {
 
                     if (cd.isConnected()) {
-                        RegisterActivity reg = (RegisterActivity) getActivity();
-                        reg.getFromLocation(cityString, stateString);
 
-                        // Begin the transaction
-                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-                        // Replace the contents of the container with the new fragment
-                        ft.replace(R.id.frame_layout, new EmailFragment());
-                        ft.commit();
+                        Log.d(TAG, "initGPS: axx: "+ cityString + " e " + stateString);
+                        String docID = cityString + "-" + stateString;
+
+                        MyPreference myPreference = new MyPreference(context);
+                        myPreference.setTOKEN(docID);
+
+                        Intent intent = new Intent(context, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+
                     } else {
-                        buildDialog(getActivity()).show();
+                        mProgessBar.setVisibility(View.GONE);
+                        buildDialog(context).show();
                     }
 
                 }
@@ -115,26 +131,15 @@ public class LocationFragment extends Fragment {
 
     private boolean checkInputs(String cityAux, String stateString) {
         if (cityAux == null || cityAux.equals("")) {
-            Toast.makeText(getActivity(), R.string.add_city_state, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.add_city_state, Toast.LENGTH_SHORT).show();
             return false;
         }else if (stateString == null || stateString.equals("")){
-            Toast.makeText(getActivity(), R.string.add_city_state, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.add_city_state, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
 
-    private void setGotoCep() {
-        gotoCep.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                // Replace the contents of the container with the new fragment
-                ft.replace(R.id.frame_layout, new LocationCepFragment());
-                ft.commit();
-            }
-        });
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -164,23 +169,23 @@ public class LocationFragment extends Fragment {
                 Manifest.permission.ACCESS_COARSE_LOCATION,
         };
 
-        if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), FINE_LOCATION)
+        if (ContextCompat.checkSelfPermission(context.getApplicationContext(), FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), COARSE_LOCATION)
+            if (ContextCompat.checkSelfPermission(context.getApplicationContext(), COARSE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 mPermissionsGranted = true;
                 Log.d(TAG, "getPermissions: mPermissionsGranted is true");
             } else {
-                ActivityCompat.requestPermissions(getActivity(), permissions, PERMISSION_REQUEST_CODE);
+                ActivityCompat.requestPermissions((Activity) context, permissions, PERMISSION_REQUEST_CODE);
             }
         } else {
-            ActivityCompat.requestPermissions(getActivity(), permissions, PERMISSION_REQUEST_CODE);
+            ActivityCompat.requestPermissions((Activity) context, permissions, PERMISSION_REQUEST_CODE);
         }
     }
 
     private void alertDialogPermissions() {
         mProgessBar.setVisibility(View.GONE);
-        AlertDialog.Builder alertDialogP = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialogP = new AlertDialog.Builder(context);
         alertDialogP.setMessage("É necessário permitir que o Miips acesse o local do dispositivo!");
         alertDialogP.setCancelable(true);
         alertDialogP.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -193,17 +198,15 @@ public class LocationFragment extends Fragment {
     }
 
     private void alertDialogZip() {
-        AlertDialog.Builder alertDialogP = new AlertDialog.Builder(getActivity());
-        alertDialogP.setMessage("Não foi possivel pegar sua localização, que tal tentar pelo seu CEP?");
+        AlertDialog.Builder alertDialogP = new AlertDialog.Builder(context);
+        alertDialogP.setMessage("Não foi possivel pegar sua localização, faça o login para prosseguir!");
         alertDialogP.setCancelable(true);
         alertDialogP.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                mProgessBar.setVisibility(View.GONE);
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                // Replace the contents of the container with the new fragment
-                ft.replace(R.id.frame_layout, new LocationCepFragment());
-                ft.commit();
+                Intent intent = new Intent(context, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         alertDialogP.create().show();
@@ -211,7 +214,7 @@ public class LocationFragment extends Fragment {
 
     public void getCurrentLocation() {
         Log.d(TAG, "getDeviceLocation: getting the device current location ");
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
         try {
             criteria = new Criteria();
@@ -238,7 +241,7 @@ public class LocationFragment extends Fragment {
 
                 Geocoder geocoder;
                 List<Address> addresses;
-                geocoder = new Geocoder(getActivity(), Locale.getDefault());
+                geocoder = new Geocoder(context, Locale.getDefault());
 
                 try {
                     Log.d(TAG, "getCurrentLocation: latitude e long: "+ latitude + longitude);
@@ -273,16 +276,15 @@ public class LocationFragment extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                Intent intent = new Intent(context, ChooseActivity.class);
                 startActivity(intent);
-                getActivity().onBackPressed();
-                getActivity().finish();
+                finish();
             }
         });
     }
 
     private void buildAlertMessageNoGps() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(R.string.alert_message_gps)
                 .setCancelable(false)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
@@ -297,7 +299,7 @@ public class LocationFragment extends Fragment {
 
     //verify if gps is enable
     private boolean isGpsEnable() {
-        final LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        final LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps();
@@ -327,7 +329,6 @@ public class LocationFragment extends Fragment {
         btnLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mProgessBar.setVisibility(View.VISIBLE);
                 if (isGpsEnable()) {
                     if (mPermissionsGranted) {
                         Log.d(TAG, "onClick: pegou os nomes no 1 click");
@@ -335,6 +336,7 @@ public class LocationFragment extends Fragment {
 
                         lay1.setVisibility(View.VISIBLE);
                         lay2.setVisibility(View.VISIBLE);
+                        next.setVisibility(View.VISIBLE);
 
                         cityWidgets.setText(cityString);
                         stateWidgets.setText(stateString);

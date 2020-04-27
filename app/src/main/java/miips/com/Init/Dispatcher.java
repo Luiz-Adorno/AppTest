@@ -22,6 +22,7 @@ import miips.com.Home.HomeActivity;
 import miips.com.LoginActivity.LoginActivity;
 import miips.com.R;
 import miips.com.Register.google.RegisterActivityGoogle;
+import miips.com.Utils.MyPreference;
 
 // store the last visible activity in SharedPreferences and have a Dispatcher activity
 // that starts the last activity according to the preferences.
@@ -30,6 +31,7 @@ public class Dispatcher extends Activity {
 
     private Context context = Dispatcher.this;
     private static final String TAG = "SplashScreen";
+    public String doc_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,20 @@ public class Dispatcher extends Activity {
 
     private void checkCurrentUser(FirebaseUser user) {
         if (user == null) {
+            MyPreference myPreference = new MyPreference(context);
+            doc_id = myPreference.getToken();
+            if(doc_id.isEmpty()){
+                Intent intent = new Intent(context, ChooseActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+                finish();
+            }else {
+                Intent intent = new Intent(context, HomeActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+                finish();
+            }
+
 
         } else {
             FirebaseAuth mAuth = FirebaseAuth.getInstance();

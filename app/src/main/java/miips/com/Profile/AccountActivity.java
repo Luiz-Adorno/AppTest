@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -102,6 +103,8 @@ public class AccountActivity extends AppCompatActivity {
         mProgressBar.setVisibility(View.GONE);
         Picasso.get().load(R.drawable.nouser).into(profilePhoto);
         miipsID.setText("Fazer login ou registrar-se");
+        miipsID.setTextColor(Color.BLUE);
+        cityWidgets.setTextColor(Color.BLACK);
         MyPreference myPreference = new MyPreference(context);
         String doc_id = myPreference.getToken();
         cityWidgets.setText(doc_id);

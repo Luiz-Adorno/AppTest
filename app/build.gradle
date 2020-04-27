@@ -69,6 +69,9 @@ dependencies {
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    //flexbox
+    implementation 'com.google.android:flexbox:2.0.1'
+
     implementation "androidx.versionedparcelable:versionedparcelable:1.1.0"
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

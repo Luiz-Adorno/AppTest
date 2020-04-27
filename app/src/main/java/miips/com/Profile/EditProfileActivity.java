@@ -588,17 +588,20 @@ public class EditProfileActivity extends AppCompatActivity implements SelectPhot
                 mProgressBar.setVisibility(View.GONE);
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
             }
+            //case 2: the user did not change their location
             if (!mUserSettings.getCity().equals(mCity) || !mUserSettings.getState().equals(mState)) {
                 firebaseMethods.updateUserSettings(null, mCity, mState, null, null, null);
                 Toast.makeText(context, "Localização alterado com sucesso", Toast.LENGTH_SHORT).show();
                 mProgressBar.setVisibility(View.GONE);
             }
+            //case 3: the user did not change their birth date
             if (!mUserSettings.getBirth().equals(mBirth)) {
                 firebaseMethods.updateUserSettings(null, null, null, mBirth, null, null);
                 Toast.makeText(context, "Nascimento alterado com sucesso", Toast.LENGTH_SHORT).show();
                 mProgressBar.setVisibility(View.GONE);
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
             }
+            //case 4: the user did not change their gender
             if (!mUserSettings.getGender().equals(mGender)) {
                 firebaseMethods.updateUserSettings(null, null, null, null, mGender, null);
                 Toast.makeText(context, "Gênero alterado com sucesso", Toast.LENGTH_SHORT).show();

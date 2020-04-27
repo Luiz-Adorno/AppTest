@@ -54,8 +54,6 @@ public class VestFragment extends Fragment {
     private static User settings;
     private static Products products;
 
-    public static final String SHARED_PREFS = "sharedPrefs";
-    public static final String DOCID = "";
     public String doc_id;
 
     private RecyclerView verticalRecyclerView, adRecyclerView;
@@ -156,10 +154,10 @@ public class VestFragment extends Fragment {
     }
 
     private void getUserLocation(final String docID, final String gender) {
-        Log.d(TAG, docID);
+        Log.d(TAG, "flag: "+ docID);
 
         if (gender.equals("annonymous")) {
-
+            Log.d(TAG, "flag2: ");
             final CollectionReference productRef = db.collection(getString(R.string.cp)).document(docID).collection("Local");
 
             productRef
@@ -290,7 +288,7 @@ public class VestFragment extends Fragment {
 
         } else {
             final CollectionReference productRef = db.collection(getString(R.string.cp)).document(docID).collection("Local");
-
+            Log.d(TAG, "flag3: ");
             productRef
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

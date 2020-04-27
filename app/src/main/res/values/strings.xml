@@ -41,7 +41,7 @@
     <string name="exit_gmail">Sair da sua conta Gmail?</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
-    <string name="location">Adcionar localização pelo GPS</string>
+    <string name="location">Adcionar localização</string>
     <string name="refresh_location">Atualizar minha localização</string>
     <string name="city">Cidade:</string>
     <string name="state">Estado:</string>

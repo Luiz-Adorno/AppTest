@@ -189,21 +189,10 @@ public class SearchActivity extends AppCompatActivity {
         menuItem.setChecked(true);
     }
 
-    private void checkCurrentUser(FirebaseUser user) {
-        if (user == null) {
-            Intent intent = new Intent(context, LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
-    }
-
-
     @Override
     protected void onStart() {
         super.onStart();
         activeS = true;
-        mAuth = FirebaseAuth.getInstance();
-        checkCurrentUser(mAuth.getCurrentUser());
     }
 
     @Override

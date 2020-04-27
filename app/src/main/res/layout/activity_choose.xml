@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Init.ChooseActivity"
+    android:background="@drawable/light">
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/top"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/logoLogin"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="TODO"
+            android:src="@drawable/miips_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/logoLogin"
+            android:fontFamily="@font/magra"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="60sp"
+            android:typeface="serif" />
+
+    </LinearLayout>
+
+   <LinearLayout
+       android:layout_below="@id/top"
+       android:id="@+id/top2"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:padding="20dp"
+       android:gravity="center">
+
+       <TextView
+           android:gravity="center"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Faça Login ou entre como Visitante"
+           android:textSize="24sp"
+           android:textAppearance="?attr/textAppearanceHeadline6"
+           />
+
+       <LinearLayout
+           android:orientation="vertical"
+           android:layout_marginTop="40dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <Button
+               android:id="@+id/login_btn"
+               android:padding="10dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textColor="@color/black"
+               android:text="Login"
+               android:background="@drawable/btn_choose"/>
+           <Button
+               android:layout_marginTop="20dp"
+               android:id="@+id/visitor_btn"
+               android:padding="10dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textColor="@color/black"
+               android:text="Visitante"
+               android:background="@drawable/btn_choose"/>
+       </LinearLayout>
+   </LinearLayout>
+
+
+</RelativeLayout>

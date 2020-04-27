@@ -40,6 +40,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import miips.com.Home.HomeActivity;
+import miips.com.Init.LocationVisitorActivity;
 import miips.com.R;
 import miips.com.Register.google.RegisterActivityGoogle;
 import miips.com.Register.normal.RegisterActivity;
@@ -298,7 +299,7 @@ public class LoginActivity extends AppCompatActivity {
         annonUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, HomeActivity.class);
+                Intent intent = new Intent(mContext, LocationVisitorActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter, R.anim.exit);
             }
