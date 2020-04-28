@@ -39,6 +39,35 @@
         </ScrollView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/off_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="60dp">
+
+        <ImageView
+            android:id="@+id/text_error"
+            android:layout_width="100dp"
+            android:layout_centerInParent="true"
+            android:layout_height="100dp"
+            android:src="@drawable/nfound" />
+
+        <TextView
+            android:layout_below="@id/text_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:text="Ops, não há produtos desta categoria cadastrada em sua região"/>
+
+    </RelativeLayout>
+
     <ProgressBar
         android:id="@+id/progressBar_cyclic"
         android:layout_width="wrap_content"
@@ -47,4 +76,5 @@
         android:minWidth="50dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
 </android.widget.RelativeLayout>

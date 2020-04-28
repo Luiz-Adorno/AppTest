@@ -42,14 +42,15 @@ import miips.com.Utils.MyPreference;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class JewFragment extends Fragment {
+public class SemiFragment extends Fragment {
 
     private FirebaseFirestore db;
-    private JewFragment context;
+    private SemiFragment context;
     private FirebaseAuth mAuth;
     private String userID;
     private static User settings;
     private static Products products;
+    private RelativeLayout relOff;
 
     public String doc_id;
 
@@ -58,27 +59,26 @@ public class JewFragment extends Fragment {
     private HorizontalAdRecyclerViewAdapter adAdapter;
     private ArrayList<VerticalModel> arrayListVertical = new ArrayList<>();
     private ArrayList<AdModel> listAd = new ArrayList<>();
-    private RelativeLayout relOff;
+
     private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressBar mProgressBar;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_jew, container, false);
+        View view = inflater.inflate(R.layout.fragment_semi, container, false);
         mProgressBar = view.findViewById(R.id.progressBar_cyclic);
         mProgressBar.setVisibility(View.VISIBLE);
         swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
-
-        verticalRecyclerView = view.findViewById(R.id.vertical_recycler_view);
         relOff = view.findViewById(R.id.off_layout);
 
+        verticalRecyclerView = view.findViewById(R.id.vertical_recycler_view);
         adRecyclerView = view.findViewById(R.id.ad_rc);
         //make scrollview continue scroll like recyclerview
         adRecyclerView.setNestedScrollingEnabled(false);
         verticalRecyclerView.setNestedScrollingEnabled(false);
 
-        context = JewFragment.this;
+        context = SemiFragment.this;
         mAuth = FirebaseAuth.getInstance();
 
         setupRecyclerViewAd();
@@ -96,6 +96,7 @@ public class JewFragment extends Fragment {
             getUserLocation(doc_id, "annonymous");
 
         }
+
 
         //call the function when user refresh the layout
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -125,7 +126,7 @@ public class JewFragment extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(arrayListVertical.isEmpty()){
+                if (arrayListVertical.isEmpty()) {
                     relOff.setVisibility(View.VISIBLE);
                 }
             }
@@ -164,7 +165,7 @@ public class JewFragment extends Fragment {
     }
 
     private void getUserLocation(final String docID, final String gender) {
-        Log.d(TAG, "flag: "+ docID);
+        Log.d(TAG, "flag: " + docID);
 
         if (gender.equals("annonymous")) {
             Log.d(TAG, "flag2: ");
@@ -180,7 +181,7 @@ public class JewFragment extends Fragment {
                                     //Log.d(TAG, document.getId() + " aa=> " + document.getData());
                                     final Local local = document.toObject(Local.class);
 
-                                    getJew(new JewFragment.FirestoreCallback() {
+                                    getSemi(new SemiFragment.FirestoreCallback() {
                                         @Override
                                         public void onCallback(final ArrayList<Products> list) {
                                             if (!list.isEmpty()) {
@@ -215,7 +216,7 @@ public class JewFragment extends Fragment {
                                         }
                                     }, docID, "Unissex", local.getCnpj());
 
-                                    getJew(new JewFragment.FirestoreCallback() {
+                                    getSemi(new SemiFragment.FirestoreCallback() {
                                         @Override
                                         public void onCallback(final ArrayList<Products> list) {
                                             if (!list.isEmpty()) {
@@ -252,7 +253,7 @@ public class JewFragment extends Fragment {
                                         }
                                     }, docID, "Feminino", local.getCnpj());
 
-                                    getJew(new JewFragment.FirestoreCallback() {
+                                    getSemi(new SemiFragment.FirestoreCallback() {
                                         @Override
                                         public void onCallback(final ArrayList<Products> list) {
                                             if (!list.isEmpty()) {
@@ -309,7 +310,7 @@ public class JewFragment extends Fragment {
                                     //Log.d(TAG, document.getId() + " aa=> " + document.getData());
                                     final Local local = document.toObject(Local.class);
 
-                                    getJew(new JewFragment.FirestoreCallback() {
+                                    getSemi(new SemiFragment.FirestoreCallback() {
                                         @Override
                                         public void onCallback(final ArrayList<Products> list) {
                                             if (!list.isEmpty()) {
@@ -346,7 +347,7 @@ public class JewFragment extends Fragment {
                                         }
                                     }, docID, gender, local.getCnpj());
 
-                                    getJew(new JewFragment.FirestoreCallback() {
+                                    getSemi(new SemiFragment.FirestoreCallback() {
                                         @Override
                                         public void onCallback(final ArrayList<Products> list) {
                                             if (!list.isEmpty()) {
@@ -393,12 +394,12 @@ public class JewFragment extends Fragment {
         void onCallback(ArrayList<Products> list);
     }
 
-    private void getJew(final JewFragment.FirestoreCallback firestoreCallback, String docId, String gender, String cnpj) {
+    private void getSemi(final SemiFragment.FirestoreCallback firestoreCallback, String docId, String gender, String cnpj) {
         final ArrayList<Products> listUniversal = new ArrayList<>();
 
         CollectionReference productRef = db.collection(getString(R.string.cp)).document(docId).collection("Product");
         Log.d(TAG, "getVest: cnpjj:" + cnpj);
-        productRef.whereEqualTo("cnpj_owner", cnpj).whereEqualTo("gender", gender).whereEqualTo("product_category", "Joalheria")
+        productRef.whereEqualTo("cnpj_owner", cnpj).whereEqualTo("gender", gender).whereEqualTo("product_category", "Semijoia")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -429,7 +430,7 @@ public class JewFragment extends Fragment {
         VerticalModel verticalModel = new VerticalModel();
 
         ArrayList<HorizontalModel> arrayListHorizontal = new ArrayList<>();
-        Log.d(TAG, "jew universal ta assim: " + listUniversal);
+        Log.d(TAG, "universal ta assim: " + listUniversal);
         for (Products model : listUniversal) {
 
             HorizontalModel horizontalModel = new HorizontalModel();

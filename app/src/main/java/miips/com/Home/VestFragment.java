@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -53,6 +54,7 @@ public class VestFragment extends Fragment {
     private String userID;
     private static User settings;
     private static Products products;
+    private RelativeLayout relOff;
 
     public String doc_id;
 
@@ -72,6 +74,7 @@ public class VestFragment extends Fragment {
         mProgressBar = view.findViewById(R.id.progressBar_cyclic);
         mProgressBar.setVisibility(View.VISIBLE);
         swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
+        relOff = view.findViewById(R.id.off_layout);
 
         verticalRecyclerView = view.findViewById(R.id.vertical_recycler_view);
         adRecyclerView = view.findViewById(R.id.ad_rc);
@@ -98,28 +101,40 @@ public class VestFragment extends Fragment {
 
         }
 
+
         //call the function when user refresh the layout
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                arrayListVertical.clear();
+
+                if (mAuth.getCurrentUser() != null) {
+                    userID = mAuth.getCurrentUser().getUid();
+                    getDataViaUser();
+                } else {
+                    MyPreference myPreference = new MyPreference(getActivity());
+                    doc_id = myPreference.getToken();
+                    //  Log.d(TAG, "onCreateView: doc_id: "+ doc_id);
+                    getUserLocation(doc_id, "annonymous");
+                }
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        arrayListVertical.clear();
                         swipeRefreshLayout.setRefreshing(false);
-                        if (mAuth.getCurrentUser() != null) {
-                            userID = mAuth.getCurrentUser().getUid();
-                            getDataViaUser();
-                        } else {
-                            MyPreference myPreference = new MyPreference(getActivity());
-                            doc_id = myPreference.getToken();
-                            //  Log.d(TAG, "onCreateView: doc_id: "+ doc_id);
-                            getUserLocation(doc_id, "annonymous");
-                        }
                     }
-                }, 2000);
+                }, 3000);
             }
         });
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (arrayListVertical.isEmpty()) {
+                    relOff.setVisibility(View.VISIBLE);
+                }
+            }
+        }, 6000);
 
         return view;
     }
@@ -154,7 +169,7 @@ public class VestFragment extends Fragment {
     }
 
     private void getUserLocation(final String docID, final String gender) {
-        Log.d(TAG, "flag: "+ docID);
+        Log.d(TAG, "flag: " + docID);
 
         if (gender.equals("annonymous")) {
             Log.d(TAG, "flag2: ");
@@ -200,7 +215,7 @@ public class VestFragment extends Fragment {
                                                 });
 
                                             } else {
-                                                Log.d(TAG, "onCallback: teniz vazio unissex");
+                                                Log.d(TAG, "onCallback: vest vazio unissex");
                                             }
                                         }
                                     }, docID, "Unissex", local.getCnpj());
@@ -237,7 +252,7 @@ public class VestFragment extends Fragment {
 
 
                                             } else {
-                                                Log.d(TAG, "onCallback: teniz vazio unissex");
+                                                Log.d(TAG, "onCallback: vest vazio unissex");
                                             }
                                         }
                                     }, docID, "Feminino", local.getCnpj());
@@ -274,7 +289,7 @@ public class VestFragment extends Fragment {
 
 
                                             } else {
-                                                Log.d(TAG, "onCallback: teniz vazio unissex");
+                                                Log.d(TAG, "onCallback: vest vazio unissex");
                                             }
                                         }
                                     }, docID, "Masculino", local.getCnpj());
@@ -331,7 +346,7 @@ public class VestFragment extends Fragment {
 
 
                                             } else {
-                                                Log.d(TAG, "onCallback: teniz vazio unissex");
+                                                Log.d(TAG, "onCallback: vest vazio unissex");
                                             }
                                         }
                                     }, docID, gender, local.getCnpj());
@@ -366,7 +381,7 @@ public class VestFragment extends Fragment {
                                                 });
 
                                             } else {
-                                                Log.d(TAG, "onCallback: teniz vazio unissex");
+                                                Log.d(TAG, "onCallback: vest vazio unissex");
                                             }
                                         }
                                     }, docID, "Unissex", local.getCnpj());
@@ -432,12 +447,14 @@ public class VestFragment extends Fragment {
 
         verticalModel.setArrayList(arrayListHorizontal);
         arrayListVertical.add(verticalModel);
-        setupRecyclerVertical1();
+        setupRecyclerVertical();
     }
 
     //////////////////////////////--SetupSection--\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-    private void setupRecyclerVertical1() {
+    private void setupRecyclerVertical() {
+        relOff.setVisibility(View.GONE);
+
         verticalRecyclerView.setHasFixedSize(true);
         verticalRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         adapter = new VerticalRecyclerViewAdapter(getActivity(), arrayListVertical);

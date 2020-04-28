@@ -42,15 +42,15 @@ import miips.com.Utils.MyPreference;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class JewFragment extends Fragment {
+public class AccessoFragment extends Fragment {
 
     private FirebaseFirestore db;
-    private JewFragment context;
+    private AccessoFragment context;
     private FirebaseAuth mAuth;
     private String userID;
     private static User settings;
     private static Products products;
-
+    private RelativeLayout relOff;
     public String doc_id;
 
     private RecyclerView verticalRecyclerView, adRecyclerView;
@@ -58,27 +58,25 @@ public class JewFragment extends Fragment {
     private HorizontalAdRecyclerViewAdapter adAdapter;
     private ArrayList<VerticalModel> arrayListVertical = new ArrayList<>();
     private ArrayList<AdModel> listAd = new ArrayList<>();
-    private RelativeLayout relOff;
+
     private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressBar mProgressBar;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_jew, container, false);
+        View view = inflater.inflate(R.layout.fragment_accesso, container, false);
         mProgressBar = view.findViewById(R.id.progressBar_cyclic);
         mProgressBar.setVisibility(View.VISIBLE);
         swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
-
-        verticalRecyclerView = view.findViewById(R.id.vertical_recycler_view);
         relOff = view.findViewById(R.id.off_layout);
-
+        verticalRecyclerView = view.findViewById(R.id.vertical_recycler_view);
         adRecyclerView = view.findViewById(R.id.ad_rc);
         //make scrollview continue scroll like recyclerview
         adRecyclerView.setNestedScrollingEnabled(false);
         verticalRecyclerView.setNestedScrollingEnabled(false);
 
-        context = JewFragment.this;
+        context = AccessoFragment.this;
         mAuth = FirebaseAuth.getInstance();
 
         setupRecyclerViewAd();
@@ -131,6 +129,7 @@ public class JewFragment extends Fragment {
             }
         }, 6000);
 
+
         return view;
     }
 
@@ -180,7 +179,7 @@ public class JewFragment extends Fragment {
                                     //Log.d(TAG, document.getId() + " aa=> " + document.getData());
                                     final Local local = document.toObject(Local.class);
 
-                                    getJew(new JewFragment.FirestoreCallback() {
+                                    GetAccessories(new AccessoFragment.FirestoreCallback() {
                                         @Override
                                         public void onCallback(final ArrayList<Products> list) {
                                             if (!list.isEmpty()) {
@@ -210,12 +209,12 @@ public class JewFragment extends Fragment {
                                                 });
 
                                             } else {
-                                                Log.d(TAG, "onCallback: vazio unissex");
+                                                Log.d(TAG, "onCallback: acce vazio unissex");
                                             }
                                         }
                                     }, docID, "Unissex", local.getCnpj());
 
-                                    getJew(new JewFragment.FirestoreCallback() {
+                                    GetAccessories(new AccessoFragment.FirestoreCallback() {
                                         @Override
                                         public void onCallback(final ArrayList<Products> list) {
                                             if (!list.isEmpty()) {
@@ -247,12 +246,12 @@ public class JewFragment extends Fragment {
 
 
                                             } else {
-                                                Log.d(TAG, "onCallback: vazio unissex");
+                                                Log.d(TAG, "onCallback: acce vazio unissex");
                                             }
                                         }
                                     }, docID, "Feminino", local.getCnpj());
 
-                                    getJew(new JewFragment.FirestoreCallback() {
+                                    GetAccessories(new AccessoFragment.FirestoreCallback() {
                                         @Override
                                         public void onCallback(final ArrayList<Products> list) {
                                             if (!list.isEmpty()) {
@@ -284,7 +283,7 @@ public class JewFragment extends Fragment {
 
 
                                             } else {
-                                                Log.d(TAG, "onCallback: vazio unissex");
+                                                Log.d(TAG, "onCallback: acce vazio unissex");
                                             }
                                         }
                                     }, docID, "Masculino", local.getCnpj());
@@ -309,7 +308,7 @@ public class JewFragment extends Fragment {
                                     //Log.d(TAG, document.getId() + " aa=> " + document.getData());
                                     final Local local = document.toObject(Local.class);
 
-                                    getJew(new JewFragment.FirestoreCallback() {
+                                    GetAccessories(new AccessoFragment.FirestoreCallback() {
                                         @Override
                                         public void onCallback(final ArrayList<Products> list) {
                                             if (!list.isEmpty()) {
@@ -341,12 +340,12 @@ public class JewFragment extends Fragment {
 
 
                                             } else {
-                                                Log.d(TAG, "onCallback: vazio unissex");
+                                                Log.d(TAG, "onCallback: acce vazio unissex");
                                             }
                                         }
                                     }, docID, gender, local.getCnpj());
 
-                                    getJew(new JewFragment.FirestoreCallback() {
+                                    GetAccessories(new AccessoFragment.FirestoreCallback() {
                                         @Override
                                         public void onCallback(final ArrayList<Products> list) {
                                             if (!list.isEmpty()) {
@@ -376,7 +375,7 @@ public class JewFragment extends Fragment {
                                                 });
 
                                             } else {
-                                                Log.d(TAG, "onCallback: vazio unissex");
+                                                Log.d(TAG, "onCallback: acce vazio unissex");
                                             }
                                         }
                                     }, docID, "Unissex", local.getCnpj());
@@ -393,12 +392,12 @@ public class JewFragment extends Fragment {
         void onCallback(ArrayList<Products> list);
     }
 
-    private void getJew(final JewFragment.FirestoreCallback firestoreCallback, String docId, String gender, String cnpj) {
+    private void GetAccessories(final AccessoFragment.FirestoreCallback firestoreCallback, String docId, String gender, String cnpj) {
         final ArrayList<Products> listUniversal = new ArrayList<>();
 
         CollectionReference productRef = db.collection(getString(R.string.cp)).document(docId).collection("Product");
         Log.d(TAG, "getVest: cnpjj:" + cnpj);
-        productRef.whereEqualTo("cnpj_owner", cnpj).whereEqualTo("gender", gender).whereEqualTo("product_category", "Joalheria")
+        productRef.whereEqualTo("cnpj_owner", cnpj).whereEqualTo("gender", gender).whereEqualTo("product_category", "Acessórios")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -408,7 +407,7 @@ public class JewFragment extends Fragment {
                             mProgressBar.setVisibility(View.GONE);
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + "vestfame => " + document.getData());
+                                Log.d(TAG, document.getId() + "accesso => " + document.getData());
                                 products = document.toObject(Products.class);
                                 products.setDocId(document.getId());
                                 listUniversal.add(products);
@@ -429,7 +428,7 @@ public class JewFragment extends Fragment {
         VerticalModel verticalModel = new VerticalModel();
 
         ArrayList<HorizontalModel> arrayListHorizontal = new ArrayList<>();
-        Log.d(TAG, "jew universal ta assim: " + listUniversal);
+        Log.d(TAG, "universal ta assim: " + listUniversal);
         for (Products model : listUniversal) {
 
             HorizontalModel horizontalModel = new HorizontalModel();

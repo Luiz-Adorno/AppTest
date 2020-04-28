@@ -1,6 +1,7 @@
 package miips.com.Adapters.HomeAdapters;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,7 +33,7 @@ public class HorizontalHomeRecyclerViewAdapter extends RecyclerView.Adapter<Hori
     @NonNull
     @Override
     public HorizontalRVViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_horizontal,viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_horizontal, viewGroup, false);
         return new HorizontalRVViewHolder(view);
     }
 
@@ -43,19 +44,16 @@ public class HorizontalHomeRecyclerViewAdapter extends RecyclerView.Adapter<Hori
 
         //set image from firebase db
         String image = horizontalModel.getImage();
-        Log.d(TAG, "HorizontalRVViewHolder: image ta assim: "+image);
-            Picasso.get().load(image).error(R.drawable.ad).into(horizontalRVViewHolder.imageViewThumb);
-
-
+        Log.d(TAG, "HorizontalRVViewHolder: image ta assim: " + image);
+        Picasso.get().load(image).resize(400, 400).centerCrop().error(R.drawable.ad).into(horizontalRVViewHolder.imageViewThumb);
 
         //Set the action in each product clicked
         horizontalRVViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "clicked: "+ horizontalModel.getProductId(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "clicked: " + horizontalModel.getProductId(), Toast.LENGTH_SHORT).show();
             }
         });
-
 
     }
 
@@ -65,7 +63,7 @@ public class HorizontalHomeRecyclerViewAdapter extends RecyclerView.Adapter<Hori
     }
 
     //layout reference
-    public class HorizontalRVViewHolder extends RecyclerView.ViewHolder{
+    public class HorizontalRVViewHolder extends RecyclerView.ViewHolder {
         ImageView imageViewThumb;
 
         public HorizontalRVViewHolder(@NonNull View itemView) {

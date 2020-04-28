@@ -40,14 +40,7 @@ public class VerticalRecyclerViewAdapter extends RecyclerView.Adapter<VerticalRe
     @Override
     public void onBindViewHolder(@NonNull VerticalRVViewHolder verticalRVViewHolder, int i) {
         VerticalModel verticalModel = arrayList.get(i);
-        String title = verticalModel.getTitle();
-        int colorS = verticalModel.getColorString();
-        Drawable color = verticalModel.getColorTitle();
         ArrayList<HorizontalModel> singleItem = verticalModel.getArrayList();
-
-      //  verticalRVViewHolder.textViewTitle.setText(title);
-      //  verticalRVViewHolder.textViewTitle.setTextColor(colorS);
-       // verticalRVViewHolder.titleLayout.setBackground(color);
 
         HorizontalHomeRecyclerViewAdapter horizontalRecyclerViewAdapter = new HorizontalHomeRecyclerViewAdapter(context, singleItem);
 
@@ -66,13 +59,9 @@ public class VerticalRecyclerViewAdapter extends RecyclerView.Adapter<VerticalRe
 
     public class VerticalRVViewHolder extends RecyclerView.ViewHolder {
         RecyclerView recyclerView;
-        RelativeLayout titleLayout;
-        TextView textViewTitle;
         public VerticalRVViewHolder(@NonNull View itemView) {
             super(itemView);
-           //  titleLayout = itemView.findViewById(R.id.title_template);
             recyclerView = itemView.findViewById(R.id.recycler_view1);
-           // textViewTitle = itemView.findViewById(R.id.textTitle1);
         }
     }
 
