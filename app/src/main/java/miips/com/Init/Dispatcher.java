@@ -37,18 +37,6 @@ public class Dispatcher extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Class<?> activityClass;
-
-        try {
-            SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
-            activityClass = Class.forName(
-                    prefs.getString("lastActivity", Dispatcher.class.getName()));//is just the default Activity that should start if no activity is saved in the preferences
-        } catch (ClassNotFoundException ex) {
-            activityClass = Dispatcher.class;
-        }
-
-        startActivity(new Intent(this, activityClass));
-
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         //check if user is logged

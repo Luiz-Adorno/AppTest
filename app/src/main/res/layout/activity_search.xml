@@ -19,8 +19,6 @@
                     android:background="@drawable/ic_search"/>
 
                 <EditText
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
                     android:id="@+id/search_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -34,15 +32,25 @@
         </androidx.appcompat.widget.Toolbar>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:orientation="vertical"
-            android:id="@+id/recycler_search"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:layout_below="@id/search_toolbar"
-            android:layout_marginBottom="50dp">
+            android:layout_marginBottom="50dp"
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerView"
+            android:orientation="vertical">
 
         </androidx.recyclerview.widget.RecyclerView>
 
+
         <include layout="@layout/layout_bottom_navigation" />
+
+        <ProgressBar
+            android:id="@+id/progressBar_cyclic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="50dp"
+            android:minWidth="50dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

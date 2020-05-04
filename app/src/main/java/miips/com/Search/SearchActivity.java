@@ -3,145 +3,201 @@ package miips.com.Search;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.inputmethod.EditorInfo;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
+import com.firebase.ui.firestore.paging.FirestorePagingOptions;
+import com.firebase.ui.firestore.paging.LoadingState;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-import java.util.ArrayList;
-
-import miips.com.Adapters.SearchAdapters.VerticalRecyclerViewSearchAdapter;
+import miips.com.Adapters.SearchAdapters.PostViewHolder;
 import miips.com.Home.HomeActivity;
-import miips.com.LoginActivity.LoginActivity;
 import miips.com.Messages.MessagesActivity;
-import miips.com.Models.HomeModels.HorizontalModel;
-import miips.com.Models.HomeModels.VerticalModel;
-import miips.com.Models.Products.Products;
-import miips.com.Models.SearchModels.HorizontalSearchModel;
-import miips.com.Models.SearchModels.VerticalSearchModel;
+import miips.com.Models.Post;
+import miips.com.Models.User;
 import miips.com.Profile.AccountActivity;
 import miips.com.R;
 import miips.com.Utils.BottomNavigationViewHelper;
+import miips.com.Utils.MyPreference;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private static final String TAG = "SearchActivity";
-    private Context context = SearchActivity.this;
-    private static final int ACTIVITY_NUMBER = 1;
-    private EditText search_edit;
-
-    private VerticalRecyclerViewSearchAdapter adapter;
-    private ArrayList<VerticalSearchModel> arrayListVertical;
-    private ArrayList<HorizontalSearchModel> list = new ArrayList<>();
-    private RecyclerView verticalRecyclerView;
-    public static boolean activeS = false;
+    private FirebaseFirestore db;
     private FirebaseAuth mAuth;
+    private Context context;
+    private static final String TAG = "SearchActivity";
+    private static User user;
+    private static final int ACTIVITY_NUMBER = 1;
+    public String doc_id;
+    private static final int NUM_COLUMNS = 2;
+    private ProgressBar mProgressBar;
+    private RecyclerView mRecyclerView;
+    public static boolean activeS = false;
+    private FirestorePagingAdapter<Post, PostViewHolder> mAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        search_edit = findViewById(R.id.search_edit);
-        search_edit.setOnEditorActionListener(editorListener);
+        EditText search_edit = findViewById(R.id.search_edit);
+        mProgressBar = findViewById(R.id.progressBar_cyclic);
+        mProgressBar.setVisibility(View.VISIBLE);
+        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        context = SearchActivity.this;
+        mRecyclerView = findViewById(R.id.recyclerView);
 
-        verticalRecyclerView = findViewById(R.id.recycler_search);
+        // Init mRecyclerView
+        mRecyclerView.setHasFixedSize(true);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(NUM_COLUMNS, LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
 
-        setupRecycler();
-        setData();
+        callData();
 
         setupBottomNavigationViewEx();
     }
 
-    private TextView.OnEditorActionListener editorListener = new TextView.OnEditorActionListener() {
-        @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-            if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
 
-                Toast.makeText(context, "Texto: "+ search_edit.getText(), Toast.LENGTH_SHORT).show();
-            }
-            return false;
+    private void callData() {
+        if (mAuth.getCurrentUser() != null) {
+            String userID = mAuth.getCurrentUser().getUid();
+            user = new User();
+
+            Log.d(TAG, "onDataChange: user id ta assim: " + userID);
+            DocumentReference docRef = db.collection(context.getString(R.string.dbname_user)).document(userID);
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            user = document.toObject(User.class);
+                            String state = user.getState();
+                            String city = user.getCity();
+                            final String docID = city + "-" + state;
+
+                            setupAdapter(docID);
+
+                        } else {
+                            Log.d(TAG, "No such document");
+                        }
+                    } else {
+                        Log.d(TAG, "get failed with ", task.getException());
+                    }
+                }
+            });
+        } else {
+            MyPreference myPreference = new MyPreference(context);
+            doc_id = myPreference.getToken();
+            //  Log.d(TAG, "onCreateView: doc_id: "+ doc_id);
+            setupAdapter(doc_id);
+
         }
-    };
-
-
-    private void setupRecycler() {
-        arrayListVertical = new ArrayList<>();
-
-        verticalRecyclerView.setHasFixedSize(true);
-        verticalRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        adapter = new VerticalRecyclerViewSearchAdapter(context, arrayListVertical);
-        adapter.setHasStableIds(true);
-        //make vertical adapter for recyclerview
-        verticalRecyclerView.setAdapter(adapter);
-
     }
 
 
-    private void setData() {
-        for (int i = 1; i <= 5; i++) {
+    private void setupAdapter( String docID) {
+        Query mQuery = db.collection(getString(R.string.cp)).document(docID).collection("Product");
 
-            VerticalSearchModel verticalModel = new VerticalSearchModel();
-            verticalModel.setTitle("Title ");
+        // Init Paging Configuration
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setEnablePlaceholders(false)
+                .setPrefetchDistance(2)
+                .setPageSize(10)
+                .build();
 
-            //set title color
-            verticalModel.setColorTitle(context.getResources().getDrawable(R.drawable.title_color));
+        // Init Adapter Configuration
+        FirestorePagingOptions options = new FirestorePagingOptions.Builder<Post>()
+                .setLifecycleOwner(this)
+                .setQuery(mQuery, config, Post.class)
+                .build();
 
-            ArrayList<HorizontalSearchModel> arrayListHorizontal = new ArrayList<>();
-
-            for (int j = 0; j <= 5; j++) {
-                HorizontalSearchModel horizontalModel = new HorizontalSearchModel();
-                //set each product from db
-                horizontalModel.setImage(R.drawable.ad);
-                arrayListHorizontal.add(horizontalModel);
+        // Instantiate Paging Adapter
+        mAdapter = new FirestorePagingAdapter<Post, PostViewHolder>(options) {
+            @NonNull
+            @Override
+            public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = getLayoutInflater().inflate(R.layout.layout_grid_item, parent, false);
+                return new PostViewHolder(view, context);
             }
 
-            verticalModel.setArrayList(arrayListHorizontal);
-            arrayListVertical.add(verticalModel);
+            @Override
+            protected void onBindViewHolder(@NonNull PostViewHolder viewHolder, int i, @NonNull final Post post) {
+                // Bind to ViewHolder
+                viewHolder.bind(post);
+                //Set the action in each product clicked
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, "clicked: " + post.getNome_produto(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
 
-        }
-        adapter.notifyDataSetChanged();
+            @Override
+            protected void onError(@NonNull Exception e) {
+                super.onError(e);
+                Log.e("MainActivity", e.getMessage());
+            }
+
+            @Override
+            protected void onLoadingStateChanged(@NonNull LoadingState state) {
+                switch (state) {
+                    case LOADING_INITIAL:
+                    case LOADING_MORE:
+                        mProgressBar.setVisibility(View.VISIBLE);
+                        break;
+
+                    case LOADED:
+                        mProgressBar.setVisibility(View.GONE);
+                        break;
+
+                    case ERROR:
+                        Toast.makeText(
+                                getApplicationContext(),
+                                "Error Occurred!",
+                                Toast.LENGTH_SHORT
+                        ).show();
+
+                        mProgressBar.setVisibility(View.GONE);
+                        break;
+
+                    case FINISHED:
+                        mProgressBar.setVisibility(View.GONE);
+                        break;
+                }
+            }
+
+        };
+
+        // Finally Set the Adapter to mRecyclerView
+        mRecyclerView.setAdapter(mAdapter);
+
     }
-
-//    private void setSectionOne(String section, Drawable colorBlack, int colorString) {
-//        VerticalModel verticalModel = new VerticalModel();
-//        verticalModel.setTitle(section);
-//
-//        //set title color
-//        verticalModel.setColorTitle(colorBlack);
-//        verticalModel.setColorString(colorString);
-//
-//        ArrayList<HorizontalModel> arrayListHorizontal = new ArrayList<>();
-//
-//        for (Products model : listOne) {
-//
-//            HorizontalModel horizontalModel = new HorizontalModel();
-//            //set each product from db
-//            horizontalModel.setProductId(model.getDocId());
-//            horizontalModel.setImage(model.getUrl_product());
-//            //them add
-//            arrayListHorizontal.add(horizontalModel);
-//        }
-//
-//        verticalModel.setArrayList(arrayListHorizontal);
-//        arrayListVertical.add(verticalModel);
-//    }
-
 
     // Bottom Navigation view setup
     private void setupBottomNavigationViewEx() {
@@ -216,5 +272,6 @@ public class SearchActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(0, 0);
     }
+
 }
 

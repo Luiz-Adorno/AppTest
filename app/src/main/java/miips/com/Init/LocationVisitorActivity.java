@@ -1,12 +1,5 @@
 package miips.com.Init;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -27,6 +20,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -34,7 +33,6 @@ import java.util.Locale;
 import miips.com.Home.HomeActivity;
 import miips.com.LoginActivity.LoginActivity;
 import miips.com.R;
-import miips.com.Register.normal.LocationCepFragment;
 import miips.com.Utils.ConnectionDetector;
 import miips.com.Utils.MyPreference;
 import miips.com.Utils.StatesManipulation;
@@ -251,7 +249,7 @@ public class LocationVisitorActivity extends AppCompatActivity {
                     stateString = StatesManipulation.stManipulation(addresses.get(0).getAdminArea());
                     mProgessBar.setVisibility(View.GONE);
                     Log.d(TAG, "onComplete: city and state ta assim: " + cityString + stateString);
-                    if (cityString.equals("") || stateString.equals("")) {
+                    if (cityString.isEmpty() || stateString.isEmpty()) {
                         alertDialogZip();
                         mProgessBar.setVisibility(View.GONE);
                     }

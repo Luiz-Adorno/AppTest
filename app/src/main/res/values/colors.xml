@@ -19,6 +19,9 @@
     <color name="red_fly">#ff7b7b</color>
     <color name="blue_form">#364660</color>
     <color name="blue_btn">#11b7cc</color>
+    <color name="dark_red">#40000c</color>
+    <color name="materialGray200">#EEEEEE</color>
+    <color name="materialGray300">#D3D3D3</color>
 
 
 </resources>

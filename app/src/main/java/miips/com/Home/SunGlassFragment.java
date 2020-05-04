@@ -86,17 +86,6 @@ public class SunGlassFragment extends Fragment {
 
         //retrieve user information from database Firestore
         db = FirebaseFirestore.getInstance();
-        if (mAuth.getCurrentUser() != null) {
-            userID = mAuth.getCurrentUser().getUid();
-            getDataViaUser();
-        } else {
-            MyPreference myPreference = new MyPreference(getActivity());
-            doc_id = myPreference.getToken();
-            //  Log.d(TAG, "onCreateView: doc_id: "+ doc_id);
-            getUserLocation(doc_id, "annonymous");
-
-        }
-
 
         //call the function when user refresh the layout
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -121,16 +110,6 @@ public class SunGlassFragment extends Fragment {
                 }, 3000);
             }
         });
-
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (arrayListVertical.isEmpty()) {
-                    relOff.setVisibility(View.VISIBLE);
-                }
-            }
-        }, 6000);
 
         return view;
     }
@@ -427,6 +406,7 @@ public class SunGlassFragment extends Fragment {
     ////////////////////////////////////-- SetSection --\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     private void setSectionOne(ArrayList<Products> listUniversal) {
+        mProgressBar.setVisibility(View.GONE);
         VerticalModel verticalModel = new VerticalModel();
 
         ArrayList<HorizontalModel> arrayListHorizontal = new ArrayList<>();
@@ -480,6 +460,32 @@ public class SunGlassFragment extends Fragment {
             listAd.add(adModel);
         }
         adAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAuth.getCurrentUser() != null) {
+            userID = mAuth.getCurrentUser().getUid();
+            getDataViaUser();
+        } else {
+            MyPreference myPreference = new MyPreference(getActivity());
+            doc_id = myPreference.getToken();
+            //  Log.d(TAG, "onCreateView: doc_id: "+ doc_id);
+            getUserLocation(doc_id, "annonymous");
+
+        }
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (arrayListVertical.isEmpty()) {
+                    mProgressBar.setVisibility(View.GONE);
+                    relOff.setVisibility(View.VISIBLE);
+                }
+            }
+        }, 8000);
     }
 
     @Override
