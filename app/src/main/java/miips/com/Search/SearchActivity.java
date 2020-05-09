@@ -121,7 +121,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
     private void setupAdapter( String docID) {
-        Query mQuery = db.collection(getString(R.string.cp)).document(docID).collection("Product");
+        Query mQuery = db.collection(getString(R.string.cp)).document(docID).collection("Product").whereEqualTo("state",true);
 
         // Init Paging Configuration
         PagedList.Config config = new PagedList.Config.Builder()

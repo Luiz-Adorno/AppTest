@@ -85,6 +85,7 @@ public class LocationVisitorActivity extends AppCompatActivity {
         lay2.setVisibility(View.GONE);
         MyPreference myPreference = new MyPreference(context);
         String doc_id = myPreference.getToken();
+
         if(doc_id.isEmpty()){
             getPermissions();
             initGps();

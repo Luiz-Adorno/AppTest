@@ -7,6 +7,7 @@ import android.content.Context
 class MyPreference(contex : Context){
     val PREFERENCE_NAME = "SharedPreference"
     val TOKEN = "token"
+    val IDCLICK = "idproduct"
 
     /**
      * 1º parâmetro: nome da shared preferences que queremos buscar.
@@ -26,6 +27,15 @@ class MyPreference(contex : Context){
      */
     fun setTOKEN(token: String){
         preference.edit().putString(TOKEN, token).apply()
+    }
+
+    fun getIdClick(): String? {
+        return preference.getString(IDCLICK, "")
+    }
+
+
+    fun setIDCLICK(idProduct: String){
+        preference.edit().putString(IDCLICK, idProduct).apply()
     }
 
 }

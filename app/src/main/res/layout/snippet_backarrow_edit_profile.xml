@@ -17,8 +17,8 @@
 
 
                 <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:id="@+id/back_arrow"
                     android:src="@drawable/ic_backarrow"
                     android:layout_centerVertical="true"/>

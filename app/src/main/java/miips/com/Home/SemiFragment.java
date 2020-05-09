@@ -24,6 +24,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -87,6 +88,36 @@ public class SemiFragment extends Fragment {
         //retrieve user information from database Firestore
         db = FirebaseFirestore.getInstance();
 
+        //first check if the array is already filled
+        if(arrayListVertical.isEmpty()){
+            if (mAuth.getCurrentUser() != null) {
+                userID = mAuth.getCurrentUser().getUid();
+                getDataViaUser();
+            } else {
+                MyPreference myPreference = new MyPreference(getActivity());
+                doc_id = myPreference.getToken();
+                //  Log.d(TAG, "onCreateView: doc_id: "+ doc_id);
+                getUserLocation(doc_id, "annonymous");
+
+            }
+        }else{
+            mProgressBar.setVisibility(View.GONE);
+            setupRecyclerVertical();
+        }
+
+        //show off layout
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (arrayListVertical.isEmpty()) {
+                    mProgressBar.setVisibility(View.GONE);
+                    relOff.setVisibility(View.VISIBLE);
+                }
+            }
+        }, 8000);
+
+
         //call the function when user refresh the layout
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -148,7 +179,7 @@ public class SemiFragment extends Fragment {
 
         if (gender.equals("annonymous")) {
             Log.d(TAG, "flag2: ");
-            final CollectionReference productRef = db.collection(getString(R.string.cp)).document(docID).collection("Local");
+            final Query productRef = db.collection(getString(R.string.cp)).document(docID).collection("Local").whereEqualTo("state",true);
 
             productRef
                     .get()
@@ -277,7 +308,7 @@ public class SemiFragment extends Fragment {
                     });
 
         } else {
-            final CollectionReference productRef = db.collection(getString(R.string.cp)).document(docID).collection("Local");
+            final Query productRef = db.collection(getString(R.string.cp)).document(docID).collection("Local").whereEqualTo("state",true);
             Log.d(TAG, "flag3: ");
             productRef
                     .get()
@@ -378,7 +409,7 @@ public class SemiFragment extends Fragment {
 
         CollectionReference productRef = db.collection(getString(R.string.cp)).document(docId).collection("Product");
         Log.d(TAG, "getVest: cnpjj:" + cnpj);
-        productRef.whereEqualTo("cnpj_owner", cnpj).whereEqualTo("gender", gender).whereEqualTo("product_category", "Semijoia")
+        productRef.whereEqualTo("cnpj_owner", cnpj).whereEqualTo("gender", gender).whereEqualTo("product_category", "Semijoia").whereEqualTo("state",true)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -459,37 +490,5 @@ public class SemiFragment extends Fragment {
             listAd.add(adModel);
         }
         adAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mAuth.getCurrentUser() != null) {
-            userID = mAuth.getCurrentUser().getUid();
-            getDataViaUser();
-        } else {
-            MyPreference myPreference = new MyPreference(getActivity());
-            doc_id = myPreference.getToken();
-            //  Log.d(TAG, "onCreateView: doc_id: "+ doc_id);
-            getUserLocation(doc_id, "annonymous");
-
-        }
-
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (arrayListVertical.isEmpty()) {
-                    mProgressBar.setVisibility(View.GONE);
-                    relOff.setVisibility(View.VISIBLE);
-                }
-            }
-        }, 8000);
-    }
-
-    @Override
-    public void onStart() {
-        arrayListVertical.clear();
-        super.onStart();
     }
 }
