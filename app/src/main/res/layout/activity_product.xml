@@ -74,7 +74,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLength="30"
-                android:text="Alala alala lal"
                 android:textColor="@color/black"
                 android:textSize="21sp"
                 android:textStyle="bold" />
@@ -84,8 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/name_product"
-                android:maxLength="30"
-                android:text="103.32"
+                android:maxLength="10"
                 android:textColor="@color/black"
                 android:textSize="17sp"
                 android:textStyle="bold" />
@@ -111,7 +109,6 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="5dp"
                 android:layout_toStartOf="@id/save_icon"
-                android:text="Salvar"
                 android:textColor="@color/black"
                 android:textSize="17sp" />
 
@@ -121,8 +118,7 @@
                 android:layout_height="30dp"
                 android:layout_below="@id/name_product"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/s2" />
+                android:layout_centerVertical="true" />
 
             <RelativeLayout
                 android:id="@+id/sec2"

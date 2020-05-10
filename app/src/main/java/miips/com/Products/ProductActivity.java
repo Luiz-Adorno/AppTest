@@ -6,8 +6,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,10 +17,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import miips.com.Models.FeedbackProduct;
 import miips.com.Models.Local;
 import miips.com.Models.Products.Products;
 import miips.com.Models.User;
@@ -33,6 +38,8 @@ public class ProductActivity extends AppCompatActivity {
     private static final String TAG = "ProductAct";
     private static Products products;
     private static User settings;
+    private TextView sv;
+    private ImageView fav;
     private String name, price, image, description, cnpj_owner;
 
     @Override
@@ -45,6 +52,8 @@ public class ProductActivity extends AppCompatActivity {
         String idP = myPreference.getIdClick();
         db = FirebaseFirestore.getInstance();
         ImageView back_btn = findViewById(R.id.back_arrow);
+        fav = findViewById(R.id.save_icon);
+        sv = findViewById(R.id.save);
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,15 +64,25 @@ public class ProductActivity extends AppCompatActivity {
 
         if (mAuth.getCurrentUser() != null) {
             getDataViaUser(idP);
+            saveFav(idP);
         } else {
             String token = myPreference.getToken();
             getData(token, idP);
             //Log.d(TAG, "onCreate:myPrefenrece: "+idP +" e "+ token);
+
+            fav.setImageResource(R.drawable.s2);
+            sv.setText("Salvar");
+            fav.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "Faça Login para salvar produtos na lista de favoritos", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
     }
 
-    public void initToolber(String cnpj_owner, String token){
+    public void initToolber(String cnpj_owner, String token) {
 
         final TextView nameStore = findViewById(R.id.id);
         final CircleImageView circleImageView = findViewById(R.id.img_circle);
@@ -94,13 +113,117 @@ public class ProductActivity extends AppCompatActivity {
 
     }
 
-    public void initImage(String image){
+    public void saveFav(final String idP) {
+        final String userID = mAuth.getCurrentUser().getUid();
+
+        final DocumentReference favCol = db.collection("users").document(userID).collection("feedbackProduct").document(idP);
+
+        //check if document exist
+        favCol.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                if (documentSnapshot.exists()) {
+                    //get state
+                    favCol.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    FeedbackProduct feedbackProduct;
+                                    feedbackProduct = document.toObject(FeedbackProduct.class);
+
+                                    //check state
+                                    if (feedbackProduct.getFaveState()) {
+                                        fav.setImageResource(R.drawable.s2r);
+                                        sv.setText("Salvo");
+                                        //removes from favorites
+                                        fav.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+
+                                                favCol.update("faveState", false).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            fav.setImageResource(R.drawable.s2);
+                                                            sv.setText("Salvar");
+                                                            Log.d(TAG, "onComplete: fav successfully updated");
+                                                        } else {
+                                                            Log.d(TAG, "onComplete: update failed");
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    } else {
+                                        fav.setImageResource(R.drawable.s2);
+
+                                        //add to favorites if the user clicks
+                                        fav.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+
+                                                favCol.update("faveState", true).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            fav.setImageResource(R.drawable.s2r);
+                                                            sv.setText("Salvo");
+                                                            Log.d(TAG, "onComplete: fav successfully updated");
+                                                        } else {
+                                                            Log.d(TAG, "onComplete: update failed");
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    Log.d(TAG, "No such document");
+                                }
+                            } else {
+                                Log.d(TAG, "get failed with ", task.getException());
+                            }
+                        }
+                    });
+                } else {
+                    sv.setText("Salvar");
+                    fav.setImageResource(R.drawable.s2);
+
+                    //like the product
+                    fav.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            FeedbackProduct feedbackProduct = new FeedbackProduct();
+                            feedbackProduct.setFaveState(true);
+                            favCol.set(feedbackProduct).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        sv.setText("Salvo");
+                                        fav.setImageResource(R.drawable.s2r);
+                                        Log.d(TAG, "onComplete: Created new node");
+                                    } else {
+                                        Log.d(TAG, "onComplete: error, the node was not created");
+                                    }
+                                }
+                            });
+
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    public void initImage(String image) {
         ImageView imageProduct = findViewById(R.id.profile_product);
 
         Picasso.get().load(image).fit().centerCrop().error(R.drawable.carregando).into(imageProduct);
     }
 
-    public void initTexts(String name, String price, String description){
+    public void initTexts(String name, String price, String description) {
         TextView nameP = findViewById(R.id.name_product);
         TextView valor = findViewById(R.id.price);
         TextView descri = findViewById(R.id.descipt);
@@ -110,7 +233,7 @@ public class ProductActivity extends AppCompatActivity {
         descri.setText(description);
     }
 
-    public void getData(final String token, String idPro){
+    public void getData(final String token, String idPro) {
         DocumentReference productRef = db.collection(getString(R.string.cp)).document(token).collection("Product").document(idPro);
         productRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
