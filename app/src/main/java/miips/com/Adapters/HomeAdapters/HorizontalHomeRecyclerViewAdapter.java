@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import miips.com.Local.LocalActivity;
 import miips.com.Models.HomeModels.HorizontalModel;
 import miips.com.Products.ProductActivity;
 import miips.com.R;
@@ -56,16 +57,20 @@ public class HorizontalHomeRecyclerViewAdapter extends RecyclerView.Adapter<Hori
         horizontalRVViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myPreference.setIDCLICK(horizontalModel.getProductId());
+
 
                 Pattern p = Pattern.compile("[^A-Za-z0-9]");
                 Matcher m = p.matcher(horizontalModel.getProductId());
                 // boolean b = m.matches();
                 boolean b = m.find();
                 if (b){
+                    myPreference.setIDLOCAL(horizontalModel.getProductId());
+                    Log.d(TAG, "onClick: aaaalo: "+ horizontalModel.getProductId());
                     //is a store
+                    v.getContext().startActivity(new Intent(v.getContext(), LocalActivity.class));
                 }
                 else{
+                    myPreference.setIDCLICK(horizontalModel.getProductId());
                     //is a product
                     v.getContext().startActivity(new Intent(v.getContext(), ProductActivity.class));
                 }

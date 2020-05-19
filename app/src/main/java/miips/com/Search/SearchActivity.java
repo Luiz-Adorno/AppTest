@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.firebase.ui.firestore.SnapshotParser;
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.firebase.ui.firestore.paging.LoadingState;
@@ -39,6 +40,7 @@ import miips.com.Home.HomeActivity;
 import miips.com.Messages.MessagesActivity;
 import miips.com.Models.Post;
 import miips.com.Models.User;
+import miips.com.Products.ProductActivity;
 import miips.com.Profile.AccountActivity;
 import miips.com.R;
 import miips.com.Utils.BottomNavigationViewHelper;
@@ -127,13 +129,22 @@ public class SearchActivity extends AppCompatActivity {
         PagedList.Config config = new PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
                 .setPrefetchDistance(2)
-                .setPageSize(10)
+                .setPageSize(8)
                 .build();
 
         // Init Adapter Configuration
         FirestorePagingOptions options = new FirestorePagingOptions.Builder<Post>()
                 .setLifecycleOwner(this)
-                .setQuery(mQuery, config, Post.class)
+                .setQuery(mQuery, config, new SnapshotParser<Post>() {
+                    @NonNull
+                    @Override
+                    public Post parseSnapshot(@NonNull DocumentSnapshot snapshot) {
+                        Post post;
+                        post = snapshot.toObject(Post.class);
+                        post.setId(snapshot.getId());
+                        return post;
+                    }
+                })
                 .build();
 
         // Instantiate Paging Adapter
@@ -153,7 +164,11 @@ public class SearchActivity extends AppCompatActivity {
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(context, "clicked: " + post.getNome_produto(), Toast.LENGTH_SHORT).show();
+                        MyPreference myPreference = new MyPreference(context);
+                        myPreference.setIDCLICK(post.getId());
+
+                        //go go product activity
+                        v.getContext().startActivity(new Intent(v.getContext(), ProductActivity.class));
                     }
                 });
             }

@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Products.ProductActivity"></activity>
+        <activity android:name=".Local.LocalActivity"></activity>
+        <activity android:name=".Products.ProductActivity" />
         <activity android:name=".Init.LocationVisitorActivity" />
 
         <uses-library

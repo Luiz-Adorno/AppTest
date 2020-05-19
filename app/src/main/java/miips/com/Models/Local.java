@@ -25,6 +25,24 @@ public class Local {
     private String numero;
     private String rua;
     private String telefone;
+    private int product_count;
+    private String company_id;
+
+    public String getCompany_id() {
+        return company_id;
+    }
+
+    public void setCompany_id(String company_id) {
+        this.company_id = company_id;
+    }
+
+    public int getProduct_count() {
+        return product_count;
+    }
+
+    public void setProduct_count(int product_count) {
+        this.product_count = product_count;
+    }
 
     public String getNome_estabelecimento() {
         return nome_estabelecimento;

@@ -8,6 +8,15 @@ public class Post {
     private String cod_barras;
     private String data_cadastro;
     private String descri;
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getCnpj_owner() {
         return cnpj_owner;

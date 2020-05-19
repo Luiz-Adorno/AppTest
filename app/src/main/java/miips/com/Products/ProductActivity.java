@@ -1,6 +1,7 @@
 package miips.com.Products;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import miips.com.Local.LocalActivity;
 import miips.com.Models.FeedbackProduct;
 import miips.com.Models.Local;
 import miips.com.Models.Products.Products;
@@ -38,6 +41,7 @@ public class ProductActivity extends AppCompatActivity {
     private static final String TAG = "ProductAct";
     private static Products products;
     private static User settings;
+    private MyPreference myPreference;
     private TextView sv;
     private ImageView fav;
     private String name, price, image, description, cnpj_owner;
@@ -47,7 +51,7 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
         context = ProductActivity.this;
-        MyPreference myPreference = new MyPreference(context);
+        myPreference = new MyPreference(context);
         mAuth = FirebaseAuth.getInstance();
         String idP = myPreference.getIdClick();
         db = FirebaseFirestore.getInstance();
@@ -82,12 +86,12 @@ public class ProductActivity extends AppCompatActivity {
 
     }
 
-    public void initToolber(String cnpj_owner, String token) {
+    public void initToolber(final String cnpj_owner, String token) {
 
         final TextView nameStore = findViewById(R.id.id);
         final CircleImageView circleImageView = findViewById(R.id.img_circle);
         //format string for the firestore model
-        String cnpj = cnpj_owner.replaceFirst("/", "-");
+        final String cnpj = cnpj_owner.replaceFirst("/", "-");
         DocumentReference localRef = db.collection(getString(R.string.cp)).document(token).collection("Local").document(cnpj);
         localRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -101,6 +105,17 @@ public class ProductActivity extends AppCompatActivity {
                         String image = local.getProfilePhoto();
 
                         Picasso.get().load(image).error(R.drawable.carregando).into(circleImageView);
+
+                        circleImageView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                myPreference.setIDLOCAL(cnpj);
+
+                                Intent intent = new Intent(context, LocalActivity.class);
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.enter, R.anim.exit);
+                            }
+                        });
 
                     } else {
                         Log.d(TAG, "No such document");
@@ -158,6 +173,7 @@ public class ProductActivity extends AppCompatActivity {
                                         });
                                     } else {
                                         fav.setImageResource(R.drawable.s2);
+                                        sv.setText("Salvar");
 
                                         //add to favorites if the user clicks
                                         fav.setOnClickListener(new View.OnClickListener() {
@@ -220,7 +236,11 @@ public class ProductActivity extends AppCompatActivity {
     public void initImage(String image) {
         ImageView imageProduct = findViewById(R.id.profile_product);
 
-        Picasso.get().load(image).fit().centerCrop().error(R.drawable.carregando).into(imageProduct);
+        Glide.with(context)
+                .load(image)
+                .into(imageProduct);
+
+        //Picasso.get().load(image).fit().centerCrop().error(R.drawable.carregando).into(imageProduct);
     }
 
     public void initTexts(String name, String price, String description) {
