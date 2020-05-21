@@ -3,34 +3,30 @@ package miips.com.Profile;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -46,7 +42,6 @@ import miips.com.Models.User;
 import miips.com.R;
 import miips.com.Search.SearchActivity;
 import miips.com.Utils.BottomNavigationViewHelper;
-import miips.com.Utils.FirebaseMethods;
 import miips.com.Utils.MyPreference;
 
 public class AccountActivity extends AppCompatActivity {
@@ -80,7 +75,7 @@ public class AccountActivity extends AppCompatActivity {
         if (mAuth.getCurrentUser() != null) {
             getUserData();
             userIntent();
-        }else{
+        } else {
             intentNoUser();
         }
     }
@@ -99,11 +94,13 @@ public class AccountActivity extends AppCompatActivity {
         cityWidgets = findViewById(R.id.city);
     }
 
-    private void intentNoUser(){
+    private void intentNoUser() {
+        RelativeLayout relativeLayout = findViewById(R.id.topPanel);
+        relativeLayout.setVisibility(View.GONE);
         mProgressBar.setVisibility(View.GONE);
         Picasso.get().load(R.drawable.nouser).into(profilePhoto);
         miipsID.setText("Fazer login ou registrar-se");
-        miipsID.setTextColor(Color.BLUE);
+        miipsID.setTextColor(ContextCompat.getColor(context, R.color.link_blue));
         cityWidgets.setTextColor(Color.BLACK);
         MyPreference myPreference = new MyPreference(context);
         String doc_id = myPreference.getToken();
@@ -112,53 +109,12 @@ public class AccountActivity extends AppCompatActivity {
         miipsID.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MyPreference myPreference = new MyPreference(context);
+                myPreference.setFLAG(true);
                 Intent intent = new Intent(context, LoginActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 finish();
-            }
-        });
-
-        editProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context,"Faça o login ou registre-se para realizar essa ação", Toast.LENGTH_SHORT).show();
-            }
-        });
-        password.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context,"Faça o login ou registre-se para realizar essa ação", Toast.LENGTH_SHORT).show();
-            }
-        });
-        politics.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context,"Faça o login ou registre-se para realizar essa ação", Toast.LENGTH_SHORT).show();
-            }
-        });
-        singOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context,"Faça o login ou registre-se para realizar essa ação", Toast.LENGTH_SHORT).show();
-            }
-        });
-        terms.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context,"Faça o login ou registre-se para realizar essa ação", Toast.LENGTH_SHORT).show();
-            }
-        });
-        helpCenter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context,"Faça o login ou registre-se para realizar essa ação", Toast.LENGTH_SHORT).show();
-            }
-        });
-        feedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context,"Faça o login ou registre-se para realizar essa ação", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -195,8 +151,10 @@ public class AccountActivity extends AppCompatActivity {
                         mAuth.signOut();
                         mGoogleSignInClient.signOut();
                         Intent intent = new Intent(context, LoginActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
+                        MyPreference myPreference = new MyPreference(context);
+                        myPreference.setFLAG(true);
                         overridePendingTransition(0, 0);
                         finish();
                     }

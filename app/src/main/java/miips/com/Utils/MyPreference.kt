@@ -9,6 +9,7 @@ class MyPreference(contex : Context){
     val TOKEN = "token"
     val IDCLICK = "idproduct"
     val IDLOCAL = "idlocal"
+    val FLAG = "flag"
 
     /**
      * 1º parâmetro: nome da shared preferences que queremos buscar.
@@ -46,6 +47,15 @@ class MyPreference(contex : Context){
 
     fun setIDLOCAL(idProduct: String){
         preference.edit().putString(IDLOCAL, idProduct).apply()
+    }
+
+    fun getFlag(): Boolean? {
+        return preference.getBoolean(FLAG, false)
+    }
+
+
+    fun setFLAG(flag: Boolean){
+        preference.edit().putBoolean(FLAG, flag).apply()
     }
 
 }

@@ -60,7 +60,6 @@ public class VestFragment extends Fragment {
     private HorizontalAdRecyclerViewAdapter adAdapter;
     private ArrayList<VerticalModel> arrayListVertical = new ArrayList<>();
     private ArrayList<AdModel> listAd = new ArrayList<>();
-
     private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressBar mProgressBar;
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +28,7 @@ import miips.com.Search.SearchActivity;
 import miips.com.Utils.BottomNavigationViewHelper;
 import miips.com.Utils.ConnectionDetector;
 import miips.com.Utils.FirebaseMethods;
+import miips.com.Utils.MyPreference;
 import miips.com.Utils.SectionPagerAdapter;
 
 public class HomeActivity extends AppCompatActivity {
@@ -62,17 +64,49 @@ public class HomeActivity extends AppCompatActivity {
 
         setupFirebaseAuth();
 
+        if (mAuth.getCurrentUser() != null) {
+            setupViewPagerWithUser();
+        } else {
+            setupViewPagerNoUser();
+        }
+
         setupBottomNavigationViewEx();
 
-        setupViewPager();
+    }
 
+    // Responsible for adding the tabs with liked tab
+    private void setupViewPagerWithUser() {
+        SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new LikedFragment()); //index = 0
+        adapter.addFragment(new VestFragment()); //index = 1
+        adapter.addFragment(new ShoesFragment()); //index = 2
+        adapter.addFragment(new AccessoFragment()); //index = 3
+        adapter.addFragment(new SunGlassFragment()); //index = 4
+        adapter.addFragment(new GlassFragment()); //index = 5
+        adapter.addFragment(new BijuFragment()); //index = 6
+        adapter.addFragment(new SemiFragment()); //index = 7
+        adapter.addFragment(new JewFragment()); //index = 8
+        ViewPager viewPager = findViewById(R.id.containerViewPager);
+        viewPager.setAdapter(adapter);
+
+        TabLayout tabLayout = findViewById(R.id.tabsFragment);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(0).setIcon(R.drawable.tabheart);
+        tabLayout.getTabAt(1).setIcon(R.drawable.clothes);
+        tabLayout.getTabAt(2).setIcon(R.drawable.shoes);
+        tabLayout.getTabAt(3).setIcon(R.drawable.product);
+        tabLayout.getTabAt(4).setIcon(R.drawable.sunglass);
+        tabLayout.getTabAt(5).setIcon(R.drawable.glass);
+        tabLayout.getTabAt(6).setIcon(R.drawable.biju);
+        tabLayout.getTabAt(7).setIcon(R.drawable.semi);
+        tabLayout.getTabAt(8).setIcon(R.drawable.diamond);
     }
 
 
 
 
-    // Responsible for adding the 2 tabs Product, Service
-    private void setupViewPager() {
+    // Responsible for adding the tabs without liked tab
+    private void setupViewPagerNoUser() {
         SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new VestFragment()); //index = 0
         adapter.addFragment(new ShoesFragment()); //index = 1
@@ -159,6 +193,14 @@ public class HomeActivity extends AppCompatActivity {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
         activeH = true;
+        MyPreference myPreference = new MyPreference(context);
+        Boolean flag = myPreference.getFlag();
+        Log.d(TAG, "onStart: infinyty: "+ flag);
+        if(flag){
+            myPreference.setFLAG(false);
+            finish();
+            startActivity(getIntent());
+        }
     }
 
     @Override
@@ -177,11 +219,5 @@ public class HomeActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("lastActivity", getClass().getName());
         editor.apply();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
     }
 }
