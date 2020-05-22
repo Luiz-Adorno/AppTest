@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ import miips.com.Models.Products.Products;
 import miips.com.Models.User;
 import miips.com.R;
 import miips.com.Utils.MyPreference;
+import miips.com.cart.CartActivity;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -45,6 +47,7 @@ public class ProductActivity extends AppCompatActivity {
     private TextView sv;
     private ImageView fav;
     private String name, price, image, description, cnpj_owner;
+    private Button btn_cart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,7 @@ public class ProductActivity extends AppCompatActivity {
         ImageView back_btn = findViewById(R.id.back_arrow);
         fav = findViewById(R.id.save_icon);
         sv = findViewById(R.id.save);
+        btn_cart = findViewById(R.id.btn_add_cart);
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +84,13 @@ public class ProductActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(context, "Faça Login para salvar produtos na lista de favoritos", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            btn_cart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "Faça Login para encomendar e comprar produtos", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -129,6 +140,17 @@ public class ProductActivity extends AppCompatActivity {
     }
 
     public void saveFav(final String idP) {
+        //i put this onclick here because it will be triggered only after loading the page
+        btn_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CartActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
+            }
+        });
+
+
         final String userID = mAuth.getCurrentUser().getUid();
 
         final DocumentReference favCol = db.collection("users").document(userID).collection("feedbackProduct").document(idP);

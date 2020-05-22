@@ -167,12 +167,21 @@
                     android:background="@color/black" />
 
                 <Button
+                    android:id="@+id/btn_add_cart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/line2"
+                    android:layout_centerInParent="true"
+                    android:paddingHorizontal="70dp"
                     android:background="#302f2c"
-                    android:text="Encomendar"
-                    android:textColor="@color/white" />
+                    android:text="Adcionar ao carrinho"
+                    android:drawableEnd="@drawable/ic_shopping_cart_black_24dp"
+                    android:textColor="@color/white"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_shopping_cart_black_24dp"/>
 
             </RelativeLayout>
 
