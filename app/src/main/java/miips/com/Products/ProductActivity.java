@@ -1,6 +1,7 @@
 package miips.com.Products;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
@@ -50,7 +52,7 @@ public class ProductActivity extends AppCompatActivity {
     private static Products products;
     private static User settings;
     private MyPreference myPreference;
-    private TextView sv;
+    private TextView sv, qnt;
     private ImageView fav;
     private String name, price, image, description, cnpj_owner, product_category;
     private Button btn_cart;
@@ -65,6 +67,7 @@ public class ProductActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         String idP = myPreference.getIdClick();
         db = FirebaseFirestore.getInstance();
+        qnt = findViewById(R.id.qnt);
         ImageView back_btn = findViewById(R.id.back_arrow);
         fav = findViewById(R.id.save_icon);
         sv = findViewById(R.id.save);
@@ -178,20 +181,6 @@ public class ProductActivity extends AppCompatActivity {
 
 
     public void saveFav(final String idP) {
-        //i put this onclick here because it will be triggered only after loading the page
-        btn_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (myPreference.getSize().length() > 0) {
-                    Intent intent = new Intent(context, CartActivity.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.enter, R.anim.exit);
-                } else {
-                    Toast.makeText(context, "Por favor selecione o tamanho do produto", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
 
         final String userID = mAuth.getCurrentUser().getUid();
 
@@ -332,6 +321,54 @@ public class ProductActivity extends AppCompatActivity {
                 image = products.getUrl_product();
                 cnpj_owner = products.getCnpj_owner();
                 product_category = products.getProduct_category();
+                qnt.setText(products.getQuantidade());
+                final int foo = Integer.parseInt(products.getQuantidade());
+
+                //i put this onclick here because it will be triggered only after loading the page
+                btn_cart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (product_category.equals("Vestuário") || product_category.equals("Calçado") ){
+                            if (  myPreference.getSize().length() > 0) {
+                                if (foo > 0) {
+                                    Intent intent = new Intent(context, CartActivity.class);
+                                    startActivity(intent);
+                                    overridePendingTransition(R.anim.enter, R.anim.exit);
+                                } else {
+                                    AlertDialog.Builder alertSingOut = new AlertDialog.Builder(context);
+                                    alertSingOut.setMessage("Oops, esse produto está fora de estoque, salve ele para receber notícias de quando estiver disponível");
+                                    alertSingOut.setCancelable(true);
+                                    alertSingOut.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    });
+                                    alertSingOut.create().show();
+                                }
+                            } else {
+                                Toast.makeText(context, "Por favor selecione o tamanho do produto", Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            if (foo > 0) {
+                                Intent intent = new Intent(context, CartActivity.class);
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.enter, R.anim.exit);
+                            } else {
+                                AlertDialog.Builder alertSingOut = new AlertDialog.Builder(context);
+                                alertSingOut.setMessage("Oops, esse produto está fora de estoque, salve ele para receber notícias de quando estiver disponível");
+                                alertSingOut.setCancelable(true);
+                                alertSingOut.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+                                alertSingOut.create().show();
+                            }
+                        }
+                    }
+                });
 
                 addSize(product_category, products.getSize());
 

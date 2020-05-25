@@ -30,23 +30,13 @@
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_backarrow" />
 
-                <TextView
-                    android:id="@+id/id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_toStartOf="@id/img_circle"
-                    android:textColor="#616365"
-                    android:textSize="17sp" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/img_circle"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                <ImageView
+                    android:id="@+id/delete"
+                    android:layout_width="25dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="10dp" />
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/ic_delete" />
 
 
             </RelativeLayout>

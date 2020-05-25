@@ -213,11 +213,11 @@ public class LikedFragment extends Fragment {
         void onCallback(ArrayList<Products> list);
     }
 
-    private void getData(final LikedFragment.FirestoreCallback firestoreCallback, String docId, String gender, String cnpj) {
+    private void getData(final LikedFragment.FirestoreCallback firestoreCallback, String docId, final String gender, String cnpj) {
         final ArrayList<Products> listUniversal = new ArrayList<>();
 
-        CollectionReference productRef = db.collection(getString(R.string.cp)).document(docId).collection("Product");
-        String cnpj_var = cnpj.replaceFirst("-", "/");
+        final CollectionReference productRef = db.collection(getString(R.string.cp)).document(docId).collection("Product");
+        final String cnpj_var = cnpj.replaceFirst("-", "/");
         Log.d(TAG, "tst: cnpjj:" + cnpj_var);
         productRef.whereEqualTo("cnpj_owner", cnpj_var).whereEqualTo("gender", gender).whereEqualTo("state", true).orderBy("data_cadastro", Query.Direction.DESCENDING)
                 .get()
@@ -234,13 +234,34 @@ public class LikedFragment extends Fragment {
                                 products.setDocId(document.getId());
                                 listUniversal.add(products);
                             }
-                            firestoreCallback.onCallback(listUniversal);
+                            productRef.whereEqualTo("cnpj_owner", cnpj_var).whereEqualTo("gender", "Unissex").whereEqualTo("state", true).orderBy("data_cadastro", Query.Direction.DESCENDING)
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                mProgressBar.setVisibility(View.GONE);
 
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    Log.d(TAG, document.getId() + "akonnn => " + document.getData());
+                                                    products = document.toObject(Products.class);
+                                                    products.setDocId(document.getId());
+                                                    listUniversal.add(products);
+                                                }
+                                                firestoreCallback.onCallback(listUniversal);
+
+                                            } else {
+                                                Log.d(TAG, "Error getting documents: ", task.getException());
+                                                Toast.makeText(getContext(), "Conexão fraca, tentar novamente mais tarde", Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    });
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                             Toast.makeText(getContext(), "Conexão fraca, tentar novamente mais tarde", Toast.LENGTH_LONG).show();
                         }
                     }
+
 
                 });
     }
