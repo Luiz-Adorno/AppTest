@@ -1,4 +1,7 @@
 package miips.com.Models.Products;
+
+import java.util.List;
+
 public class Products {
     private String docId;
 
@@ -9,7 +12,7 @@ public class Products {
     public void setDocId(String docId) {
         this.docId = docId;
     }
-
+    private String product_category;
     private String cnpj_owner;
     private String cod_barras;
     private String data_cadastro;
@@ -19,6 +22,23 @@ public class Products {
     private boolean state;
     private String url_product;
     private String valor;
+    private List<String> size;
+
+    public List<String> getSize() {
+        return size;
+    }
+
+    public void setSize(List<String> size) {
+        this.size = size;
+    }
+
+    public String getProduct_category() {
+        return product_category;
+    }
+
+    public void setProduct_category(String product_category) {
+        this.product_category = product_category;
+    }
 
     @Override
     public String toString() {

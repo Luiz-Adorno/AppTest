@@ -2,11 +2,13 @@ package miips.com.Products;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +25,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.nex3z.togglebuttongroup.SingleSelectToggleGroup;
+import com.nex3z.togglebuttongroup.button.LabelToggle;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import miips.com.Local.LocalActivity;
@@ -46,8 +52,9 @@ public class ProductActivity extends AppCompatActivity {
     private MyPreference myPreference;
     private TextView sv;
     private ImageView fav;
-    private String name, price, image, description, cnpj_owner;
+    private String name, price, image, description, cnpj_owner, product_category;
     private Button btn_cart;
+    private LinearLayout sizeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +68,12 @@ public class ProductActivity extends AppCompatActivity {
         ImageView back_btn = findViewById(R.id.back_arrow);
         fav = findViewById(R.id.save_icon);
         sv = findViewById(R.id.save);
+        sizeLayout = findViewById(R.id.sizelayout);
+        sizeLayout.setVisibility(View.GONE);
         btn_cart = findViewById(R.id.btn_add_cart);
+
+        myPreference.setSIZE("");
+        Log.d(TAG, "onStart: claro: " + myPreference.getSize());
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,14 +151,44 @@ public class ProductActivity extends AppCompatActivity {
 
     }
 
+    public void addSize(String product_category, List<String> size) {
+
+        if (product_category.equals("Vestuário") || product_category.equals("Calçado")) {
+            sizeLayout.setVisibility(View.VISIBLE);
+            LinearLayout container = findViewById(R.id.container);
+
+            SingleSelectToggleGroup singleSelectToggleGroup = new SingleSelectToggleGroup(this);
+            container.addView(singleSelectToggleGroup);
+
+            for (final String text : size) {
+                LabelToggle toggle = new LabelToggle(this);
+                toggle.setText(text);
+                toggle.setPadding(0, 10, 20, 0);
+                toggle.setMarkerColor(Color.BLACK);
+                toggle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        myPreference.setSIZE(text);
+                    }
+                });
+                singleSelectToggleGroup.addView(toggle);
+            }
+        }
+    }
+
+
     public void saveFav(final String idP) {
         //i put this onclick here because it will be triggered only after loading the page
         btn_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, CartActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter, R.anim.exit);
+                if (myPreference.getSize().length() > 0) {
+                    Intent intent = new Intent(context, CartActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.enter, R.anim.exit);
+                } else {
+                    Toast.makeText(context, "Por favor selecione o tamanho do produto", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -262,6 +304,7 @@ public class ProductActivity extends AppCompatActivity {
                 .load(image)
                 .into(imageProduct);
 
+
         //Picasso.get().load(image).fit().centerCrop().error(R.drawable.carregando).into(imageProduct);
     }
 
@@ -288,6 +331,9 @@ public class ProductActivity extends AppCompatActivity {
                 price = products.getValor();
                 image = products.getUrl_product();
                 cnpj_owner = products.getCnpj_owner();
+                product_category = products.getProduct_category();
+
+                addSize(product_category, products.getSize());
 
                 initToolber(cnpj_owner, token);
                 initImage(image);
