@@ -37,7 +37,7 @@ import com.squareup.picasso.Picasso;
 
 import miips.com.Home.HomeActivity;
 import miips.com.LoginActivity.LoginActivity;
-import miips.com.Messages.MessagesActivity;
+import miips.com.Carts.CartsListActivity;
 import miips.com.Models.User;
 import miips.com.R;
 import miips.com.Search.SearchActivity;
@@ -256,7 +256,7 @@ public class AccountActivity extends AppCompatActivity {
                         break;
 
                     case R.id.ic_messages:
-                        Intent intent3 = new Intent(context, MessagesActivity.class); //ActivityNumber = 2
+                        Intent intent3 = new Intent(context, CartsListActivity.class); //ActivityNumber = 2
                         context.startActivity(intent3);
                         overridePendingTransition(0, 0);
                         finish();

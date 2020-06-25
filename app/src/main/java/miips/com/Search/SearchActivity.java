@@ -37,7 +37,7 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import miips.com.Adapters.SearchAdapters.PostViewHolder;
 import miips.com.Home.HomeActivity;
-import miips.com.Messages.MessagesActivity;
+import miips.com.Carts.CartsListActivity;
 import miips.com.Models.Post;
 import miips.com.Models.User;
 import miips.com.Products.ProductActivity;
@@ -237,7 +237,7 @@ public class SearchActivity extends AppCompatActivity {
                         }
 
                     case R.id.ic_messages:
-                        Intent intent3 = new Intent(context, MessagesActivity.class); //ActivityNumber = 2
+                        Intent intent3 = new Intent(context, CartsListActivity.class); //ActivityNumber = 2
                         context.startActivity(intent3);
                         overridePendingTransition(0, 0);
                         break;

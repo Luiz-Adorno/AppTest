@@ -18,7 +18,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".cart.CartActivity"
+            android:name=".Cart.CartActivity"
             android:configChanges="orientation"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
@@ -98,7 +98,7 @@
             android:windowSoftInputMode="stateHidden"
             tools:ignore="InnerclassSeparator,LockedOrientationActivity" />
         <activity
-            android:name=".Messages.MessagesActivity"
+            android:name=".Carts.CartsListActivity"
             android:configChanges="orientation"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"

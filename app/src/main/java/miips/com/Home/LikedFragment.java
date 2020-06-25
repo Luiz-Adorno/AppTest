@@ -203,6 +203,41 @@ public class LikedFragment extends Fragment {
                                 }
                             }
                         }, docID, gender, local.getCnpj());
+
+                        getData(new LikedFragment.FirestoreCallback() {
+                            @Override
+                            public void onCallback(final ArrayList<Products> list) {
+                                if (!list.isEmpty()) {
+                                    //after get the products object(onCallback list), get the logo of the company and than add to the list
+                                    String replaced = local.getCnpj().replaceFirst("/", "-");
+
+                                    DocumentReference localRef = db.collection(getString(R.string.cp)).document(docID).collection("Local").document(replaced);
+                                    localRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                products = new Products();
+                                                DocumentSnapshot document = task.getResult();
+                                                if (document.exists()) {
+                                                    Local local = document.toObject(Local.class);
+                                                    products.setUrl_product(local.getProfilePhoto());
+                                                    products.setDocId(document.getId());
+                                                    list.add(products);
+                                                    //get the products and
+                                                    setSectionOne(list);
+                                                } else {
+                                                    Log.d(TAG, "No such document");
+                                                }
+                                            } else {
+                                                Toast.makeText(getContext(), "Conexão fraca, tentar novamente mais tarde", Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    Log.d(TAG, "onCallback: empty");
+                                }
+                            }
+                        }, docID, "Unissex", local.getCnpj());
                     }
                 }
             }
@@ -219,7 +254,7 @@ public class LikedFragment extends Fragment {
         final CollectionReference productRef = db.collection(getString(R.string.cp)).document(docId).collection("Product");
         final String cnpj_var = cnpj.replaceFirst("-", "/");
         Log.d(TAG, "tst: cnpjj:" + cnpj_var);
-        productRef.whereEqualTo("cnpj_owner", cnpj_var).whereEqualTo("gender", gender).whereEqualTo("state", true).orderBy("data_cadastro", Query.Direction.DESCENDING)
+        productRef.orderBy("data_cadastro", Query.Direction.ASCENDING).whereEqualTo("cnpj_owner", cnpj_var).whereEqualTo("gender", gender).whereEqualTo("state", true)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -234,28 +269,7 @@ public class LikedFragment extends Fragment {
                                 products.setDocId(document.getId());
                                 listUniversal.add(products);
                             }
-                            productRef.whereEqualTo("cnpj_owner", cnpj_var).whereEqualTo("gender", "Unissex").whereEqualTo("state", true).orderBy("data_cadastro", Query.Direction.DESCENDING)
-                                    .get()
-                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            if (task.isSuccessful()) {
-                                                mProgressBar.setVisibility(View.GONE);
-
-                                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                                    Log.d(TAG, document.getId() + "akonnn => " + document.getData());
-                                                    products = document.toObject(Products.class);
-                                                    products.setDocId(document.getId());
-                                                    listUniversal.add(products);
-                                                }
-                                                firestoreCallback.onCallback(listUniversal);
-
-                                            } else {
-                                                Log.d(TAG, "Error getting documents: ", task.getException());
-                                                Toast.makeText(getContext(), "Conexão fraca, tentar novamente mais tarde", Toast.LENGTH_LONG).show();
-                                            }
-                                        }
-                                    });
+                            firestoreCallback.onCallback(listUniversal);
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                             Toast.makeText(getContext(), "Conexão fraca, tentar novamente mais tarde", Toast.LENGTH_LONG).show();

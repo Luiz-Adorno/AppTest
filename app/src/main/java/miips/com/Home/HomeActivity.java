@@ -21,7 +21,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-import miips.com.Messages.MessagesActivity;
+import miips.com.Carts.CartsListActivity;
 import miips.com.Profile.AccountActivity;
 import miips.com.R;
 import miips.com.Search.SearchActivity;
@@ -155,7 +155,7 @@ public class HomeActivity extends AppCompatActivity {
                         break;
 
                     case R.id.ic_messages:
-                        Intent intent3 = new Intent(context, MessagesActivity.class); //ActivityNumber = 2
+                        Intent intent3 = new Intent(context, CartsListActivity.class); //ActivityNumber = 2
                         context.startActivity(intent3);
                         overridePendingTransition(0, 0);
                         break;

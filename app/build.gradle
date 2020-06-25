@@ -28,6 +28,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //firebaseStorage
     implementation 'com.google.firebase:firebase-storage:17.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     //cardVIew
     //noinspection GradleCompatible
