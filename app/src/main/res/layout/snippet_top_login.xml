@@ -2,43 +2,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp">
 
         <ImageView
+            android:layout_centerHorizontal="true"
             android:id="@+id/logoLogin"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:contentDescription="TODO"
-            android:src="@drawable/miips_icon"
+            android:src="@drawable/makk"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="56dp"
-            android:layout_toEndOf="@id/logoLogin"
-            android:fontFamily="@font/magra"
-            android:text="@string/app_name"
-            android:textColor="#000000"
-            android:textSize="60sp"
-            android:typeface="serif"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.185"
-            app:layout_constraintStart_toEndOf="@+id/logoLogin"
-            app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
 
 </merge>
